@@ -1,0 +1,2552 @@
+[
+  {
+    "master": 0,
+    "uid": "Glow_Preset_01",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_01-0.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_01-0.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.518,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.558,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.489,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.544,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 0,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_01",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_01-0.5-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_01-0.5-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.518,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.558,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.489,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.544,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 0,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_01",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_01-1.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_01-1.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.518,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.558,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.489,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.544,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 0,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_02",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_02-0.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_02-0.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.484,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.48,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.455,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.54,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.455,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.533,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.379,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 0,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_02",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_02",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_02-0.5-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_02-0.5-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.484,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.48,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.455,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.54,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.455,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.533,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.379,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 0,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_02",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_02",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_02-1.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_02-1.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.484,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.48,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.455,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.54,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.455,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.533,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.379,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 0,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_02",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_03",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_03-0.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_03-0.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.421,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.547,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.404,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.528,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.325,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.52,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.329,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.497,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.571,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.446,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_03",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_03",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_03-0.5-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_03-0.5-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.421,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.547,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.404,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.528,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.325,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.52,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.329,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.497,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.571,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.446,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_03",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_03",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_03-1.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_03-1.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.421,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.547,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.404,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.528,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.325,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.52,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.329,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.497,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.571,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.446,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_03",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_04",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_04-0.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_04-0.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.459,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.483,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.494,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.527,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.327,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.634,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.343,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.529,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.257,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.495,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.473,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_04",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_04-0.5-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_04-0.5-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.459,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.483,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.494,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.527,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.327,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.634,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.343,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.529,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.257,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.495,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.473,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_04",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_04-1.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_04-1.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.459,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.483,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.494,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.527,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.327,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.634,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.343,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.529,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.257,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.495,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.473,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_05",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_05-0.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_05-0.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.45,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.51,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.504,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.53,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.589,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.481,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_05",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_05-0.5-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_05-0.5-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.45,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.51,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.504,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.53,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.589,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.481,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_05",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_05-1.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_05-1.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.45,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.51,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.504,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.53,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.589,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.481,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_06",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_06-0.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_06-0.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "hardCoded": false,
+        "intensityMax": 0.377,
+        "intensityMin": 0.5,
+        "actualValue": 0.377
+      },
+      "blackPoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "whitePoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "exposure": {
+        "hardCoded": false,
+        "intensityMax": 0.514,
+        "intensityMin": 0.5,
+        "actualValue": 0.514
+      },
+      "brightness": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "saturation": {
+        "hardCoded": false,
+        "intensityMax": 0.484,
+        "intensityMin": 0.5,
+        "actualValue": 0.484
+      },
+      "temperature": {
+        "hardCoded": false,
+        "intensityMax": 0.518,
+        "intensityMin": 0.5,
+        "actualValue": 0.518
+      },
+      "contrast": {
+        "hardCoded": false,
+        "intensityMax": 0.524,
+        "intensityMin": 0.5,
+        "actualValue": 0.524
+      },
+      "colorTone": {
+        "hardCoded": false,
+        "intensityMax": 0.251,
+        "intensityMin": 0.5,
+        "actualValue": 0.251
+      },
+      "hue": {
+        "hardCoded": false,
+        "intensityMax": 0.516,
+        "intensityMin": 0.5,
+        "actualValue": 0.516
+      },
+      "highlights": {
+        "hardCoded": false,
+        "intensityMax": 0.395,
+        "intensityMin": 0.5,
+        "actualValue": 0.395
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 0.499,
+      "actualValue": 0.499,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_06",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_06-0.5-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_06-0.5-lut.rgba",
+    "config": {
+      "shadows": {
+        "hardCoded": false,
+        "intensityMax": 0.377,
+        "intensityMin": 0.5,
+        "actualValue": 0.377
+      },
+      "blackPoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "whitePoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "exposure": {
+        "hardCoded": false,
+        "intensityMax": 0.514,
+        "intensityMin": 0.5,
+        "actualValue": 0.514
+      },
+      "brightness": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "saturation": {
+        "hardCoded": false,
+        "intensityMax": 0.484,
+        "intensityMin": 0.5,
+        "actualValue": 0.484
+      },
+      "temperature": {
+        "hardCoded": false,
+        "intensityMax": 0.518,
+        "intensityMin": 0.5,
+        "actualValue": 0.518
+      },
+      "contrast": {
+        "hardCoded": false,
+        "intensityMax": 0.524,
+        "intensityMin": 0.5,
+        "actualValue": 0.524
+      },
+      "colorTone": {
+        "hardCoded": false,
+        "intensityMax": 0.251,
+        "intensityMin": 0.5,
+        "actualValue": 0.251
+      },
+      "hue": {
+        "hardCoded": false,
+        "intensityMax": 0.516,
+        "intensityMin": 0.5,
+        "actualValue": 0.516
+      },
+      "highlights": {
+        "hardCoded": false,
+        "intensityMax": 0.395,
+        "intensityMin": 0.5,
+        "actualValue": 0.395
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 0.499,
+      "actualValue": 0.499,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_06",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_06-1.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_06-1.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "hardCoded": false,
+        "intensityMax": 0.377,
+        "intensityMin": 0.5,
+        "actualValue": 0.377
+      },
+      "blackPoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "whitePoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "exposure": {
+        "hardCoded": false,
+        "intensityMax": 0.514,
+        "intensityMin": 0.5,
+        "actualValue": 0.514
+      },
+      "brightness": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "saturation": {
+        "hardCoded": false,
+        "intensityMax": 0.484,
+        "intensityMin": 0.5,
+        "actualValue": 0.484
+      },
+      "temperature": {
+        "hardCoded": false,
+        "intensityMax": 0.518,
+        "intensityMin": 0.5,
+        "actualValue": 0.518
+      },
+      "contrast": {
+        "hardCoded": false,
+        "intensityMax": 0.524,
+        "intensityMin": 0.5,
+        "actualValue": 0.524
+      },
+      "colorTone": {
+        "hardCoded": false,
+        "intensityMax": 0.251,
+        "intensityMin": 0.5,
+        "actualValue": 0.251
+      },
+      "hue": {
+        "hardCoded": false,
+        "intensityMax": 0.516,
+        "intensityMin": 0.5,
+        "actualValue": 0.516
+      },
+      "highlights": {
+        "hardCoded": false,
+        "intensityMax": 0.395,
+        "intensityMin": 0.5,
+        "actualValue": 0.395
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 0.499,
+      "actualValue": 0.499,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_07",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_07-0.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_07-0.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "blackPoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "whitePoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "exposure": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "brightness": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "saturation": {
+        "hardCoded": false,
+        "intensityMax": 0.541,
+        "intensityMin": 0.5,
+        "actualValue": 0.541
+      },
+      "temperature": {
+        "hardCoded": false,
+        "intensityMax": 0.61,
+        "intensityMin": 0.5,
+        "actualValue": 0.61
+      },
+      "contrast": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "colorTone": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "hue": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "highlights": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 0.553,
+      "actualValue": 0.553,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_07",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_07",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_07-0.5-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_07-0.5-lut.rgba",
+    "config": {
+      "shadows": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "blackPoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "whitePoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "exposure": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "brightness": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "saturation": {
+        "hardCoded": false,
+        "intensityMax": 0.541,
+        "intensityMin": 0.5,
+        "actualValue": 0.541
+      },
+      "temperature": {
+        "hardCoded": false,
+        "intensityMax": 0.61,
+        "intensityMin": 0.5,
+        "actualValue": 0.61
+      },
+      "contrast": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "colorTone": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "hue": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "highlights": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 0.553,
+      "actualValue": 0.553,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_07",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_07",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_07-1.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_07-1.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "blackPoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "whitePoint": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "exposure": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "brightness": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "saturation": {
+        "hardCoded": false,
+        "intensityMax": 0.541,
+        "intensityMin": 0.5,
+        "actualValue": 0.541
+      },
+      "temperature": {
+        "hardCoded": false,
+        "intensityMax": 0.61,
+        "intensityMin": 0.5,
+        "actualValue": 0.61
+      },
+      "contrast": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "colorTone": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "hue": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "highlights": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 0.553,
+      "actualValue": 0.553,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_07",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_08",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_08-0.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_08-0.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.35,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.515,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.324,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.604,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.619,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.49,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.462,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.522,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_08",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_08-0.5-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_08-0.5-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.35,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.515,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.324,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.604,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.619,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.49,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.462,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.522,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_08",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_08-1.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_08-1.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.35,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.515,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.324,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.604,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.619,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.49,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.462,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.522,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_01",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_09",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_09-0.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_09-0.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.448,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.495,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.688,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.633,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.558,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.563,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_09",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_09",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_09-0.5-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_09-0.5-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.448,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.495,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.688,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.633,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.558,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.563,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_09",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_09",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_09-1.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_09-1.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "actualValue": 0.448,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "exposure": {
+        "actualValue": 0.495,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "brightness": {
+        "actualValue": 0.688,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "saturation": {
+        "actualValue": 0.633,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "temperature": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "contrast": {
+        "actualValue": 0.558,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "colorTone": {
+        "actualValue": 0.563,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "hue": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      },
+      "highlights": {
+        "actualValue": 0.5,
+        "intensityMax": 1,
+        "intensityMin": 0,
+        "hardCoded": true
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 1,
+      "actualValue": 1,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_09",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_10",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_10-0.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_10-0.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "blackPoint": {
+        "hardCoded": false,
+        "intensityMax": 0.62,
+        "intensityMin": 0.5,
+        "actualValue": 0.62
+      },
+      "whitePoint": {
+        "hardCoded": false,
+        "intensityMax": 0.412,
+        "intensityMin": 0.5,
+        "actualValue": 0.412
+      },
+      "exposure": {
+        "hardCoded": false,
+        "intensityMax": 0.474,
+        "intensityMin": 0.5,
+        "actualValue": 0.474
+      },
+      "brightness": {
+        "hardCoded": false,
+        "intensityMax": 0.427,
+        "intensityMin": 0.5,
+        "actualValue": 0.427
+      },
+      "saturation": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "temperature": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "contrast": {
+        "hardCoded": false,
+        "intensityMax": 0.533,
+        "intensityMin": 0.5,
+        "actualValue": 0.533
+      },
+      "colorTone": {
+        "hardCoded": false,
+        "intensityMax": 0.52,
+        "intensityMin": 0.5,
+        "actualValue": 0.52
+      },
+      "hue": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "highlights": {
+        "hardCoded": false,
+        "intensityMax": 0.331,
+        "intensityMin": 0.5,
+        "actualValue": 0.331
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 0.978,
+      "actualValue": 0.978,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_10",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_10",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_10-0.5-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_10-0.5-lut.rgba",
+    "config": {
+      "shadows": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "blackPoint": {
+        "hardCoded": false,
+        "intensityMax": 0.62,
+        "intensityMin": 0.5,
+        "actualValue": 0.62
+      },
+      "whitePoint": {
+        "hardCoded": false,
+        "intensityMax": 0.412,
+        "intensityMin": 0.5,
+        "actualValue": 0.412
+      },
+      "exposure": {
+        "hardCoded": false,
+        "intensityMax": 0.474,
+        "intensityMin": 0.5,
+        "actualValue": 0.474
+      },
+      "brightness": {
+        "hardCoded": false,
+        "intensityMax": 0.427,
+        "intensityMin": 0.5,
+        "actualValue": 0.427
+      },
+      "saturation": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "temperature": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "contrast": {
+        "hardCoded": false,
+        "intensityMax": 0.533,
+        "intensityMin": 0.5,
+        "actualValue": 0.533
+      },
+      "colorTone": {
+        "hardCoded": false,
+        "intensityMax": 0.52,
+        "intensityMin": 0.5,
+        "actualValue": 0.52
+      },
+      "hue": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "highlights": {
+        "hardCoded": false,
+        "intensityMax": 0.331,
+        "intensityMin": 0.5,
+        "actualValue": 0.331
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 0.978,
+      "actualValue": 0.978,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_10",
+      "intensityMin": 0.1
+    }
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_10",
+    "height": 24,
+    "input": "pattern.rgba",
+    "adjust": "pattern-Glow_Preset_10-1.0-adjust.rgba",
+    "width": 32,
+    "lut": "pattern-Glow_Preset_10-1.0-lut.rgba",
+    "config": {
+      "shadows": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "blackPoint": {
+        "hardCoded": false,
+        "intensityMax": 0.62,
+        "intensityMin": 0.5,
+        "actualValue": 0.62
+      },
+      "whitePoint": {
+        "hardCoded": false,
+        "intensityMax": 0.412,
+        "intensityMin": 0.5,
+        "actualValue": 0.412
+      },
+      "exposure": {
+        "hardCoded": false,
+        "intensityMax": 0.474,
+        "intensityMin": 0.5,
+        "actualValue": 0.474
+      },
+      "brightness": {
+        "hardCoded": false,
+        "intensityMax": 0.427,
+        "intensityMin": 0.5,
+        "actualValue": 0.427
+      },
+      "saturation": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "temperature": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "contrast": {
+        "hardCoded": false,
+        "intensityMax": 0.533,
+        "intensityMin": 0.5,
+        "actualValue": 0.533
+      },
+      "colorTone": {
+        "hardCoded": false,
+        "intensityMax": 0.52,
+        "intensityMin": 0.5,
+        "actualValue": 0.52
+      },
+      "hue": {
+        "hardCoded": false,
+        "intensityMax": 0.5,
+        "intensityMin": 0.5,
+        "actualValue": 0.5
+      },
+      "highlights": {
+        "hardCoded": false,
+        "intensityMax": 0.331,
+        "intensityMin": 0.5,
+        "actualValue": 0.331
+      }
+    },
+    "lutConfig": {
+      "hardCoded": false,
+      "intensityMax": 0.978,
+      "actualValue": 0.978,
+      "interpolateMode": "Trilinear",
+      "templateID": "lut_10",
+      "intensityMin": 0.1
+    }
+  }
+]

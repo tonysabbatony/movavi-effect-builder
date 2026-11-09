@@ -1,0 +1,68 @@
+{
+    "saturation": {
+        "actualValue": 0.541,
+        "intensityMin": 0.5,
+        "intensityMax": 0.541,
+        "hardCoded": false
+    },
+    "temperature": {
+        "actualValue": 0.61,
+        "intensityMin": 0.5,
+        "intensityMax": 0.61,
+        "hardCoded": false
+    },
+    "hue": {
+        "actualValue": 0.5,
+        "intensityMin": 0.5,
+        "intensityMax": 0.5,
+        "hardCoded": false
+    },
+    "colorTone": {
+        "actualValue": 0.5,
+        "intensityMin": 0.5,
+        "intensityMax": 0.5,
+        "hardCoded": false
+    },
+    "brightness": {
+        "actualValue": 0.5,
+        "intensityMin": 0.5,
+        "intensityMax": 0.5,
+        "hardCoded": false
+    },
+    "exposure": {
+        "actualValue": 0.5,
+        "intensityMin": 0.5,
+        "intensityMax": 0.5,
+        "hardCoded": false
+    },
+    "contrast": {
+        "actualValue": 0.5,
+        "intensityMin": 0.5,
+        "intensityMax": 0.5,
+        "hardCoded": false
+    },
+    "highlights": {
+        "actualValue": 0.5,
+        "intensityMin": 0.5,
+        "intensityMax": 0.5,
+        "hardCoded": false
+    },
+    "shadows": {
+        "actualValue": 0.5,
+        "intensityMin": 0.5,
+        "intensityMax": 0.5,
+        "hardCoded": false
+    },
+    "whitePoint": {
+        "actualValue": 0.5,
+        "intensityMin": 0.5,
+        "intensityMax": 0.5,
+        "hardCoded": false
+    },
+    "blackPoint": {
+        "actualValue": 0.5,
+        "intensityMin": 0.5,
+        "intensityMax": 0.5,
+        "hardCoded": false
+    }
+}

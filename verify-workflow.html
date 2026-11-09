@@ -1,0 +1,60 @@
+<!doctype html><meta charset="utf-8"><title>Проверка v0.4</title><style>body{background:#111;color:#eee;font:15px system-ui}iframe{width:100%;height:850px}pre{white-space:pre-wrap}</style><pre id="result">Проверка…</pre><iframe src="index.html?empty"></iframe><script>
+const frame=document.querySelector('iframe');frame.onload=async()=>{
+ const w=frame.contentWindow,d=w.document,logs=[];let alerts=[],zip;
+ const say=(ok,t)=>{logs.push((ok?'PASS ':'FAIL ')+t);document.querySelector('#result').textContent=logs.join('\n');};
+ const tick=()=>new Promise(r=>setTimeout(r,150));
+ const until=async(fn)=>{for(let i=0;i<80;i++){if(fn())return;await tick();}throw Error('Ожидание: '+fn);};
+ const input=(selector,files)=>{const data=new w.DataTransfer();for(const f of files)data.items.add(f);const el=d.querySelector(selector);el.files=data.files;el.dispatchEvent(new w.Event('change',{bubbles:true}));};
+ const file=(name,data,type='application/json',relative=true)=>{const f=new w.File([typeof data==='object' && !(data instanceof Blob)?JSON.stringify(data):data],name.split('/').pop(),{type});if(relative)Object.defineProperty(f,'webkitRelativePath',{value:'Glow_Preset_01/'+name});return f;};
+ const change=(el,value)=>{el.value=value;el.dispatchEvent(new w.Event('input',{bubbles:true}));};
+ const unzip=async(blob)=>{const bytes=new Uint8Array(await blob.arrayBuffer()),dv=new DataView(bytes.buffer),out={};let off=0;while(dv.getUint32(off,true)===0x04034b50){const len=dv.getUint32(off+18,true),nl=dv.getUint16(off+26,true),ex=dv.getUint16(off+28,true),name=new TextDecoder().decode(bytes.slice(off+30,off+30+nl)),start=off+30+nl+ex;out[name]=bytes.slice(start,start+len);off=start+len;}return out;};
+ const exported=async()=>{zip=null;d.querySelector('#exportBtn').click();await until(()=>zip || alerts.length);if(!zip)throw Error(alerts.join('\n'));return unzip(zip);};
+ try{
+ w.alert=s=>alerts.push(s);const url=w.URL.createObjectURL.bind(w.URL);w.URL.createObjectURL=b=>{if(b.type==='application/zip')zip=b;return url(b);};w.HTMLAnchorElement.prototype.click=function(){};
+ const video=await(await fetch('test-assets/Noise_01.mp4')).blob();
+ input('#mediaInput',[file('source.mp4',video,'video/mp4',false)]);
+ await until(()=>d.querySelector('#sourceVideo').currentTime>.2 && d.querySelector('#playPauseBtn').textContent==='Pause');
+ say(Math.max(d.querySelector('#afterCanvas').width,d.querySelector('#afterCanvas').height)===960 && d.querySelector('#afterCanvas').getContext('2d').getImageData(0,0,32,32).data.some(v=>v>0),'Видео автоматически играет и рисуется без сборки');
+ const noise={binding:'center',blendMode:'screen',intensityMin:0,intensityMax:.17,actualValue:.17,hardCoded:true,filename:'Noise_01',unknown:'preserve'};
+ input('#fallbackFolderInput',[file('Glow_Preset_01.json',{effects:[{effectName:'Noise_01',effectType:'overlay'}]}),file('resources/Noise_01.json',noise),file('resources/Noise_01.mp4',video,'video/mp4')]);
+ await until(()=>d.querySelector('#assetStatus')?.textContent.startsWith('Загружен:'));
+ say(!d.querySelector('#sourceVideo').paused,'Открытие сборки не останавливает видео');
+ input('#mediaInput',[file('test-pattern.svg',await(await fetch('test-pattern.svg')).blob(),'image/svg+xml',false)]);await tick();await tick();
+ const pixels=id=>d.querySelector(id).getContext('2d').getImageData(0,0,640,640).data;
+ const diff=()=>{const a=pixels('#beforeCanvas'),b=pixels('#afterCanvas');return a.reduce((s,v,i)=>s+Math.abs(v-b[i]),0);};
+ say(diff()>0,'Реальный Noise_01.mp4 меняет пиксели preview');
+ say(d.querySelector('#renderErrors').textContent==='','Оверлей загружен без ошибки');
+ let out=await exported();say(out['Glow_Preset_01/resources/Noise_01.mp4'].length===video.size,'ZIP содержит реальное видео оверлея целиком');
+ d.querySelector('.toggle-row input').click();await tick();change(d.querySelector('#masterIntensity'),50);await tick();
+ out=await exported();let cfg=JSON.parse(new TextDecoder().decode(out['Glow_Preset_01/resources/Noise_01.json']));
+ say(cfg.hardCoded===false && cfg.actualValue===.17 && cfg.unknown==='preserve','Переключение hardCoded записано в production JSON без потери полей');
+ say(d.querySelector('.effective-value').textContent==='Применяется: 0.085','Связанный Noise при 50% = 0.085');
+ const second={...noise,filename:'Noise_02',actualValue:.4};
+ input('#importLayerInput',[file('Noise_02.json',second,'application/json',false),file('Noise_02.mp4',video,'video/mp4',false)]);
+ await until(()=>d.querySelector('.layer-import-dialog'));d.querySelector('.layer-import-dialog .confirm').click();await until(()=>d.querySelectorAll('.effect-item').length===2);await until(()=>d.querySelector('#assetStatus')?.textContent.includes('Загружен'));
+ say(d.querySelectorAll('.effect-item').length===2,'Импортирован второй Overlay с отдельным ресурсом');
+ d.querySelectorAll('.move-up')[1].click();await tick();out=await exported();
+ const recipe=JSON.parse(new TextDecoder().decode(out['Glow_Preset_01/Glow_Preset_01.json']));
+ say(recipe.effects[0].effectName==='Noise_02' && recipe.effects[1].effectName==='Noise_01','Перестановка записана в рецепт ZIP');
+ say(out['Glow_Preset_01/resources/Noise_02.mp4'].length===video.size,'Новый ресурс попал в мобильную структуру ZIP');
+ // Real source video, then replace resource while playing, checking load and rendering.
+ input('#mediaInput',[file('source.mp4',video,'video/mp4',false)]);await until(()=>d.querySelector('#playPauseBtn').textContent==='Pause');await tick();
+ input('.asset-control input',[file('replacement.mp4',video,'video/mp4',false)]);await until(()=>d.querySelector('#assetStatus')?.textContent.includes('Загружен: replacement'));
+ say(d.querySelector('#renderErrors').textContent==='','Замена оверлея во время видео воспроизводится без ошибки');
+ d.querySelector('#playPauseBtn').click();await tick();out=await exported();cfg=JSON.parse(new TextDecoder().decode(out['Glow_Preset_01/resources/Noise_02.json']));
+ say(cfg.filename==='replacement' && out['Glow_Preset_01/resources/replacement.mp4'].length===video.size,'Привязанный файл записан без пути/расширения, ресурс включён в ZIP');
+ // Native bound rejection while retaining entered JSON value.
+ change(d.querySelector('.param-number'),1.1);await tick();alerts=[];zip=null;d.querySelector('#exportBtn').click();await tick();
+ say(!zip && alerts.some(s=>s.includes('0–1')),'Экспорт останавливается при Noise > 1 с объяснением');
+ change(d.querySelector('.param-number'),.4);await tick();alerts=[];
+ // Direct save with a test in-memory filesystem exercises create of new assets + hardCoded persistence.
+ const writes={};const handle=path=>({getFile:async()=>new w.File([writes[path]||''],path.split('/').pop()),createWritable:async()=>({write:async data=>{writes[path]=data},close:async()=>{}})});
+ const dir=prefix=>({name:'Test build',kind:'directory',async *entries(){if(!prefix){yield ['Glow_Preset_01',dir('Glow_Preset_01')];}else if(prefix==='Glow_Preset_01'){yield ['Glow_Preset_01.json',{kind:'file',getFile:async()=>file('Glow_Preset_01.json',{effects:[]}),...handle(prefix+'/Glow_Preset_01.json')}];}},getDirectoryHandle:async name=>dir(prefix?prefix+'/'+name:name),getFileHandle:async name=>handle(prefix?prefix+'/'+name:name)});
+ writes['Glow_Preset_01/Glow_Preset_01.json']=JSON.stringify({effects:[]});w.showDirectoryPicker=async()=>dir('');d.querySelector('#openWorkspaceBtn').click();await tick();
+ input('#importLayerInput',[file('new_noise.json',second,'application/json',false),file('Noise_02.mp4',video,'video/mp4',false)]);await until(()=>d.querySelector('.layer-import-dialog'));d.querySelector('.layer-import-dialog .confirm').click();await until(()=>d.querySelectorAll('.effect-item').length===1);await tick();
+ d.querySelector('.toggle-row input').click();await tick();d.querySelector('#saveBtn').click();await until(()=>d.querySelector('#dirtyStatus').textContent==='no changes');
+ say(JSON.parse(writes['Glow_Preset_01/resources/new_noise.json']).hardCoded===false && writes['Glow_Preset_01/resources/Noise_02.mp4'] instanceof w.File,'Прямое сохранение создаёт JSON и видео, сохраняет hardCoded:false');
+ const done=!logs.some(s=>s.startsWith('FAIL'));say(done,'Проверка завершена');document.title=done?'PASS v0.4 workflow':'FAIL v0.4 workflow';
+ }catch(e){say(false,e.stack);document.title='FAIL v0.4 workflow';}
+};
+</script>

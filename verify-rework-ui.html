@@ -1,0 +1,25 @@
+<!doctype html><meta charset="utf-8"><title>Bloom2 UI checks</title><pre id="result">Проверка…</pre><iframe src="index.html?empty" style="width:100%;height:850px"></iframe><script>
+const frame=document.querySelector('iframe');frame.onload=async()=>{
+const w=frame.contentWindow,d=w.document,logs=[];const tick=()=>new Promise(r=>setTimeout(r,200));
+const say=(ok,s)=>{logs.push((ok?'PASS ':'FAIL ')+s);document.querySelector('#result').textContent=logs.join('\n');};
+const field=name=>d.querySelector(`[data-parameter-name="${name}"] .param-number`);
+const edit=async(name,value)=>{field(name).value=value;field(name).dispatchEvent(new w.Event('input'));await tick();};
+const pixels=()=>{const c=d.querySelector('#afterCanvas');return c.getContext('2d').getImageData(0,0,c.width,c.height).data;};
+try{
+ d.querySelector('#demoBtn').click();for(let i=0;i<40&&!field('threshold');i++)await tick();await tick();await tick();
+ say(d.querySelectorAll('.param-row[data-parameter-name]').length===6,'Шесть регуляторов Bloom2');
+ const before=pixels();await edit('threshold',.8);const after=pixels();say(before.some((v,i)=>v!==after[i]),'DEFAULT меняет preview');
+ await edit('radius',300);await edit('scatter',2);say(field('radius').value==='300'&&field('scatter').value==='2','Расширенные параметры доступны');
+ let zip;const original=w.URL.createObjectURL.bind(w.URL);w.URL.createObjectURL=b=>{if(b.type==='application/zip')zip=b;return original(b);};w.HTMLAnchorElement.prototype.click=function(){};
+ d.querySelector('#exportBtn').click();for(let i=0;i<40&&!zip;i++)await tick();
+ const files=await w.MobilePackage.unzip(zip),json=name=>JSON.parse(new TextDecoder().decode(files.find(e=>e.name.endsWith(name)).bytes));
+ const recipe=json('Glow_Preset_01.json'),cfg=json('new_bloom_01.json');
+ say(recipe.effects[0].effectType==='isf'&&recipe.effects[0].effectName==='new_bloom_01','Рецепт использует ISF Bloom2');
+ say(cfg.shaderPath==='v1/Bloom2/Bloom2'&&cfg.shaderConfig.PASSES.length===16&&!cfg.threshold,'Полный контракт без плоских параметров');
+ say(cfg.shaderConfig.INPUTS.find(p=>p.NAME==='radius').DEFAULT===300,'UI сохраняет DEFAULT в ZIP');
+ d.querySelector('#resetEffectBtn').click();await tick();say(field('threshold').value==='0.3','Reset восстанавливает импортированное значение');
+ say(d.querySelector('#renderErrors').textContent==='','Preview без ошибок');
+ document.title=logs.some(s=>s.startsWith('FAIL'))?'FAIL Bloom2 UI':'PASS Bloom2 UI';
+}catch(e){say(false,e.stack);document.title='FAIL Bloom2 UI';}
+};
+</script>

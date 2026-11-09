@@ -1,0 +1,54 @@
+Mobile rendering evidence — v0.12, 2026-10-28
+
+Read-only source checkout:
+<mobile-app-checkout>/multi_superapp (external checkout, not included)
+Git revision: a45198aa5e9006a0dc9c18ca07208dbebae68eb1
+Existing user changes in Xcode project / VideoEffectConstants were not edited.
+
+Host rules:
+kmm/serialization/src/commonMain/kotlin/com/movavi/kmm/serialization/serializers/effect/ISFIntensityCalculator.kt
+  Replaces linked INPUT.DEFAULT with MIN + targetIntensity * (MAX - MIN).
+kmm/feature/video-effect/src/commonMain/kotlin/com/movavi/kmm/videoeffect/data/ShaderBuilderImpl.kt
+  Preserves effects array order; cube path uses effect.effectName, not templateID.
+kmm/multimedia_mmc_impl/src/commonMain/kotlin/com/movavi/kmm/multimedia/streams/filters/video/AdjustFilterExt.kt
+  Five native filters, their order and parameter-to-binding mapping.
+kmm/binding/mmc/src/iosMain/kotlin/com/movavi/mmc/binding/SettingsEffect*.kt
+  Native ranges for color correction, temperature, gamma, hue/saturation, shadows.
+kmm/multimedia_mmc_impl/src/commonMain/kotlin/com/movavi/kmm/multimedia/streams/filters/video/LutFilterExt.kt
+  Explicit Trilinear mode on mobile.
+
+Under multimedia/ext/mmc/src/Movavi/Proc:
+Effects/EffectsMetal/EffectGIMPColorTemperature.cpp: exact Kelvin rational coefficients.
+Effects/EffectsMetal/EffectColorCorrection.cpp: contrast tangent and exposure scaling.
+Effects/EffectsMetal/EffectGIMPShadowsHightlights.cpp: Lab parameters and default compression.
+Settings/SettingsEffectColorBalance.cpp: integer gamma mapping.
+Effects/EffectsMetal/Shaders/EffectsCollection.metal: actual GPU kernel formulas.
+Metal/Shaders/CommonKernels.metal: HSL, Y'PbPr and mixing functions.
+ColorUtils/ColorSpace.h: displayReffered default linear conversion mode.
+ColorUtils/ColorSpaceTransform.cpp: BT.709 uses BT.1886 in that mode.
+Effects/EffectsMetal/EffectAlgorithm.cpp and Metal/Accelerate/DataVideoMTL.cpp:
+  iOS BGRA8 boundaries, RGBAF16 color-space-conversion intermediates.
+Metal/Shaders/ColorSpaces.metal: actual transfer functions.
+Effects/EffectsMetal/EffectLUT.cpp and ApplyCubeToImage:
+  half-float mobile 3D LUT, texture.sample(sNorm, srcColor.rgb).
+  Hardware coordinates are input*n - 0.5 with clamp-to-edge, not input*(n-1).
+
+Bloom reference confirmed by the user as the implementation sent to development:
+<bloom-v3-package>/New_Bloom_Metal_Package_v3/native (external reference)
+Matches the delivered Metal v3 reference package.
+NewBloom.metal SHA256:
+9bbe7b74314e6678cd65c417df0a2a7b5216bc722d322336145b63672a924c79
+Unchanged browser bloom-rework.js SHA256 (also matches package v3 JS):
+3313649548d4a1a8c0f975929e2aa99b999db5cab96fbfd34a44a0280ea8fd06
+
+The tests extract the original kernels, compile them at runtime on Apple M4,
+prepare settings independently in Objective-C++, and compare browser output.
+They use actual RGBA8 filter boundaries and RGBA16Float linear intermediates.
+Native compiler fast math is disabled. Browser floating-point and quantization
+differences remain: Adjust <=4/255 at isolated synthetic pixels, mean <0.07/255;
+LUT <=1/255; Bloom <=1/255. No per-preset visual tuning was applied.
+
+Scope: same SDR Rec.709 pixel frame, current checked host implementation,
+and user-confirmed delivered Bloom v3. This is not a capture of the phone's
+complete running pipeline or a decoder/HDR/P3 calibration. Different source
+frames or app-level cached packages can still prevent a visual comparison.

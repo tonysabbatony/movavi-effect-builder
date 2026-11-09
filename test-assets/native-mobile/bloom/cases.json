@@ -1,0 +1,4652 @@
+[
+  {
+    "master": 0,
+    "uid": "Glow_Preset_01",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.5709999799728394,
+      "knee": 0.23999999463558197,
+      "scatter": 0.30300000309944153,
+      "intensity": 0,
+      "opacity": 0.6850000023841858,
+      "radius": 180
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_01: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.571,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.44,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 180,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.24,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.303,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.685,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_01-0.0-bloom.rgba"
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_01",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.5709999799728394,
+      "knee": 0.23999999463558197,
+      "scatter": 0.30300000309944153,
+      "intensity": 0.4000000059604645,
+      "opacity": 0.6850000023841858,
+      "radius": 180
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_01: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.571,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.44,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 180,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.24,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.303,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.685,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_01-0.5-bloom.rgba"
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_01",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.5709999799728394,
+      "knee": 0.23999999463558197,
+      "scatter": 0.30300000309944153,
+      "intensity": 0.800000011920929,
+      "opacity": 0.6850000023841858,
+      "radius": 180
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_01: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.571,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.44,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 180,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.24,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.303,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.685,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_01-1.0-bloom.rgba"
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_02",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.1080000028014183,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0,
+      "opacity": 1,
+      "radius": 55
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_02: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.108,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.28,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 55,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_02-0.0-bloom.rgba"
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_02",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.1080000028014183,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.4000000059604645,
+      "opacity": 1,
+      "radius": 55
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_02: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.108,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.28,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 55,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_02-0.5-bloom.rgba"
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_02",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.1080000028014183,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.800000011920929,
+      "opacity": 1,
+      "radius": 55
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_02: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.108,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.28,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 55,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_02-1.0-bloom.rgba"
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_03",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.027000000700354576,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0,
+      "opacity": 1,
+      "radius": 130
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_03: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.027,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.29,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 130,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_03-0.0-bloom.rgba"
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_03",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.027000000700354576,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.4000000059604645,
+      "opacity": 1,
+      "radius": 130
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_03: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.027,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.29,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 130,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_03-0.5-bloom.rgba"
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_03",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.027000000700354576,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.800000011920929,
+      "opacity": 1,
+      "radius": 130
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_03: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.027,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.29,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 130,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_03-1.0-bloom.rgba"
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_04",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.20000000298023224,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0,
+      "opacity": 1,
+      "radius": 58
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_04: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.2,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.47,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 58,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_04-0.0-bloom.rgba"
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_04",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.20000000298023224,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.4000000059604645,
+      "opacity": 1,
+      "radius": 58
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_04: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.2,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.47,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 58,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_04-0.5-bloom.rgba"
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_04",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.20000000298023224,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.800000011920929,
+      "opacity": 1,
+      "radius": 58
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_04: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.2,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.47,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 58,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_04-1.0-bloom.rgba"
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_05",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.1889999955892563,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0,
+      "opacity": 1,
+      "radius": 83
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_05: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.189,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.18,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 83,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_05-0.0-bloom.rgba"
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_05",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.1889999955892563,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.4000000059604645,
+      "opacity": 1,
+      "radius": 83
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_05: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.189,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.18,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 83,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_05-0.5-bloom.rgba"
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_05",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.1889999955892563,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.800000011920929,
+      "opacity": 1,
+      "radius": 83
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_05: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.189,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.18,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 83,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_05-1.0-bloom.rgba"
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_06",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.5260000228881836,
+      "knee": 0.5979999899864197,
+      "scatter": 0.8790000081062317,
+      "intensity": 0,
+      "opacity": 1,
+      "radius": 62
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_06: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.526,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.39,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 62,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.598,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.879,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_06-0.0-bloom.rgba"
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_06",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.5260000228881836,
+      "knee": 0.5979999899864197,
+      "scatter": 0.8790000081062317,
+      "intensity": 0.4000000059604645,
+      "opacity": 1,
+      "radius": 62
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_06: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.526,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.39,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 62,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.598,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.879,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_06-0.5-bloom.rgba"
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_06",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.5260000228881836,
+      "knee": 0.5979999899864197,
+      "scatter": 0.8790000081062317,
+      "intensity": 0.800000011920929,
+      "opacity": 1,
+      "radius": 62
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_06: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.526,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.39,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 62,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.598,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.879,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_06-1.0-bloom.rgba"
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_07",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.057999998331069946,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0,
+      "opacity": 1,
+      "radius": 75
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_07: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.058,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.18,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 75,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_07-0.0-bloom.rgba"
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_07",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.057999998331069946,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.4000000059604645,
+      "opacity": 1,
+      "radius": 75
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_07: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.058,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.18,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 75,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_07-0.5-bloom.rgba"
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_07",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.057999998331069946,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.800000011920929,
+      "opacity": 1,
+      "radius": 75
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_07: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.058,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.18,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 75,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_07-1.0-bloom.rgba"
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_08",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.7170000076293945,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0,
+      "opacity": 1,
+      "radius": 90
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_08: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.717,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 1.05,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 90,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_08-0.0-bloom.rgba"
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_08",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.7170000076293945,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.4000000059604645,
+      "opacity": 1,
+      "radius": 90
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_08: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.717,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 1.05,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 90,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_08-0.5-bloom.rgba"
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_08",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.7170000076293945,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.800000011920929,
+      "opacity": 1,
+      "radius": 90
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_08: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.717,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 1.05,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 90,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_08-1.0-bloom.rgba"
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_09",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.7379999756813049,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0,
+      "opacity": 1,
+      "radius": 217
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_09: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.738,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.52,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 217,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_09-0.0-bloom.rgba"
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_09",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.7379999756813049,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.4000000059604645,
+      "opacity": 1,
+      "radius": 217
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_09: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.738,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.52,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 217,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_09-0.5-bloom.rgba"
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_09",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.7379999756813049,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.800000011920929,
+      "opacity": 1,
+      "radius": 217
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_09: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.738,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.52,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 217,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_09-1.0-bloom.rgba"
+  },
+  {
+    "master": 0,
+    "uid": "Glow_Preset_10",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.36500000953674316,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0,
+      "opacity": 1,
+      "radius": 81
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_10: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.365,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.17,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 81,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_10-0.0-bloom.rgba"
+  },
+  {
+    "master": 0.5,
+    "uid": "Glow_Preset_10",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.36500000953674316,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.4000000059604645,
+      "opacity": 1,
+      "radius": 81
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_10: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.365,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.17,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 81,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_10-0.5-bloom.rgba"
+  },
+  {
+    "master": 1,
+    "uid": "Glow_Preset_10",
+    "height": 24,
+    "input": "pattern.rgba",
+    "values": {
+      "threshold": 0.36500000953674316,
+      "knee": 0.5,
+      "scatter": 0.6499999761581421,
+      "intensity": 0.800000011920929,
+      "opacity": 1,
+      "radius": 81
+    },
+    "width": 32,
+    "config": {
+      "shaderPath": "v1/Bloom2/Bloom2",
+      "intensityParamNames": [
+        "intensity"
+      ],
+      "shaderConfig": {
+        "CATEGORIES": [
+          "Glow"
+        ],
+        "DESCRIPTION": "Bloom2 \u0434\u043b\u044f Glow_Preset_10: \u043f\u0435\u0440\u0435\u043d\u0435\u0441\u0435\u043d\u043e \u0438\u0437 bloomRework \u043f\u0440\u0438 \u043f\u043e\u0447\u0438\u043d\u043a\u0435 \u0430\u0440\u0445\u0438\u0432\u0430 'Dreamy rework'.",
+        "ISFVSN": "2",
+        "INPUTS": [
+          {
+            "NAME": "inputImage",
+            "TYPE": "image"
+          },
+          {
+            "NAME": "threshold",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.365,
+            "MIN": 0
+          },
+          {
+            "NAME": "intensity",
+            "TYPE": "float",
+            "MAX": 0.8,
+            "DEFAULT": 0.17,
+            "MIN": 0
+          },
+          {
+            "NAME": "radius",
+            "TYPE": "float",
+            "MAX": 300,
+            "DEFAULT": 81,
+            "MIN": 0
+          },
+          {
+            "NAME": "knee",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 0.5,
+            "MIN": 0
+          },
+          {
+            "NAME": "scatter",
+            "TYPE": "float",
+            "MAX": 2,
+            "DEFAULT": 0.65,
+            "MIN": 0
+          },
+          {
+            "NAME": "opacity",
+            "TYPE": "float",
+            "MAX": 1,
+            "DEFAULT": 1,
+            "MIN": 0
+          }
+        ],
+        "PASSES": [
+          {
+            "TARGET": "L0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V0",
+            "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V1",
+            "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V2",
+            "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V3",
+            "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+          },
+          {
+            "TARGET": "L4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "H4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {
+            "TARGET": "V4",
+            "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+            "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+          },
+          {}
+        ]
+      }
+    },
+    "metal": "pattern-Glow_Preset_10-1.0-bloom.rgba"
+  }
+]

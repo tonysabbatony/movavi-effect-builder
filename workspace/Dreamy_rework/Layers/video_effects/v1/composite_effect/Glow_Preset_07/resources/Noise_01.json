@@ -1,0 +1,9 @@
+{
+    "binding": "center",
+    "blendMode": "screen",
+    "intensityMin": 0.1,
+    "intensityMax": 0.22,
+    "hardCoded": true,
+    "actualValue": 0.038,
+    "filename": "Noise_01"
+}

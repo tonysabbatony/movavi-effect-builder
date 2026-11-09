@@ -1,0 +1,14 @@
+{
+    "strength": {
+        "intensityMin": 0,
+        "intensityMax": 0.02,
+        "hardCoded": false,
+        "actualValue": 0.02
+    },
+    "overlap": {
+        "intensityMin": 0,
+        "intensityMax": 1,
+        "hardCoded": true,
+        "actualValue": 0.898
+    }
+}

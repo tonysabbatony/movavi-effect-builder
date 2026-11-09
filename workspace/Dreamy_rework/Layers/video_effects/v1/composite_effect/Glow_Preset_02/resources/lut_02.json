@@ -1,0 +1,8 @@
+{
+    "templateID": "lut_02",
+    "intensityMin": 0.1,
+    "intensityMax": 1,
+    "hardCoded": false,
+    "actualValue": 1,
+    "interpolateMode": "Trilinear"
+}

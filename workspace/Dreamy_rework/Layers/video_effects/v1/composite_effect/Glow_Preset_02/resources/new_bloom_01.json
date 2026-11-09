@@ -1,0 +1,139 @@
+{
+    "shaderPath": "v1/Bloom2/Bloom2",
+    "intensityParamNames": [
+        "intensity"
+    ],
+    "shaderConfig": {
+        "ISFVSN": "2",
+        "CATEGORIES": [
+            "Glow"
+        ],
+        "INPUTS": [
+            {
+                "NAME": "inputImage",
+                "TYPE": "image"
+            },
+            {
+                "NAME": "threshold",
+                "TYPE": "float",
+                "MIN": 0.0,
+                "MAX": 1.0,
+                "DEFAULT": 0.108
+            },
+            {
+                "NAME": "intensity",
+                "TYPE": "float",
+                "MIN": 0.0,
+                "MAX": 0.8,
+                "DEFAULT": 0.28
+            },
+            {
+                "NAME": "radius",
+                "TYPE": "float",
+                "MIN": 0.0,
+                "MAX": 300.0,
+                "DEFAULT": 55
+            },
+            {
+                "NAME": "knee",
+                "TYPE": "float",
+                "MIN": 0.0,
+                "MAX": 1.0,
+                "DEFAULT": 0.5
+            },
+            {
+                "NAME": "scatter",
+                "TYPE": "float",
+                "MIN": 0.0,
+                "MAX": 2.0,
+                "DEFAULT": 0.65
+            },
+            {
+                "NAME": "opacity",
+                "TYPE": "float",
+                "MIN": 0.0,
+                "MAX": 1.0,
+                "DEFAULT": 1
+            }
+        ],
+        "PASSES": [
+            {
+                "TARGET": "L0",
+                "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+            },
+            {
+                "TARGET": "H0",
+                "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+            },
+            {
+                "TARGET": "V0",
+                "WIDTH": "(ceil($WIDTH/2)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/2)+0.5)/0.77"
+            },
+            {
+                "TARGET": "L1",
+                "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+            },
+            {
+                "TARGET": "H1",
+                "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+            },
+            {
+                "TARGET": "V1",
+                "WIDTH": "(ceil($WIDTH/4)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/4)+0.5)/0.77"
+            },
+            {
+                "TARGET": "L2",
+                "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+            },
+            {
+                "TARGET": "H2",
+                "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+            },
+            {
+                "TARGET": "V2",
+                "WIDTH": "(ceil($WIDTH/8)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/8)+0.5)/0.77"
+            },
+            {
+                "TARGET": "L3",
+                "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+            },
+            {
+                "TARGET": "H3",
+                "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+            },
+            {
+                "TARGET": "V3",
+                "WIDTH": "(ceil($WIDTH/16)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/16)+0.5)/0.77"
+            },
+            {
+                "TARGET": "L4",
+                "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+            },
+            {
+                "TARGET": "H4",
+                "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+            },
+            {
+                "TARGET": "V4",
+                "WIDTH": "(ceil($WIDTH/32)+0.5)/0.77",
+                "HEIGHT": "(ceil($HEIGHT/32)+0.5)/0.77"
+            },
+            {}
+        ],
+        "DESCRIPTION": "Bloom2 для Glow_Preset_02: перенесено из bloomRework при починке архива 'Dreamy rework'."
+    }
+}

@@ -1,0 +1,54 @@
+<!doctype html><meta charset="utf-8"><title>Проверка интерфейса v0.3</title><style>body{font:15px system-ui;background:#10151e;color:#eee}iframe{width:100%;height:800px;border:0}pre{white-space:pre-wrap}</style><pre id="result">Проверка…</pre><iframe src="index.html?empty"></iframe><script>
+const frame=document.querySelector('iframe');
+frame.onload=async()=>{
+ const logs=[]; const say=(ok,t)=>{logs.push((ok?'PASS ':'FAIL ')+t);document.querySelector('#result').textContent=logs.join('\n');};
+ const w=frame.contentWindow,d=w.document;
+ const tick=()=>new Promise(r=>setTimeout(r,120));
+ try{
+ const recipe={effects:[{effectName:'abberation_01',effectType:'chromaticAberration'}],keep:'untouched'};
+ const config={strength:{intensityMin:0,intensityMax:.03,hardCoded:false,actualValue:.9},overlap:{intensityMin:0,intensityMax:1,hardCoded:true,actualValue:.85},unknown:'keep'};
+ const files=new w.DataTransfer();
+ for(const [name,obj] of [['Glow_Preset_01.json',recipe],['resources/abberation_01.json',config]]){
+   const f=new w.File([JSON.stringify(obj)],name.split('/').pop(),{type:'application/json'});Object.defineProperty(f,'webkitRelativePath',{value:'Glow_Preset_01/'+name});files.items.add(f);
+ }
+ const fi=d.querySelector('#fallbackFolderInput');fi.files=files.files;fi.dispatchEvent(new w.Event('change',{bubbles:true}));await tick();
+ say(d.querySelector('#activePresetName').textContent==='Glow Preset 1','Пресет загружен');
+ const img=await (await fetch('test-pattern.svg')).blob();const images=new w.DataTransfer();images.items.add(new w.File([img],'test-pattern.svg',{type:'image/svg+xml'}));
+ const mi=d.querySelector('#mediaInput');mi.files=images.files;mi.dispatchEvent(new w.Event('change',{bubbles:true}));await tick();await tick();
+ say(d.querySelector('#beforeCanvas').width===640 && d.querySelector('#beforeCanvas').height===640,'Обработка сохраняет пропорции исходника');
+ say(d.querySelector('.effective-value').textContent==='Применяется: 0.03','При 100% используется Max, не actualValue=0.9');
+ const power=d.querySelector('#masterIntensity');power.value=50;power.dispatchEvent(new w.Event('input',{bubbles:true}));await tick();
+ say(d.querySelector('.effective-value').textContent==='Применяется: 0.015','Сила 50% обновляет применяемое значение');
+ d.querySelector('.solo').click();await tick();
+ say(d.querySelector('#dirtyStatus').textContent==='no changes','Сила и Solo не помечают JSON изменённым');
+ say(d.querySelector('#renderErrors').textContent==='','Шейдер работает внутри редактора без ошибок');
+ let exported;
+ const create=w.URL.createObjectURL.bind(w.URL);w.URL.createObjectURL=b=>{if(b.type==='application/zip')exported=b;return create(b);};
+ w.HTMLAnchorElement.prototype.click=function(){};
+ d.querySelector('#exportBtn').click();await tick();
+ const bytes=new Uint8Array(await exported.arrayBuffer()),dv=new DataView(bytes.buffer),objects={};let off=0;
+ while(dv.getUint32(off,true)===0x04034b50){const len=dv.getUint32(off+18,true),nl=dv.getUint16(off+26,true),ex=dv.getUint16(off+28,true);const name=new TextDecoder().decode(bytes.slice(off+30,off+30+nl)),start=off+30+nl+ex;objects[name]=JSON.parse(new TextDecoder().decode(bytes.slice(start,start+len)));off=start+len;}
+ say(JSON.stringify(objects['Glow_Preset_01/resources/abberation_01.json'])===JSON.stringify(config),'Экспорт после просмотра сохраняет исходные значения и неизвестные поля');
+ say(JSON.stringify(objects['Glow_Preset_01/Glow_Preset_01.json'])===JSON.stringify(recipe),'Solo не изменяет рецепт в ZIP');
+ const max=d.querySelector('[data-field="intensityMax"]');max.value=.18;max.dispatchEvent(new w.Event('input',{bubbles:true}));await tick();
+ say(d.querySelector('.effective-value').textContent==='Применяется: 0.09','Правка Max реально управляет силой в preview');
+ say(d.querySelector('#dirtyStatus').textContent==='1 changed JSON','Правка Max отмечает ровно один файл');
+ const hc=d.querySelector('.nested-hardcoded');hc.click();await tick();
+ say(d.querySelector('.effective-value').textContent==='Применяется: 0.09','HC фиксирует текущее применяемое значение');
+ d.querySelector('#resetEffectBtn').click();power.value=100;power.dispatchEvent(new w.Event('input',{bubbles:true}));await tick();
+ say(d.querySelector('#previewStage').getBoundingClientRect().height===800,'Крупное превью: 800 px');
+ const size=d.querySelector('#previewSize');size.value=1000;size.dispatchEvent(new w.Event('input',{bubbles:true}));
+ say(d.querySelector('#previewStage').getBoundingClientRect().height===1000,'Размер превью регулируется');
+ const noise={actualValue:.17,intensityMin:0,intensityMax:.17,hardCoded:true,filename:'noise.mp4',blendMode:'screen'};
+ const nf=new w.DataTransfer();
+ for(const [name,obj] of [['Glow_Preset_02.json',{effects:[{effectName:'noise_02',effectType:'overlay'}]}],['resources/noise_02.json',noise]]) {
+  const f=new w.File([JSON.stringify(obj)],name.split('/').pop(),{type:'application/json'});Object.defineProperty(f,'webkitRelativePath',{value:'Glow_Preset_02/'+name});nf.items.add(f);
+ }
+ fi.files=nf.files;fi.dispatchEvent(new w.Event('change',{bubbles:true}));await tick();
+ const ns=d.querySelector('.param-slider');say(ns.min==='0' && ns.max==='1','Noise .17 имеет шкалу 0 … 1');
+ ns.value=1;ns.dispatchEvent(new w.Event('input',{bubbles:true}));await tick();
+ say(d.querySelector('.effective-value').textContent==='Применяется: 1','Noise можно увеличить до 1');
+ const end=!logs.some(s=>s.startsWith('FAIL'));say(end,'Проверка завершена');document.title=end?'PASS — Интерфейс':'FAIL — Интерфейс';
+ }catch(e){say(false,e.stack);}
+};
+</script>

@@ -1,0 +1,31 @@
+{
+    "shaderPath": "v1/Sharpen/Sharpen",
+    "intensityParamNames": [],
+    "shaderConfig": {
+        "ISFVSN": "2",
+        "DESCRIPTION": "Sharpen from supplied Sharpen.ps / Sharpen.vs",
+        "CATEGORIES": [
+            "Sharpen"
+        ],
+        "INPUTS": [
+            {
+                "NAME": "inputImage",
+                "TYPE": "image"
+            },
+            {
+                "NAME": "sharpenAmount",
+                "TYPE": "float",
+                "DEFAULT": 0.401,
+                "MIN": 0,
+                "MAX": 0.2
+            },
+            {
+                "NAME": "stepSize",
+                "TYPE": "float",
+                "DEFAULT": 0.0012,
+                "MIN": 0,
+                "MAX": 0.02
+            }
+        ]
+    }
+}

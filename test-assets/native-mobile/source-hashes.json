@@ -1,0 +1,7 @@
+{
+  "multimedia/ext/mmc/src/Movavi/Proc/Effects/EffectsMetal/Shaders/EffectsCollection.metal": "1789ef5004ee87f1fa32c8e65b4ef4c37c0ec761428a9de99615203ce12499b3",
+  "multimedia/ext/mmc/src/Movavi/Proc/Metal/Shaders/CommonKernels.metal": "d5aa147f0bf92fd71f112379c14167d361e1990522d04e5a7548ee6e07bb46b1",
+  "multimedia/ext/mmc/src/Movavi/Proc/Effects/EffectsMetal/Shaders/EffectsKernelTypes.h": "4d8b99f36511f0ee2b41223e5e8bae6e5527c750e0ee04f5b0fa9651e3f3c84a",
+  "multimedia/ext/mmc/src/Movavi/Proc/Effects/EffectsMetal/EffectGIMPColorTemperature.cpp": "b813231ec698c4993c16121af9303525bb2ddd721ef00ad80aed3b9e3009e309",
+  "multimedia/ext/mmc/src/Movavi/Proc/Metal/Shaders/ColorSpaces.metal": "215c3f6debc82911b648adcf156463257b5d4f3800d1a914fa17acc6f8adb3b0"
+}

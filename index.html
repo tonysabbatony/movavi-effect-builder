@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Movavi Effect Builder v0.12</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div>
+        <div class="brand-title">Effect Builder</div>
+        <div class="brand-sub">Glow · v0.12</div>
+      </div>
+    </div>
+    <div class="toolbar">
+      <button id="demoBtn" class="btn ghost">Тест New Bloom / Aberration</button>
+      <button id="openBundledBtn" class="btn ghost">Рабочая подборка Dreamy ×10</button>
+      <button id="openWorkspaceBtn" class="btn primary">Открыть сборку</button>
+      <label class="btn ghost fallback-file-label" title="Если системный выбор папки не работает">
+        Выбрать папку (fallback)
+        <input id="fallbackFolderInput" type="file" webkitdirectory multiple hidden />
+      </label>
+      <button id="saveBtn" class="btn" disabled>Сохранить JSON</button>
+      <button id="exportFolderBtn" class="btn">Папка для ZIP</button>
+      <button id="exportBtn" class="btn" disabled>ZIP выбранного пресета</button>
+      <button id="exportGroupBtn" class="btn primary" disabled>Экспорт всей группы ZIP</button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="workspace-panel panel">
+      <div class="panel-head workspace-head">
+        <div>
+          <div class="eyebrow">WORKSPACE</div>
+          <div id="workspaceName" class="panel-title">Сборка не открыта</div>
+        </div>
+        <div class="status-row">
+          <span id="writeStatus" class="badge muted">read only</span>
+          <span id="manifestStatus" class="badge muted">all_in_one: —</span>
+        </div>
+      </div>
+
+      <div class="preset-row">
+        <label for="presetSelect">Preset</label>
+        <select id="presetSelect" disabled><option>—</option></select>
+      </div>
+
+      <div class="master-control">
+        <label for="masterIntensity">Общая сила Movavi</label>
+        <input id="masterIntensity" type="range" min="0" max="100" step="1" value="100">
+        <output id="masterIntensityValue">100%</output>
+        <button id="neutralAtZeroBtn" class="btn small ghost" disabled title="Выставить нейтральные значения при 0% для связанных параметров текущего пресета">Нейтрально при 0%</button>
+      </div>
+      <div class="preview-toolbar">
+        <label class="btn small ghost">
+          Добавить фото / видео
+          <input id="mediaInput" type="file" accept="image/*,video/*" multiple hidden />
+        </label>
+        <button id="playPauseBtn" class="btn small" disabled>Play</button>
+        <button id="exportVideoBtn" class="btn small primary" disabled title="Скачать выбранное видео с текущим пресетом">Экспорт видео…</button>
+        <div class="compare-tabs" role="group" aria-label="Сравнение">
+          <button class="compare-tab" data-mode="before">Before</button>
+          <button class="compare-tab active" data-mode="split">Split</button>
+          <button class="compare-tab" data-mode="after">After</button>
+        </div>
+      </div>
+
+      <div id="mediaLibraryBar" class="media-library" hidden>
+        <label for="mediaSelect">Тестовые файлы</label>
+        <button id="previousMediaBtn" class="btn small" title="Предыдущий файл" aria-label="Предыдущий файл" disabled>←</button>
+        <select id="mediaSelect" aria-label="Выбрать тестовое видео или фото"></select>
+        <button id="nextMediaBtn" class="btn small" title="Следующий файл" aria-label="Следующий файл" disabled>→</button>
+        <output id="mediaPosition" aria-live="polite"></output>
+      </div>
+
+      <div class="preview-size-controls">
+        <label for="previewSize">Высота превью</label>
+        <input id="previewSize" type="range" min="400" max="1200" step="20" value="800">
+        <output id="previewSizeValue">800 px</output>
+        <button id="fullscreenBtn" class="btn small">На весь экран</button>
+      </div>
+      <div id="previewStage" class="preview-stage empty">
+        <canvas id="beforeCanvas"></canvas>
+        <canvas id="afterCanvas"></canvas>
+        <div id="splitLine" class="split-line"><span></span></div>
+        <div id="emptyPreview" class="empty-preview">
+          <div class="empty-icon">◫</div>
+          <div>Загрузи тестовое фото или видео</div>
+          <small>Preview работает локально, файл никуда не отправляется.</small>
+        </div>
+      </div>
+      <div class="split-control">
+        <span>Before</span>
+        <input id="splitRange" type="range" min="0" max="100" value="50" />
+        <span>After</span>
+      </div>
+
+      <div id="renderErrors" role="alert"></div>
+      <div class="preview-note">
+        <strong>v0.12 · ISF Bloom2 preview.</strong>
+        Adjust, LUT и Bloom проверены по мобильным исходникам и переданному Bloom v3. Для визуального сравнения используйте одинаковый исходный кадр и общую силу. Обработка SDR: до 960 px по длинной стороне, 8 бит на канал.
+      </div>
+    </section>
+
+    <aside class="stack-panel panel">
+      <div class="panel-head">
+        <div>
+          <div class="eyebrow">EFFECT STACK</div>
+          <div id="activePresetName" class="panel-title">—</div>
+        </div>
+        <button id="clearSoloBtn" class="btn tiny ghost" disabled>Clear Solo</button>
+      </div>
+      <button id="importLayerBtn" class="btn" disabled>+ Импорт слоя JSON</button><input id="importLayerInput" type="file" accept=".json,.cube,.mp4,.mov,.ps,.vs,.metal,.fs,.glsl" multiple hidden>
+      <button id="addSharpenBtn" class="btn" disabled>+ Sharpen</button>
+      <button id="undoRemoveLayerBtn" class="btn ghost" hidden>↶ Вернуть слой</button>
+      <div id="effectStack" class="effect-stack empty-stack">
+        <div class="empty-stack-message">Открой сборку Glow</div>
+      </div>
+      <div class="stack-help">
+        <b>👁</b> влияет только на preview · <b>S</b> Solo · <b>×</b> удаляет из рецепта · перетащи слой, чтобы изменить порядок.
+      </div>
+    </aside>
+
+    <section class="parameters-panel panel">
+      <div class="panel-head params-head">
+        <div>
+          <div class="eyebrow">PARAMETERS</div>
+          <div id="selectedEffectTitle" class="panel-title">Выбери слой</div>
+        </div>
+        <div class="param-actions">
+          <button id="resetEffectBtn" class="btn tiny ghost" disabled title="Вернуть стандартные настройки эффекта">Reset Layer</button>
+        </div>
+      </div>
+      <div id="warningsBox" class="warnings hidden"></div>
+      <div id="parameterEditor" class="parameter-editor empty-params">
+        <div>Параметры появятся здесь</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footerbar">
+    <div id="footerStatus">Готов к загрузке Glow-сборки.</div>
+    <div class="footer-right">
+      <span id="dirtyStatus" class="badge muted">no changes</span>
+      <span class="version">Movavi Effect Builder v0.12</span>
+    </div>
+  </footer>
+
+  <video id="sourceVideo" muted playsinline loop hidden></video>
+  <video id="noiseVideo" muted playsinline loop hidden></video>
+  <canvas id="workA" hidden></canvas>
+  <canvas id="workB" hidden></canvas>
+  <canvas id="workC" hidden></canvas>
+  <script src="movavi-render.js"></script>
+  <script src="bloom-rework.js"></script>
+  <script src="sharpen.js"></script>
+  <script src="sharpen-assets.js"></script>
+  <script src="video-export.js"></script>
+  <script src="bloom-contract.js"></script>
+  <script src="mobile-package.js"></script>
+  <script src="adjust-mobile.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

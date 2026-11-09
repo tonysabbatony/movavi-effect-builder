@@ -1,0 +1,32 @@
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check JavaScript syntax
+        run: |
+          for file in *.js *.cjs tests/*.cjs; do node --check "$file"; done
+      - name: Check mobile package and parameter rules
+        run: |
+          node test-mobile-contract.cjs
+          node test-ranges.cjs
+          node test-package-import.cjs
+          node tests/test-isf-mobile.cjs
+      - name: Check actual launcher
+        run: python3 test-launcher.py

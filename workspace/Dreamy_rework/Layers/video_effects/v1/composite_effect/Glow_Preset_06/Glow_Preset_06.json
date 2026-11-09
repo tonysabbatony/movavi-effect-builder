@@ -1,0 +1,28 @@
+{
+    "effects": [
+        {
+            "effectName": "abberation_01",
+            "effectType": "chromaticAberration"
+        },
+        {
+            "effectName": "my_adjust",
+            "effectType": "adjust"
+        },
+        {
+            "effectName": "lut_06",
+            "effectType": "lut"
+        },
+        {
+            "effectName": "new_bloom_01",
+            "effectType": "isf"
+        },
+        {
+            "effectName": "sharpen_01",
+            "effectType": "isf"
+        },
+        {
+            "effectName": "Noise_03",
+            "effectType": "overlay"
+        }
+    ]
+}

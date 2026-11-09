@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8"><title>Проверка расширенного Bloom</title>
+<style>html,body{margin:0;background:#111;color:#eee;font:14px system-ui}#result{padding:8px;margin:0}iframe{display:block;width:100%;height:900px;border:0}</style>
+<pre id="result">Проверка…</pre><iframe src="index.html?empty"></iframe><script>
+const frame=document.querySelector('iframe');frame.onload=async()=>{
+ const w=frame.contentWindow,d=w.document,result=document.querySelector('#result');
+ const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+ try{
+  d.querySelector('#demoBtn').click();await wait(500);
+  const set=(name,value)=>{const el=d.querySelector(`[data-parameter-name="${name}"] .param-slider`);el.value=value;el.dispatchEvent(new w.Event('input',{bubbles:true}));return el;};
+  const radius=set('radius',300),scatter=set('scatter',2);await wait(700);
+  const ok=radius.max==='300'&&scatter.max==='2'&&radius.value==='300'&&scatter.value==='2'&&!d.querySelector('#renderErrors').textContent;
+  result.textContent=ok?'PASS · New Bloom: радиус 300, ширина ореола 2':'FAIL · '+d.querySelector('#renderErrors').textContent;
+  document.title=ok?'PASS Extended Bloom':'FAIL Extended Bloom';
+ }catch(error){result.textContent='FAIL · '+error;document.title='FAIL Extended Bloom';}
+};
+</script>

@@ -1,0 +1,246 @@
+{
+    "groups": [
+        {
+            "cover_version": "v4",
+            "group_priority": 0,
+            "plug_colors": [
+                "01805A",
+                "E43745",
+                "FDED96"
+            ],
+            "group_id": "glow"
+        }
+    ],
+    "items": [
+        {
+            "is_premium": true,
+            "uid": "Glow_Preset_01",
+            "group_id": "glow",
+            "resources": [
+                "Noise_01.json",
+                "Noise_01.mp4",
+                "Sharpen.ps",
+                "Sharpen.vs",
+                "abberation_01.json",
+                "lut_01.cube",
+                "lut_01.json",
+                "my_adjust.json",
+                "new_bloom_01.json",
+                "sharpen_01.json"
+            ],
+            "lut": "",
+            "version": "v1",
+            "effect_type": "composite_effect",
+            "priority": 1,
+            "is_rewardable": true,
+            "overlays": []
+        },
+        {
+            "is_premium": true,
+            "uid": "Glow_Preset_02",
+            "group_id": "glow",
+            "resources": [
+                "Noise_01.json",
+                "Noise_01.mp4",
+                "Sharpen.ps",
+                "Sharpen.vs",
+                "abberation_01.json",
+                "lut_02.cube",
+                "lut_02.json",
+                "my_adjust.json",
+                "new_bloom_01.json",
+                "sharpen_01.json"
+            ],
+            "lut": "",
+            "version": "v1",
+            "effect_type": "composite_effect",
+            "priority": 2,
+            "is_rewardable": true,
+            "overlays": []
+        },
+        {
+            "is_premium": true,
+            "uid": "Glow_Preset_03",
+            "group_id": "glow",
+            "resources": [
+                "Noise_03.json",
+                "Noise_03.mp4",
+                "Sharpen.ps",
+                "Sharpen.vs",
+                "abberation_01.json",
+                "lut_03.cube",
+                "lut_03.json",
+                "my_adjust.json",
+                "new_bloom_01.json",
+                "sharpen_01.json"
+            ],
+            "lut": "",
+            "version": "v1",
+            "effect_type": "composite_effect",
+            "priority": 3,
+            "is_rewardable": true,
+            "overlays": []
+        },
+        {
+            "is_premium": true,
+            "uid": "Glow_Preset_04",
+            "group_id": "glow",
+            "resources": [
+                "Noise_05.json",
+                "Noise_05.mp4",
+                "Sharpen.ps",
+                "Sharpen.vs",
+                "abberation_01.json",
+                "lut_04.cube",
+                "lut_04.json",
+                "my_adjust.json",
+                "new_bloom_01.json",
+                "sharpen_01.json"
+            ],
+            "lut": "",
+            "version": "v1",
+            "effect_type": "composite_effect",
+            "priority": 4,
+            "is_rewardable": true,
+            "overlays": []
+        },
+        {
+            "is_premium": true,
+            "uid": "Glow_Preset_05",
+            "group_id": "glow",
+            "resources": [
+                "Noise_02.json",
+                "Noise_02.mp4",
+                "Sharpen.ps",
+                "Sharpen.vs",
+                "abberation_01.json",
+                "lut_05.cube",
+                "lut_05.json",
+                "my_adjust.json",
+                "new_bloom_01.json",
+                "sharpen_01.json"
+            ],
+            "lut": "",
+            "version": "v1",
+            "effect_type": "composite_effect",
+            "priority": 5,
+            "is_rewardable": true,
+            "overlays": []
+        },
+        {
+            "is_premium": true,
+            "uid": "Glow_Preset_06",
+            "group_id": "glow",
+            "resources": [
+                "Noise_03.json",
+                "Noise_03.mp4",
+                "Sharpen.ps",
+                "Sharpen.vs",
+                "abberation_01.json",
+                "lut_06.cube",
+                "lut_06.json",
+                "my_adjust.json",
+                "new_bloom_01.json",
+                "sharpen_01.json"
+            ],
+            "lut": "",
+            "version": "v1",
+            "effect_type": "composite_effect",
+            "priority": 6,
+            "is_rewardable": true,
+            "overlays": []
+        },
+        {
+            "is_premium": true,
+            "uid": "Glow_Preset_07",
+            "group_id": "glow",
+            "resources": [
+                "Noise_01.json",
+                "Noise_01.mp4",
+                "Sharpen.ps",
+                "Sharpen.vs",
+                "abberation_01.json",
+                "lut_07.cube",
+                "lut_07.json",
+                "my_adjust.json",
+                "new_bloom_01.json",
+                "sharpen_01.json"
+            ],
+            "lut": "",
+            "version": "v1",
+            "effect_type": "composite_effect",
+            "priority": 7,
+            "is_rewardable": true,
+            "overlays": []
+        },
+        {
+            "is_premium": true,
+            "uid": "Glow_Preset_08",
+            "group_id": "glow",
+            "resources": [
+                "Noise_04.json",
+                "Noise_04.mp4",
+                "Sharpen.ps",
+                "Sharpen.vs",
+                "abberation_01.json",
+                "lut_08.cube",
+                "lut_08.json",
+                "my_adjust.json",
+                "new_bloom_01.json",
+                "sharpen_01.json"
+            ],
+            "lut": "",
+            "version": "v1",
+            "effect_type": "composite_effect",
+            "priority": 8,
+            "is_rewardable": true,
+            "overlays": []
+        },
+        {
+            "is_premium": true,
+            "uid": "Glow_Preset_09",
+            "group_id": "glow",
+            "resources": [
+                "Noise_01.json",
+                "Noise_01.mp4",
+                "Sharpen.ps",
+                "Sharpen.vs",
+                "abberation_01.json",
+                "lut_09.cube",
+                "lut_09.json",
+                "my_adjust.json",
+                "new_bloom_01.json",
+                "sharpen_01.json"
+            ],
+            "lut": "",
+            "version": "v1",
+            "effect_type": "composite_effect",
+            "priority": 9,
+            "is_rewardable": true,
+            "overlays": []
+        },
+        {
+            "is_premium": true,
+            "uid": "Glow_Preset_10",
+            "group_id": "glow",
+            "resources": [
+                "Noise_02.json",
+                "Noise_02.mp4",
+                "Sharpen.ps",
+                "Sharpen.vs",
+                "abberation_01.json",
+                "lut_10.cube",
+                "lut_10.json",
+                "my_adjust.json",
+                "new_bloom_01.json",
+                "sharpen_01.json"
+            ],
+            "lut": "",
+            "version": "v1",
+            "effect_type": "composite_effect",
+            "priority": 10,
+            "is_rewardable": true,
+            "overlays": []
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+v0.12: the current mobile export remains ISF Bloom2 with the complete shaderConfig.
+Linked parameters follow the checked ISFIntensityCalculator MIN/MAX rule.
+Editing a linked main control writes MAX and DEFAULT; a fixed control writes
+DEFAULT. All authored values remain unchanged on import and full Reset.
+The delivered native Bloom v3 is confirmed by the user and numerically checked
+against browser Bloom for all 10 presets at 0/50/100% on identical input frames.
+See MOBILE_RENDER_SOURCES.txt and the v0.12 section of VALIDATION.md.
+
+Historical v0.11 notes (DEFAULT-only wording superseded above):
+v0.11: the current mobile export uses ISF Bloom2, not the historical flat
+bloomRework contract below. See README_RU.txt and VALIDATION.md.
+The resource preserves shaderPath v1/Bloom2/Bloom2, intensityParamNames and
+shaderConfig INPUTS/PASSES. UI controls write INPUTS.DEFAULT only.
+The existing browser renderer remains connected through bloom-contract.js.
+
+Historical notes — New Bloom — v0.7 runtime and export notes
+
+The bundled collection uses a real bloomRework layer. Its six parameter objects
+are saved to new_bloom_01.json using actualValue / intensityMin / intensityMax /
+hardCoded, following the previously delivered native Metal v3 contract.
+The user reports successful integration of New Bloom into TestFlight.
+This Builder export contains recipes and assets for that integrated effect;
+it does not install native shader code into the application.
+
+Current radius range: 0..300; Gaussian offset multiplier clamp(radius/50,.25,4.5).
+Scatter range: 0..2. The profiles for 0, 1 and 2 respectively are:
+[.65,.2,.1,.04,.01], [.08,.12,.2,.27,.33], [.02,.04,.1,.24,.6].
+Adjacent profiles are mixed linearly; all weights sum to one.
+Current implementation is bloom-rework.js. The native integration source was
+delivered separately as New_Bloom_Metal_Package_v3.
+
+The notes below document the original v0.5 experiment only. Its stated range
+limits and integration status are historical and superseded above.
+
+--- Historical v0.5 notes ---
+
+Implementation: bloom-rework.js. No proprietary Deep Glow code/algorithm used.
+Input: sRGB 8-bit Canvas, alpha preserved. Decode piecewise sRGB to linear.
+Prefilter BEFORE blur at half resolution: 4 samples at +/- .5 input texel,
+brightness=max(linear RGB); threshold also decoded from sRGB; k=max(thresholdLinear*knee,1e-5).
+soft=clamp(brightness-thresholdLinear+k,0,2*k)^2/(4*k).
+highlight=linearRGB*alpha*max(brightness-thresholdLinear,soft)/max(brightness,1e-5).
+Five pyramid levels: ceil(input / 2^(i+1)). Each is prefilter/downsample followed by
+separable Gaussian, 5 bilinear fetches per direction; weights .227027027, .316216216,
+.070270270 at offsets 0,+/-1.384615385,+/-3.230769231. Gaussian offset multiplier
+clamp(radius/50,.25,3). Downsample uses 4 taps +/- .5 previous texel. Clamp-to-edge.
+Mix levels using weights linearly interpolated by scatter from [.65,.2,.1,.04,.01]
+to [.08,.12,.2,.27,.33]; both sets sum to 1. Composite:
+screen=baseLinear+(1-baseLinear)*(1-exp(-glow*intensity*3));
+result=encodeSRGB(mix(baseLinear,screen,opacity)); alpha=source alpha.
+Intensity=0 or opacity=0 is a bit-exact copy bypass in browser.
+Textures allocated on dimensions changes, reused per frame; RGBA16F if renderable,
+RGBA8 fallback. 16 draw calls: 5*(prefilter/downsample + H + V) + composite.
+
+For mobile integration: add a separate native type (name to agree), frame graph with
+reusable intermediate targets, settings schema and serialization, and corresponding
+Metal kernels. Do not replace legacy Bloom for existing presets. Confirm color space,
+HDR range, alpha model, source dimensions/radius scaling, edge handling, video rotation,
+precision, memory footprint and frame timing on target devices. Browser bridge still
+copies input/output per effect; browser timing is NOT native device performance.
+No mobile code compiled or deployed in this iteration.

@@ -1,0 +1,100 @@
+
+#include <metal_stdlib>
+#include <simd/simd.h>
+
+using namespace metal;
+
+struct VVISF_UNIFORMS
+{
+    int PASSINDEX;
+    float TIME;
+    float2 RENDERSIZE;
+    float4 DATE;
+    float TIMEDELTA;
+    int FRAMEINDEX;
+    float2 PADDING_INFO;
+    float4 _inputImage_imgRect;
+    float2 _inputImage_imgSize;
+    uint _inputImage_flip;
+    int _inputImage_padding;
+    float sharpenAmount;
+    float stepSize;
+};
+
+struct VVSharpen_ver_2FragFunc_out
+{
+    float4 isf_FragColor [[color(0)]];
+};
+
+struct VVSharpen_ver_2FragFunc_in
+{
+    float2 isf_FragNormCoord [[user(locn0)]];
+};
+
+static inline __attribute__((always_inline))
+float4 VVSAMPLER_2DBYPIXEL(texture2d<float> inSampler, sampler inSamplerSmplr, thread const float4& inSamplerImgRect, thread const float2& inSamplerImgSize, thread const bool& inSamplerFlip, thread const float2& inLoc)
+{
+    float4 _32;
+    if (inSamplerFlip)
+    {
+        _32 = inSampler.sample(inSamplerSmplr, float2(((inLoc.x / inSamplerImgSize.x) * inSamplerImgRect.z) + inSamplerImgRect.x, (inSamplerImgRect.w - ((inLoc.y / inSamplerImgSize.y) * inSamplerImgRect.w)) + inSamplerImgRect.y));
+    }
+    else
+    {
+        _32 = inSampler.sample(inSamplerSmplr, float2(((inLoc.x / inSamplerImgSize.x) * inSamplerImgRect.z) + inSamplerImgRect.x, ((inLoc.y / inSamplerImgSize.y) * inSamplerImgRect.w) + inSamplerImgRect.y));
+    }
+    return _32;
+}
+
+static inline __attribute__((always_inline))
+float4 VVSAMPLER_2DBYNORM(texture2d<float> inSampler, sampler inSamplerSmplr, thread const float4& inSamplerImgRect, thread const float2& inSamplerImgSize, thread const bool& inSamplerFlip, thread const float2& normLoc)
+{
+    float4 param = inSamplerImgRect;
+    float2 param_1 = inSamplerImgSize;
+    bool param_2 = inSamplerFlip;
+    float2 param_3 = float2(normLoc.x * inSamplerImgSize.x, normLoc.y * inSamplerImgSize.y);
+    float4 returnMe = VVSAMPLER_2DBYPIXEL(inSampler, inSamplerSmplr, param, param_1, param_2, param_3);
+    return returnMe;
+}
+
+fragment VVSharpen_ver_2FragFunc_out VVSharpen_ver_2FragFunc(VVSharpen_ver_2FragFunc_in in [[stage_in]], constant VVISF_UNIFORMS& _130 [[buffer(0)]], texture2d<float> inputImage [[texture(0)]], sampler inputImageSmplr [[sampler(0)]])
+{
+    VVSharpen_ver_2FragFunc_out out = {};
+    float2 uv = in.isf_FragNormCoord;
+    float2 _step = float2(_130.stepSize, _130.stepSize);
+    float4 param = _130._inputImage_imgRect;
+    float2 param_1 = _130._inputImage_imgSize;
+    bool param_2 = _130._inputImage_flip != 0u;
+    float2 param_3 = uv + (float2(-_step.x, -_step.y) * 1.5);
+    float3 texA = VVSAMPLER_2DBYNORM(inputImage, inputImageSmplr, param, param_1, param_2, param_3).xyz;
+    float4 param_4 = _130._inputImage_imgRect;
+    float2 param_5 = _130._inputImage_imgSize;
+    bool param_6 = _130._inputImage_flip != 0u;
+    float2 param_7 = uv + (float2(_step.x, -_step.y) * 1.5);
+    float3 texB = VVSAMPLER_2DBYNORM(inputImage, inputImageSmplr, param_4, param_5, param_6, param_7).xyz;
+    float4 param_8 = _130._inputImage_imgRect;
+    float2 param_9 = _130._inputImage_imgSize;
+    bool param_10 = _130._inputImage_flip != 0u;
+    float2 param_11 = uv + (float2(-_step.x, _step.y) * 1.5);
+    float3 texC = VVSAMPLER_2DBYNORM(inputImage, inputImageSmplr, param_8, param_9, param_10, param_11).xyz;
+    float4 param_12 = _130._inputImage_imgRect;
+    float2 param_13 = _130._inputImage_imgSize;
+    bool param_14 = _130._inputImage_flip != 0u;
+    float2 param_15 = uv + (float2(_step.x, _step.y) * 1.5);
+    float3 texD = VVSAMPLER_2DBYNORM(inputImage, inputImageSmplr, param_12, param_13, param_14, param_15).xyz;
+    float3 around = (((texA + texB) + texC) + texD) * 0.25;
+    float4 param_16 = _130._inputImage_imgRect;
+    float2 param_17 = _130._inputImage_imgSize;
+    bool param_18 = _130._inputImage_flip != 0u;
+    float2 param_19 = uv;
+    float3 center = VVSAMPLER_2DBYNORM(inputImage, inputImageSmplr, param_16, param_17, param_18, param_19).xyz;
+    float sharpness = _130.sharpenAmount;
+    float3 col = center + ((center - around) * sharpness);
+    float4 param_20 = _130._inputImage_imgRect;
+    float2 param_21 = _130._inputImage_imgSize;
+    bool param_22 = _130._inputImage_flip != 0u;
+    float2 param_23 = uv;
+    float alpha = VVSAMPLER_2DBYNORM(inputImage, inputImageSmplr, param_20, param_21, param_22, param_23).w;
+    out.isf_FragColor = float4(col, alpha);
+    return out;
+}
