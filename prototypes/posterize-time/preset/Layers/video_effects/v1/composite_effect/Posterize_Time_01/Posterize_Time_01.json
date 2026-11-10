@@ -1,0 +1,8 @@
+{
+  "effects": [
+    {
+      "effectName": "posterize_time",
+      "effectType": "isf"
+    }
+  ]
+}

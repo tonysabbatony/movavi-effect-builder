@@ -112,6 +112,9 @@
     $('#importLayerBtn').disabled = !state.activePresetName;
     $('#addSharpenBtn').disabled = !state.activePresetName;
     $('#neutralAtZeroBtn').disabled = !state.activePresetName;
+    $('#newPresetBtn').disabled = !state.manifest;
+    $('#effectCatalog').disabled = !state.activePresetName;
+    $('#addEffectBtn').disabled = !state.activePresetName || !$('#effectCatalog').value;
     updateVideoExportUI();
   }
 
@@ -156,6 +159,113 @@
     return JSON.parse(text);
   }
 
+  function storeJson(path,value) {
+    state.files.set(path,{file:new File([JSON.stringify(value,null,4)+'\n'],path.split('/').pop(),{type:'application/json'}),handle:null});
+    markDirty(path);
+  }
+
+  function editDialog(title,fields,submit) {
+    const dialog=document.createElement('dialog');dialog.className='builder-dialog';
+    const heading=document.createElement('h2');heading.textContent=title;
+    const form=document.createElement('form'),error=document.createElement('p');error.className='form-error';error.setAttribute('role','alert');
+    for(const field of fields){const label=document.createElement('label');label.textContent=field.label;const input=document.createElement('input');input.name=field.name;input.value=field.value;input.required=true;input.maxLength=field.name==='name'?100:80;label.append(input);form.append(label);}
+    const actions=document.createElement('div');actions.className='dialog-actions';const cancel=document.createElement('button');cancel.type='button';cancel.className='btn';cancel.textContent='Отмена';cancel.onclick=()=>dialog.close();const ok=document.createElement('button');ok.className='btn primary';ok.textContent='Создать';actions.append(cancel,ok);form.append(error,actions);dialog.append(heading,form);document.body.append(dialog);
+    dialog.addEventListener('close',()=>dialog.remove(),{once:true});
+    form.onsubmit=async e=>{e.preventDefault();ok.disabled=true;try{await submit(Object.fromEntries(new FormData(form)));dialog.close();}catch(e){error.textContent=e.message;}finally{ok.disabled=false;}};
+    dialog.showModal();form.querySelector('input')?.focus();
+  }
+
+  function ensureCollectionManifest() {
+    if(state.manifest)return;
+    const ids=[...state.presets.keys()];if(!ids.length)return;
+    state.manifest=EffectCatalog.manifest('custom','Custom_Preset_01');
+    state.manifest.items=ids.map((uid,i)=>EffectCatalog.manifestItem(uid,'custom',i+1));
+    state.manifestPath='all_in_one.json';storeJson(state.manifestPath,state.manifest);
+  }
+
+  function newCollection() {
+    editDialog('Новая сборка',[
+      {name:'name',label:'Название сборки',value:'Моя сборка'},
+      {name:'group',label:'ID группы · латиница, цифры, _',value:'custom'},
+      {name:'uid',label:'Имя первого пресета · сохраняется при экспорте',value:'Custom_Preset_01'}
+    ],async data=>{
+      if(!data.name.trim())throw Error('Укажите название сборки.');
+      const manifest=EffectCatalog.manifest(data.group,data.uid);
+      if(state.dirtyPaths.size&&!confirm('В текущей сборке есть изменения. Создать новую сборку без их экспорта?'))return;
+      state.rootHandle=null;state.files=new Map();state.dirtyPaths.clear();state.workspaceName=data.name.trim();
+      storeJson(data.group+'/all_in_one.json',manifest);
+      storeJson(`${data.group}/Layers/video_effects/v1/composite_effect/${data.uid}/${data.uid}.json`,{effects:[]});
+      ui.workspaceName.textContent=state.workspaceName;ui.writeStatus.textContent='Новая сборка · экспорт ZIP';ui.writeStatus.className='badge ok';
+      await discoverWorkspace();for(const path of state.files.keys())markDirty(path);updateDirtyUI();
+      setStatus('Сборка создана. Выберите эффект из каталога или добавьте ещё один пресет.');
+    });
+  }
+
+  function newPreset() {
+    if(!state.manifest)return;
+    const next=EffectCatalog.unique('Custom_Preset_01',state.manifest.items.map(item=>item.uid));
+    editDialog('Новый пресет',[{name:'uid',label:'Имя пресета · латиница, цифры, _',value:next}],async data=>{
+      const uid=EffectCatalog.identifier(data.uid);
+      if(state.manifest.items.some(item=>item.uid.toLowerCase()===uid.toLowerCase()))throw Error('Пресет с таким именем уже существует.');
+      const group=state.manifest.items.find(item=>item.uid===state.activePresetName)?.group_id || state.manifest.groups[0]?.group_id;
+      if(!group)throw Error('В сборке отсутствует группа.');
+      const prefix=state.manifestPath.slice(0,state.manifestPath.lastIndexOf('/')+1),rootPath=`${prefix}Layers/video_effects/v1/composite_effect/${uid}`,recipePath=`${rootPath}/${uid}.json`,recipe={effects:[]};
+      if(state.files.has(recipePath))throw Error('Файл такого пресета уже существует.');
+      const priority=Math.max(0,...state.manifest.items.map(item=>Number(item.priority)||0))+1;
+      state.manifest.items.push(EffectCatalog.manifestItem(uid,group,priority));storeJson(recipePath,recipe);markDirty(state.manifestPath);
+      state.presets.set(uid,{name:uid,rootPath,recipePath,recipe,originalRecipe:deepClone(recipe),resources:new Map()});
+      ui.presetSelect.add(new Option(presetLabel(uid),uid));activatePreset(uid);setStatus(`Создан ${uid}.`);
+    });
+  }
+
+  async function openZip(file) {
+    if(!file)return;
+    try {
+      const entries=await MobilePackage.unzip(file);
+      if(!entries.some(e=>/(^|\/)all_in_one\.json$/i.test(e.name)))throw Error('Выберите ZIP мобильной сборки с all_in_one.json и Layers.zip.');
+      const root=file.name.replace(/\.zip$/i,'');const files=entries.map(entry=>{
+        const f=new File([entry.bytes],entry.name.split('/').pop());Object.defineProperty(f,'webkitRelativePath',{value:root+'/'+entry.name});return f;
+      });await openFallback(files);
+    }catch(e){setStatus('Открытие ZIP: '+e.message);alert(e.message);}
+  }
+
+  async function overlayAssetName(preset,file) {
+    safeName(file.name);if(file.name.startsWith('.')||!/^.+\.(mp4|mov)$/i.test(file.name))throw Error('Оверлей должен быть видео .mp4 или .mov.');
+    const base=file.name.replace(/\.[^.]+$/,''),ext=file.name.slice(base.length),prefix=preset.rootPath+'/resources/';
+    const videos=[...state.files.keys()].filter(p=>p.startsWith(prefix)&&/\.(mp4|mov)$/i.test(p));
+    const existing=videos.find(p=>p.slice(prefix.length).replace(/\.[^.]+$/,'').toLowerCase()===base.toLowerCase());
+    if(existing){const a=new Uint8Array(await state.files.get(existing).file.arrayBuffer()),b=new Uint8Array(await file.arrayBuffer());if(a.length===b.length&&a.every((v,i)=>v===b[i]))return {path:existing,base:existing.slice(prefix.length).replace(/\.[^.]+$/,'')};}
+    const chosen=EffectCatalog.unique(base,videos.map(p=>p.slice(prefix.length).replace(/\.[^.]+$/,'')));
+    return {path:prefix+chosen+ext,base:chosen};
+  }
+
+  async function addCatalogEffect(id,file=null,preset=activePreset()) {
+    if(!preset)return;
+    const item=EffectCatalog.items.find(x=>x.id===id);if(!item)return;
+    if(item.asset&&!file){const input=$('#catalogAssetInput');input.accept=item.asset==='lut'?'.cube':'.mp4,.mov';input.onchange=()=>{const f=input.files[0];input.value='';if(f)addCatalogEffect(id,f,preset).catch(e=>{setStatus(e.message);alert(e.message);});};input.click();return;}
+    const refs={};const extra=[];
+    if(id==='posterize'){
+      const response=await fetch('shaders/PosterizeTime/PosterizeTime.json');if(!response.ok)throw Error('Нет шаблона Posterize Time.');refs.posterize=await response.json();
+      for(const name of ['PosterizeTime.ps','PosterizeTime.vs']){const r=await fetch('shaders/PosterizeTime/'+name);if(!r.ok)throw Error('Нет '+name);extra.push({name,file:new File([await r.blob()],name)});}
+    }
+    const config=EffectCatalog.config(id,refs);
+    if(activePreset()!==preset)throw Error('Пресет изменился. Повторите добавление.');
+    const prefix=preset.rootPath+'/resources/',occupied=[...preset.recipe.effects.map(e=>e.effectName),...[...state.files.keys()].filter(p=>p.startsWith(prefix)&&/\.json$/i.test(p)).map(p=>p.split('/').pop().slice(0,-5))];
+    const name=EffectCatalog.unique(item.name,occupied),effect={effectName:name,effectType:item.type},key=keyForEffect(effect),path=prefix+name+'.json';
+    let lut=null;
+    if(item.asset==='lut'){if(!/\.cube$/i.test(file.name))throw Error('Выберите LUT .cube.');lut=parseCube(await file.text());config.templateID=name;extra.push({name:name+'.cube',file});}
+    if(item.asset==='overlay'){const asset=await overlayAssetName(preset,file);config.filename=asset.base;if(!state.files.has(asset.path))extra.push({name:asset.path.slice(prefix.length),file});}
+    if(id==='sharpen')for(const name of ['Sharpen.ps','Sharpen.vs'])extra.push({name,file:new File([SharpenAssets.sources[name]],name)});
+    // Verify all collisions before changing the recipe or resource map.
+    for(const source of extra){const collision=[...state.files.keys()].find(p=>p.toLowerCase()===(prefix+source.name).toLowerCase());if(collision){const a=new Uint8Array(await state.files.get(collision).file.arrayBuffer()),b=new Uint8Array(await source.file.arrayBuffer());if(a.length!==b.length||a.some((v,i)=>v!==b[i]))throw Error('Ресурс уже занят другим файлом: '+source.name);}}
+    validateConfig(config,item.type);
+    for(const source of extra)if(!state.files.has(prefix+source.name))putNewFile(prefix+source.name,source.file);
+    storeJson(path,config);preset.resources.set(key,{path,config,original:deepClone(config)});preset.recipe.effects.push(effect);markDirty(preset.recipePath);syncManifest();
+    if(lut){state.lutCache.set(prefix+name+'.cube',lut);state.lutAssignments.set(path,{path:prefix+name+'.cube',fileName:file.name,lut});}
+    state.enabled.set(key,true);state.selectedEffectKey=key;state.soloKey=null;PosterizeTime.reset();renderStack();renderParameterEditor();refreshNoiseVideo();scheduleRender();updateDirtyUI();
+    setStatus(`${item.label} добавлен как ${name}. Файлы будут собраны в resources этого пресета.`);
+  }
+
   async function discoverWorkspace() {
     if(await MobilePackage.expandLayers(state.files)) {
       state.rootHandle=null;
@@ -177,9 +287,10 @@
     ui.manifestStatus.className = `badge ${manifestPath ? 'ok' : 'muted'}`;
 
     const matches = [];
+    const manifestIds=new Set((state.manifest?.items||[]).filter(item=>item.effect_type==='composite_effect').map(item=>item.uid));
     for (const path of paths) {
-      const m = path.match(/(^|\/)(Glow_Preset_\d+)\/\2\.json$/i);
-      if (m) matches.push({ name: m[2], recipePath: path });
+      const m = path.match(/(^|\/)([^/]+)\/\2\.json$/i);
+      if (m && (/^Glow_Preset_\d+$/i.test(m[2]) || /(^|\/)composite_effect\//.test(path) || manifestIds.has(m[2]))) matches.push({ name: m[2], recipePath: path });
     }
     matches.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 
@@ -220,8 +331,9 @@
     }
 
     if (!state.presets.size) {
-      throw new Error('Glow_Preset_XX не найдены. Выбери папку, внутри которой лежит Layers/video_effects/.../composite_effect.');
+      throw new Error('Пресеты не найдены. Выбери папку, внутри которой лежит Layers/video_effects/.../composite_effect.');
     }
+    ensureCollectionManifest();
 
     ui.presetSelect.innerHTML = '';
     for (const name of state.presets.keys()) {
@@ -251,7 +363,7 @@
       ui.writeStatus.textContent = 'read / write';
       ui.writeStatus.className = 'badge ok';
       await discoverWorkspace();
-      setStatus(`Загружено ${state.presets.size} Glow-пресетов.${state.migratedBloomCount?' Старый Bloom заменён на New Bloom; сохраните изменения в JSON или ZIP.':''}`);
+      setStatus(`Загружено ${state.presets.size} пресетов.${state.migratedBloomCount?' Старый Bloom заменён на New Bloom; сохраните изменения в JSON или ZIP.':''}`);
       updateDirtyUI();
     } catch (err) {
       if (err?.name === 'AbortError') return;
@@ -273,7 +385,7 @@
       ui.writeStatus.className = 'badge warn';
       setStatus('Читаю Glow-сборку…');
       await discoverWorkspace();
-      setStatus(`Загружено ${state.presets.size} Glow-пресетов.${state.migratedBloomCount?' Старый Bloom заменён на New Bloom.':''} Для сохранения используйте экспорт ZIP.`);
+      setStatus(`Загружено ${state.presets.size} пресетов.${state.migratedBloomCount?' Старый Bloom заменён на New Bloom.':''} Для сохранения используйте экспорт ZIP.`);
       updateDirtyUI();
     } catch (err) {
       console.error(err);
@@ -379,9 +491,10 @@
       chromaticAberration: 'Chromatic Aberration',
       adjust: 'My Adjust',
       lut: 'LUT',
-      overlay: 'Noise Overlay'
+      overlay: 'Video Overlay',vhsDistortion:'VHS Distortion',softBlur:'Soft Blur',noiseLeeCranston:'Noise Lee Cranston',colorDuotone:'Color Duotone',falseColor:'False Color'
     };
     if(BloomContract.isSupported(activePreset()?.resources.get(keyForEffect(effect))?.config))return 'New Bloom';
+    if(PosterizeTime.isSupported(activePreset()?.resources.get(keyForEffect(effect))?.config))return 'Posterize Time';
     if(effect.effectType==='isf' && SharpenRender.isSupported(activePreset()?.resources.get(keyForEffect(effect))?.config))return 'Sharpen';
     return names[effect.effectType] || effect.effectName;
   }
@@ -455,6 +568,13 @@
     ui.parameterEditor.innerHTML = '';
 
     const cfg = res.config;
+    if(PosterizeTime.isSupported(cfg)) {
+      const note=document.createElement('p');note.className='asset-control';
+      note.textContent='Прототип Posterize Time. Общая сила: 0% → 5 кадров/с; 25% → 10; 50% → 15; 75% → 20; 100% → исходные кадры. Скорость и длительность видео сохраняются. Для телефона разработчику нужно добавить новый шейдер в приложение.';
+      const rate=document.createElement('output');rate.id='posterizeRate';
+      const value=PosterizeTime.targetFps(PosterizeTime.resolve(cfg,state.userIntensity));rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
+      ui.parameterEditor.append(note,rate);refreshWarningsOnly();return;
+    }
     if(BloomContract.isSupported(cfg)) {
       appendBloomControls(res);refreshWarningsOnly();return;
     }
@@ -712,8 +832,10 @@
 
   function collectWarnings(cfg) {
     const out = selectedEffect() ? configIssues(selectedEffect(), cfg) : [];
-    if(selectedEffect()?.effectType==='isf' && !SharpenRender.isSupported(cfg) && !BloomContract.isSupported(cfg))out.push('ISF-код берётся из ISF_METAL внутри приложения. Preview этого ISF не реализован.');
-    else if(selectedEffect() && !['overlay','lut','bloom','bloomRework','isf','chromaticAberration','adjust'].includes(selectedEffect().effectType))out.push('Этот тип будет сохранён для Movavi. В браузере его preview пока не реализован.');
+    if(selectedEffect()?.effectType==='isf' && !SharpenRender.isSupported(cfg) && !BloomContract.isSupported(cfg) && !PosterizeTime.isSupported(cfg))out.push('ISF-код берётся из ISF_METAL внутри приложения. Preview этого ISF не реализован.');
+    if(PosterizeTime.isSupported(cfg))out.push('Posterize Time: новый шейдер. Перед использованием на телефоне разработчику нужно добавить .ps/.vs в ISF_METAL и проверить перемотку.');
+    if(['vhsDistortion','softBlur','noiseLeeCranston'].includes(selectedEffect()?.effectType))out.push('Предпросмотр этого эффекта приблизительный. При экспорте сохраняются штатный мобильный effectType и его параметры.');
+    else if(selectedEffect() && !['overlay','lut','bloom','bloomRework','isf','chromaticAberration','adjust'].includes(selectedEffect().effectType) && !ExtraEffects.supports(selectedEffect().effectType))out.push('Этот тип будет сохранён для Movavi. В браузере его preview пока не реализован.');
     if (selectedEffect()?.effectType==='bloom' && cfg.threshold && cfg.radius && cfg.intensity) {
       const diagnostic = MovaviRender.bloomDiagnostics(MovaviRender.resolve(cfg, state.userIntensity));
       out.push(...diagnostic.errors, ...diagnostic.notes);
@@ -936,6 +1058,7 @@
 
   async function loadMedia(file) {
     if (!file) return;
+    PosterizeTime.reset();
     const version=++state.mediaLoadVersion;
     state.mediaLoadAbort?.abort();
     const controller=new AbortController();state.mediaLoadAbort=controller;
@@ -1105,8 +1228,15 @@
       try {
         if (effect.effectType === 'adjust') { applyAdjust(input, output, resolvedConfig); handled = true; }
         else if (effect.effectType === 'chromaticAberration') { applyAberration(input, output, resolvedConfig); handled = true; }
+        else if (ExtraEffects.supports(effect.effectType)) {ExtraEffects.render(input,output,effect.effectType,resolvedConfig,state.sourceKind==='video'?ui.sourceVideo.currentTime:0);handled=true;}
         else if (BloomContract.isSupported(res.config)) { const bloom=BloomContract.preview(res.config,state.userIntensity);BloomRework.render(input,output,bloom,{knee:bloom.knee.actualValue,scatter:bloom.scatter.actualValue,opacity:bloom.opacity.actualValue});handled=true; }
         else if (effect.effectType === 'isf' && SharpenRender.isSupported(res.config)) {SharpenRender.render(input,output,res.config,state.userIntensity);handled=true;}
+        else if (effect.effectType === 'isf' && PosterizeTime.isSupported(res.config)) {
+          if(state.sourceKind!=='video')PosterizeTime.reset();
+          PosterizeTime.render(input,output,res.config,state.userIntensity,{time:state.sourceKind==='video'?ui.sourceVideo.currentTime:0,token:state.activeMediaId});handled=true;
+          const rate=$('#posterizeRate'),value=PosterizeTime.targetFps(PosterizeTime.resolve(res.config,state.userIntensity));
+          if(rate)rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
+        }
         else if (effect.effectType === 'overlay') { applyOverlay(input, output, resolvedConfig, mediaRect, key); handled = true; }
         else if (effect.effectType === 'lut') {
           const lut = await getLutForEffect(preset, effect);
@@ -1380,16 +1510,24 @@
         for(const resource of preset.resources.values())jsonSnapshot.set(resource.path,JSON.stringify(productionResourceConfig(preset,resource),null,4)+'\n');
       }
       const files=[...state.files].map(([path,rec])=>[path,rec.file]);
-      for(const preset of presets)if(!preset.rootPath.slice(prefix.length).startsWith('Layers/'))throw Error('Для мобильного ZIP нужна исходная структура Layers/video_effects/… рядом с all_in_one.json.');
       setStatus(`Собираю группу: ${presets.length} пресетов и все ресурсы…`);
+      const exportedNames=new Set();
       for(const [path,file] of files) {
         if(!path.startsWith(prefix))continue;
-        const rel=path.slice(prefix.length);
+        let rel=path.slice(prefix.length);
         if(rel.split('/').some(n=>n.startsWith('.'))||rel.startsWith('__MACOSX/'))continue;
-        if(selectedPresets ? !presets.some(p=>path.startsWith(p.rootPath+'/')) : !rel.startsWith('Layers/'))continue;
+        const owner=presets.find(p=>path.startsWith(p.rootPath+'/'));
+        if(selectedPresets ? !owner : !owner&&!rel.startsWith('Layers/'))continue;
+        if(owner&&!rel.startsWith('Layers/')){
+          const item=manifest.items.find(item=>item.uid===owner.name);
+          rel=`Layers/video_effects/${item.version||'v1'}/composite_effect/${owner.name}/`+path.slice(owner.rootPath.length+1);
+        }
+        if(exportedNames.has(rel.toLowerCase()))throw Error('Повтор пути при экспорте: '+rel);
+        exportedNames.add(rel.toLowerCase());
         entries.push({name:rel,bytes:jsonSnapshot.has(path)?new TextEncoder().encode(jsonSnapshot.get(path)):new Uint8Array(await file.arrayBuffer())});
       }
-      const blob=await MobilePackage.build(manifest,entries,buildZip),name=selectedPresets?`${presets[0].name}_edited.zip`:'Glow_Collection_edited.zip';
+      const collectionName=state.workspaceName.replace(/[^\p{L}\p{N}_-]+/gu,'_')||'Collection';
+      const blob=await MobilePackage.build(manifest,entries,buildZip),name=selectedPresets?`${presets[0].name}_edited.zip`:`${collectionName}_edited.zip`;
       if(state.exportDirectory) {
         const handle=await state.exportDirectory.getFileHandle(name,{create:true});
         const stream=await handle.createWritable();await stream.write(blob);await stream.close();
@@ -1419,6 +1557,22 @@
       await openFallback(files);
       setStatus('Рабочая подборка Dreamy ×10 открыта. Меняйте параметры и экспортируйте всю группу ZIP.');
     }catch(err){setStatus(err.message);}finally{button.disabled=false;}
+  }
+
+  async function openPosterizeCollection() {
+    const button=$('#openPosterizeBtn');button.disabled=true;
+    try {
+      const paths=['all_in_one.json','Layers/video_effects/v1/composite_effect/Posterize_Time_01/Posterize_Time_01.json',...['posterize_time.json','PosterizeTime.ps','PosterizeTime.vs'].map(name=>'Layers/video_effects/v1/composite_effect/Posterize_Time_01/resources/'+name)];
+      const files=await Promise.all(paths.map(async path=>{
+        const response=await fetch('prototypes/posterize-time/preset/'+path);if(!response.ok)throw Error(`Не удалось открыть ${path}`);
+        const file=new File([await response.blob()],path.split('/').pop());Object.defineProperty(file,'webkitRelativePath',{value:'Posterize_Time_Prototype/'+path});return file;
+      }));
+      PosterizeTime.reset();await openFallback(files);
+      if(!state.presets.has('Posterize_Time_01'))throw Error('Не удалось открыть тестовый пресет Posterize Time.');
+      const demo=await fetch('test-assets/Posterize_Time_motion.mp4');
+      if(demo.ok)await addMediaFiles([new File([await demo.blob()],'Posterize_Time_motion.mp4',{type:'video/mp4'})]);
+      setStatus('Posterize Time: добавьте видео и уменьшите общую силу до 0% для 5 кадров/с.');
+    }catch(error){setStatus(error.message);}finally{button.disabled=false;}
   }
 
   function appendSharpenControls(res) {
@@ -1513,6 +1667,7 @@
     const result=[];
     try {validateConfig(cfg,effect.effectType);}catch(e){result.push(e.message);return result;}
     if(BloomContract.isSupported(cfg))return BloomContract.issues(cfg);
+    if(globalThis.PosterizeTime?.isSupported(cfg))return PosterizeTime.configIssues(cfg);
     if(effect.effectType==='isf' && SharpenRender.isSupported(cfg))return SharpenRender.configIssues(cfg);
     const params=typeof cfg.actualValue==='number'?[['intensity',cfg]]:parameterObjects(cfg);
     for(const [name,obj] of params) {
@@ -1533,7 +1688,7 @@
       issues.push(...configIssues(effect,res.config).map(s=>`${effect.effectName}: ${s}`));
       if(effect.effectType==='overlay' && /[\\/]|\.(mp4|mov)$/i.test(res.config.filename))issues.push(`${effect.effectName}: filename должен быть именем без пути и расширения, как в Movavi. Выберите файл оверлея заново.`);
       if(effect.effectType==='overlay' && !overlayPath(preset,res.config))issues.push(`${effect.effectName}: отсутствует видео оверлея`);
-      if(effect.effectType==='lut' && !findLutBinding(preset,effect))issues.push(`${effect.effectName}: отсутствует .cube`);
+      if(effect.effectType==='lut' && ![...state.files.keys()].some(path=>path.toLowerCase()===`${preset.rootPath}/resources/${effect.effectName}.cube`.toLowerCase()))issues.push(`${effect.effectName}: нужен resources/${effect.effectName}.cube для мобильного загрузчика. Выберите LUT заново.`);
       if(effect.effectType==='isf' && SharpenRender.isSupported(res.config)) {
         for(const name of ['Sharpen.ps','Sharpen.vs'])if(!state.files.has(`${preset.rootPath}/resources/${name}`))issues.push(`${effect.effectName}: отсутствует ${name} в resources. Добавьте проверенный Sharpen кнопкой «+ Sharpen».`);
         if(res.config.shaderPath!=='v1/Sharpen/Sharpen')issues.push(`${effect.effectName}: для этой сборки shaderPath должен быть v1/Sharpen/Sharpen.`);
@@ -1591,6 +1746,7 @@
     const box=document.createElement('div'); box.className='asset-control';
     const button=document.createElement('button');button.className='btn small';button.textContent=effect.effectType==='overlay'?'Выбрать файл оверлея…':'Выбрать LUT .cube…';
     const input=document.createElement('input');input.type='file';input.hidden=true;input.accept=effect.effectType==='overlay'?'.mp4,.mov':'.cube';
+    input.id='layerAssetInput';
     const status=document.createElement('div');status.id='assetStatus';status.className='asset-status';
     box.append(button,input,status);ui.parameterEditor.append(box);
     if(effect.effectType==='overlay'){
@@ -1603,16 +1759,14 @@
         const preset=activePreset();let name=safeName(file.name);
         if(effect.effectType==='overlay') {
           if(!/\.(mp4|mov)$/i.test(name))throw new Error('Movavi подключает оверлеи MP4/MOV.');
-          const base=name.replace(/\.[^.]+$/,'');
-          if([...state.files.keys()].some(p=>p.startsWith(preset.rootPath+'/resources/') && p.split('/').pop().replace(/\.[^.]+$/,'')===base && /\.(mp4|mov)$/i.test(p))) throw new Error('Оверлей с таким именем уже есть. Чтобы не заменить ресурс другого слоя, переименуйте новый файл.');
-          putNewFile(`${preset.rootPath}/resources/${name}`,file);res.config.filename=base;
+          const asset=await overlayAssetName(preset,file);
+          if(!state.files.has(asset.path))putNewFile(asset.path,file);res.config.filename=asset.base;
         } else {
           if(!/\.cube$/i.test(name))throw new Error('Выберите .cube');
           const lut=parseCube(await file.text());
-          const current=findLutBinding(preset,effect);
           name=safeName(effect.effectName)+'.cube';
           const desiredPath=`${preset.rootPath}/resources/${name}`;
-          const path=current?.path || [...state.files.keys()].find(p=>p.toLowerCase()===desiredPath.toLowerCase()) || desiredPath;
+          const path=[...state.files.keys()].find(p=>p.toLowerCase()===desiredPath.toLowerCase()) || desiredPath;
           // Bind selected bytes and parsed LUT directly to this layer instead of
           // rediscovering the asset by filename after the file picker closes.
           const old=state.files.get(path);
@@ -1711,6 +1865,8 @@
   $$('.compare-tab').forEach(btn => btn.addEventListener('click', () => { state.compareMode=btn.dataset.mode; applyCompareMode(); }));
   window.addEventListener('resize', scheduleRender);
   ui.sourceVideo.addEventListener('ended',()=>{state.isPlaying=false;ui.playPauseBtn.textContent='Play';});
+  ui.sourceVideo.addEventListener('seeking',()=>PosterizeTime.reset());
+  $('#openPosterizeBtn').addEventListener('click',openPosterizeCollection);
 
   $('#masterIntensity').addEventListener('input', e => {
     state.userIntensity = Number(e.target.value) / 100;
@@ -1720,6 +1876,13 @@
   VideoExport.install({
     button: $('#exportVideoBtn'), video: ui.sourceVideo,
     before: ui.beforeCanvas, after: ui.afterCanvas, setStatus,
+    presets:()=>[...state.presets.keys()].map(id=>({id})),
+    collectionName:()=>state.workspaceName,
+    buildZip,
+    selectPreset(name){
+      if(!state.presets.has(name))throw Error('Пресет больше не существует: '+name);
+      activatePreset(name);PosterizeTime.reset();
+    },
     details: () => ({
       preset: state.activePresetName, label: presetLabel(state.activePresetName || ''),
       source: state.mediaLibrary.find(entry=>entry.id===state.activeMediaId)?.file.name || 'Video',
@@ -1728,7 +1891,8 @@
         [...(activePreset()?.recipe.effects || [])].some(e=>!state.enabled.get(keyForEffect(e))) ? 'Some layers disabled' : ''
     }),
     async begin(beforeOnly) {
-      const snapshot={playing:state.isPlaying,overlays:[...state.overlays.values()].filter(e=>e.video).map(e=>({video:e.video,time:e.video.currentTime,rate:e.video.playbackRate}))};
+      const snapshot={playing:state.isPlaying,preset:state.activePresetName,enabled:new Map(state.enabled),solo:state.soloKey,selected:state.selectedEffectKey,overlays:[...state.overlays].filter(([key,e])=>e.video).map(([key,e])=>({key,video:e.video,time:e.video.currentTime,rate:e.video.playbackRate})),inert:[...document.querySelectorAll('.toolbar,.stack-panel,.parameters-panel,.master-control,.preset-row,.media-library,.preview-toolbar')].map(element=>({element,value:element.inert}))};
+      for(const entry of snapshot.inert)entry.element.inert=true;
       state.videoExporting=true;state.isPlaying=false;state.renderAgain=false;
       cancelAnimationFrame(state.videoLoopId);ui.sourceVideo.pause();
       for(const entry of snapshot.overlays)entry.video.pause();
@@ -1776,10 +1940,15 @@
       await Promise.all(videos);
     },
     async end(snapshot) {
+      if(!snapshot)return;
+      if(state.activePresetName!==snapshot.preset)activatePreset(snapshot.preset);
+      state.enabled=new Map(snapshot.enabled);state.soloKey=snapshot.solo;state.selectedEffectKey=snapshot.selected;
       for(const entry of snapshot?.overlays || []) {
-        entry.video.pause();entry.video.playbackRate=entry.rate;
-        if(Number.isFinite(entry.time))entry.video.currentTime=entry.time;
+        const video=state.overlays.get(entry.key)?.video;if(!video)continue;
+        video.pause();video.playbackRate=entry.rate;
+        try{await VideoExport.ready(video,new AbortController().signal);if(Number.isFinite(entry.time))video.currentTime=entry.time;}catch{}
       }
+      for(const entry of snapshot.inert)entry.element.inert=entry.value;
       state.videoExporting=false;
       state.isPlaying=!!snapshot?.playing;
       ui.playPauseBtn.textContent=state.isPlaying?'Pause':'Play';
@@ -1787,11 +1956,23 @@
         try{await ui.sourceVideo.play();for(const entry of state.overlays.values())entry.video?.play().catch(()=>{});startVideoLoop();}
         catch{state.isPlaying=false;ui.playPauseBtn.textContent='Play';}
       }
-      scheduleRender();
+      renderStack();renderParameterEditor();scheduleRender();
     }
   });
   applyCompareMode();
   updateDirtyUI();
-  if(location.protocol!=='file:' && !new URLSearchParams(location.search).has('empty'))openBundledCollection();
-  if(location.protocol==='file:')setStatus('Откройте папку своей сборки. Новая подборка находится в workspace/Dreamy_rework рядом с index.html.');
+  for(const item of EffectCatalog.items)$('#effectCatalog').add(new Option(item.label,item.id));
+  $('#newCollectionBtn').onclick=newCollection;$('#newPresetBtn').onclick=newPreset;
+  $('#openZipBtn').onclick=()=>$('#openZipInput').click();
+  $('#openZipInput').onchange=e=>{const file=e.target.files[0];e.target.value='';openZip(file);};
+  $('#effectCatalog').onchange=()=>{const item=EffectCatalog.items.find(x=>x.id===$('#effectCatalog').value);$('#catalogHint').textContent=item?.integration?'Новый эффект: потребуется интеграция в мобильное приложение.':item?.asset?'Выберите файл с компьютера. Он будет включён в ZIP пресета.':item?.approximate?'Штатный эффект приложения. Предпросмотр приблизительный.':'Выберите эффект и добавьте его в стек.';updateDirtyUI();};
+  $('#addEffectBtn').onclick=()=>addCatalogEffect($('#effectCatalog').value).catch(e=>{setStatus(e.message);alert(e.message);});
+  const currentBuild=document.documentElement.dataset.build;
+  let remoteBuild;
+  if(currentBuild){
+    const checkUpdate=async()=>{try{const response=await fetch('version.json?check='+Math.floor(Date.now()/60000),{cache:'no-store'});if(response.ok){const info=await response.json();if(info.build&&info.build!==currentBuild){remoteBuild=info.build;$('#updateNotice').hidden=false;}}}catch{}};
+    checkUpdate();setInterval(checkUpdate,60000);
+  }
+  $('#reloadAppBtn').onclick=()=>{if(state.dirtyPaths.size&&!confirm('Несохранённые изменения будут потеряны. Экспортируйте ZIP перед обновлением. Всё равно обновить?'))return;const url=new URL(location.href);url.searchParams.set('build',remoteBuild||Date.now());location.href=url.href;};
+  if(location.protocol==='file:')setStatus('Запустите START_MAC.command / START_WINDOWS.bat для загрузки встроенных шаблонов.');
 })();

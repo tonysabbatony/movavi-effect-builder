@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "cover_version": "v1",
+      "group_priority": 0,
+      "plug_colors": [
+        "172033",
+        "63DDC3",
+        "E9F2FA"
+      ],
+      "group_id": "temporal"
+    }
+  ],
+  "items": [
+    {
+      "is_premium": false,
+      "uid": "Posterize_Time_01",
+      "group_id": "temporal",
+      "resources": [
+        "posterize_time.json",
+        "PosterizeTime.ps",
+        "PosterizeTime.vs"
+      ],
+      "lut": "",
+      "version": "v1",
+      "effect_type": "composite_effect",
+      "priority": 1,
+      "is_rewardable": false,
+      "overlays": []
+    }
+  ]
+}

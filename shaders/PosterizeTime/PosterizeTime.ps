@@ -1,0 +1,45 @@
+#include <metal_stdlib>
+#include <simd/simd.h>
+using namespace metal;
+struct VVISF_UNIFORMS {
+    int PASSINDEX; float TIME; float2 RENDERSIZE; float4 DATE;
+    float TIMEDELTA; int FRAMEINDEX; float2 PADDING_INFO;
+    float4 _inputImage_imgRect; float2 _inputImage_imgSize; uint _inputImage_flip; int _inputImage_padding;
+    float4 _HoldFrame_imgRect; float2 _HoldFrame_imgSize; uint _HoldFrame_flip; int _HoldFrame_padding;
+    float4 _HoldClock_imgRect; float2 _HoldClock_imgSize; uint _HoldClock_flip; int _HoldClock_padding;
+    float cadence;
+};
+struct VVPosterizeTimeFragFunc_in {
+    float2 isf_FragNormCoord [[user(locn0)]];
+    float4 position [[position]];
+};
+struct VVPosterizeTimeFragFunc_out { float4 color [[color(0)]]; };
+static float PT_rate(float c) { return 5.0+20.0*c+20.0*max(c-0.75,0.0); }
+static uint PT_unpack(float3 rgb) {
+    uint3 b=uint3(floor(rgb*255.0+0.5));return b.x|(b.y<<8)|(b.z<<16);
+}
+static float3 PT_pack(uint value) { return float3(value&255u,(value>>8)&255u,(value>>16)&255u)/255.0; }
+fragment VVPosterizeTimeFragFunc_out VVPosterizeTimeFragFunc(
+    VVPosterizeTimeFragFunc_in in [[stage_in]], constant VVISF_UNIFORMS& u [[buffer(0)]],
+    texture2d<float> inputImage [[texture(0)]],texture2d<float> HoldFrame [[texture(1)]],
+    texture2d<float> HoldClock [[texture(2)]],sampler imageSampler [[sampler(0)]]) {
+    VVPosterizeTimeFragFunc_out out;
+    float c=clamp(u.cadence,0.0,1.0);
+    uint tick=uint(floor(max(u.TIME,0.0)*PT_rate(c)+0.0001))%16777215u;
+    uint setting=uint(floor(c*65535.0+0.5));
+    if(u.PASSINDEX==0) {
+        float4 previous=HoldClock.read(uint2(0,0));
+        uint oldSetting=PT_unpack(HoldClock.read(uint2(1,0)).rgb);
+        bool capture=previous.a<0.5||PT_unpack(previous.rgb)!=tick||oldSetting!=setting||u.TIMEDELTA<0.0||c>=0.999999;
+        if(capture) {
+            float2 uv=in.isf_FragNormCoord;
+            if(u._inputImage_flip!=0u)uv.y=1.0-uv.y;
+            uv=u._inputImage_imgRect.xy+uv*u._inputImage_imgRect.zw;
+            out.color=inputImage.sample(imageSampler,uv);
+        } else out.color=HoldFrame.read(uint2(in.position.xy));
+    } else if(u.PASSINDEX==1) {
+        // Byte-packed metadata survives RGBA8/BGRA8; raw seconds would clamp.
+        out.color=float4(PT_pack(in.position.x<1.0?tick:setting),1.0);
+    } else out.color=HoldFrame.read(uint2(in.position.xy));
+    return out;
+}

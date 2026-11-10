@@ -32,20 +32,20 @@ try:
             url = urls[0]
             break
     assert url, lines
-    assert 'version=0.12' in url
+    assert 'version=0.13' in url
     assert 'Project: ' + str(project) in lines
     with urllib.request.urlopen(url) as response:
         html = response.read().decode()
         assert response.headers['Cache-Control'] == 'no-store, max-age=0'
-        assert '<title>Movavi Effect Builder v0.12</title>' in html
+        assert '<title>Movavi Effect Builder v0.13</title>' in html
         assert 'Preview calibration pending' not in html
-        assert 'ISF Bloom2 preview' in html
+        assert 'effectCatalog' in html
     base = url.split('/index.html')[0]
     for name in ['app.js', 'bloom-contract.js', 'mobile-package.js']:
         with urllib.request.urlopen(base + '/' + name) as response:
             assert response.read() == (project / name).read_bytes(), name
             assert response.headers['Cache-Control'] == 'no-store, max-age=0'
-    print('PASS actual launcher from unrelated cwd; v0.12 path/title; exact JS bytes; no-store headers')
+    print('PASS actual launcher from unrelated cwd; v0.13 path/title; exact JS bytes; no-store headers')
 finally:
     process.terminate()
     process.wait(timeout=5)

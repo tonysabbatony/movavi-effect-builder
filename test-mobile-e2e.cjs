@@ -59,7 +59,7 @@ const {chromium}=require('playwright');
     assert.equal(await page.locator('[data-parameter-name="threshold"] .param-number').inputValue(),'0.321');
     assert.deepEqual(errors,[]);
     await page.evaluate(()=>{const original=URL.createObjectURL.bind(URL);URL.createObjectURL=b=>{if(b.type==='application/zip')window.selectedExport=b;return original(b);};HTMLAnchorElement.prototype.click=function(){};});
-    await page.locator('#exportBtn').click();await page.waitForFunction(()=>window.selectedExport);
+    await page.locator('.toolbar-menu summary').click();await page.locator('#exportBtn').click();await page.waitForFunction(()=>window.selectedExport);
     const selected=await page.evaluate(async()=>{
       const outer=await MobilePackage.unzip(window.selectedExport),inner=await MobilePackage.unzip(new Blob([outer.find(e=>e.name==='Layers.zip').bytes]));
       return {manifest:JSON.parse(new TextDecoder().decode(outer.find(e=>e.name==='all_in_one.json').bytes)),paths:inner.map(e=>e.name)};

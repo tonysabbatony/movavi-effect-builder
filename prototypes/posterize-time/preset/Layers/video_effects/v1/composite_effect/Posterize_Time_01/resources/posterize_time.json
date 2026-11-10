@@ -1,0 +1,18 @@
+{
+  "shaderPath": "v1/PosterizeTime/PosterizeTime",
+  "intensityParamNames": ["cadence"],
+  "shaderConfig": {
+    "ISFVSN": "2",
+    "DESCRIPTION": "Posterize Time prototype. 0%=5 fps, 25%=10, 50%=15, 75%=20, 100%=source bypass. Sequential frames required; persistent history must be reset by the host after seeking or replacing media.",
+    "CATEGORIES": ["Temporal"],
+    "INPUTS": [
+      {"NAME":"inputImage","TYPE":"image"},
+      {"NAME":"cadence","TYPE":"float","DEFAULT":1,"MIN":0,"MAX":1}
+    ],
+    "PASSES": [
+      {"TARGET":"HoldFrame","PERSISTENT":true},
+      {"TARGET":"HoldClock","PERSISTENT":true,"WIDTH":"2.5/0.77","HEIGHT":"1.5/0.77"},
+      {}
+    ]
+  }
+}
