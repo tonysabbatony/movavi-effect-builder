@@ -24,6 +24,7 @@ jobs:
           node test-ranges.cjs
           node test-package-import.cjs
           node tests/test-isf-mobile.cjs
+          node tests/posterize-time/test-schedule.cjs
           python3 test-launcher.py
       - name: Build ZIP
         env:

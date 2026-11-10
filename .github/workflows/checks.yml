@@ -28,5 +28,6 @@ jobs:
           node test-ranges.cjs
           node test-package-import.cjs
           node tests/test-isf-mobile.cjs
+          node tests/posterize-time/test-schedule.cjs
       - name: Check actual launcher
         run: python3 test-launcher.py

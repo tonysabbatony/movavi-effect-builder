@@ -177,9 +177,10 @@
     ui.manifestStatus.className = `badge ${manifestPath ? 'ok' : 'muted'}`;
 
     const matches = [];
+    const manifestIds=new Set((state.manifest?.items||[]).filter(item=>item.effect_type==='composite_effect').map(item=>item.uid));
     for (const path of paths) {
-      const m = path.match(/(^|\/)(Glow_Preset_\d+)\/\2\.json$/i);
-      if (m) matches.push({ name: m[2], recipePath: path });
+      const m = path.match(/(^|\/)([^/]+)\/\2\.json$/i);
+      if (m && (/^Glow_Preset_\d+$/i.test(m[2]) || /(^|\/)composite_effect\//.test(path) || manifestIds.has(m[2]))) matches.push({ name: m[2], recipePath: path });
     }
     matches.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 
@@ -220,7 +221,7 @@
     }
 
     if (!state.presets.size) {
-      throw new Error('Glow_Preset_XX не найдены. Выбери папку, внутри которой лежит Layers/video_effects/.../composite_effect.');
+      throw new Error('Пресеты не найдены. Выбери папку, внутри которой лежит Layers/video_effects/.../composite_effect.');
     }
 
     ui.presetSelect.innerHTML = '';
@@ -382,6 +383,7 @@
       overlay: 'Noise Overlay'
     };
     if(BloomContract.isSupported(activePreset()?.resources.get(keyForEffect(effect))?.config))return 'New Bloom';
+    if(PosterizeTime.isSupported(activePreset()?.resources.get(keyForEffect(effect))?.config))return 'Posterize Time';
     if(effect.effectType==='isf' && SharpenRender.isSupported(activePreset()?.resources.get(keyForEffect(effect))?.config))return 'Sharpen';
     return names[effect.effectType] || effect.effectName;
   }
@@ -455,6 +457,13 @@
     ui.parameterEditor.innerHTML = '';
 
     const cfg = res.config;
+    if(PosterizeTime.isSupported(cfg)) {
+      const note=document.createElement('p');note.className='asset-control';
+      note.textContent='Прототип Posterize Time. Общая сила: 0% → 5 кадров/с; 25% → 10; 50% → 15; 75% → 20; 100% → исходные кадры. Скорость и длительность видео сохраняются. Для телефона разработчику нужно добавить новый шейдер в приложение.';
+      const rate=document.createElement('output');rate.id='posterizeRate';
+      const value=PosterizeTime.targetFps(PosterizeTime.resolve(cfg,state.userIntensity));rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
+      ui.parameterEditor.append(note,rate);refreshWarningsOnly();return;
+    }
     if(BloomContract.isSupported(cfg)) {
       appendBloomControls(res);refreshWarningsOnly();return;
     }
@@ -712,7 +721,7 @@
 
   function collectWarnings(cfg) {
     const out = selectedEffect() ? configIssues(selectedEffect(), cfg) : [];
-    if(selectedEffect()?.effectType==='isf' && !SharpenRender.isSupported(cfg) && !BloomContract.isSupported(cfg))out.push('ISF-код берётся из ISF_METAL внутри приложения. Preview этого ISF не реализован.');
+    if(selectedEffect()?.effectType==='isf' && !SharpenRender.isSupported(cfg) && !BloomContract.isSupported(cfg) && !PosterizeTime.isSupported(cfg))out.push('ISF-код берётся из ISF_METAL внутри приложения. Preview этого ISF не реализован.');
     else if(selectedEffect() && !['overlay','lut','bloom','bloomRework','isf','chromaticAberration','adjust'].includes(selectedEffect().effectType))out.push('Этот тип будет сохранён для Movavi. В браузере его preview пока не реализован.');
     if (selectedEffect()?.effectType==='bloom' && cfg.threshold && cfg.radius && cfg.intensity) {
       const diagnostic = MovaviRender.bloomDiagnostics(MovaviRender.resolve(cfg, state.userIntensity));
@@ -936,6 +945,7 @@
 
   async function loadMedia(file) {
     if (!file) return;
+    PosterizeTime.reset();
     const version=++state.mediaLoadVersion;
     state.mediaLoadAbort?.abort();
     const controller=new AbortController();state.mediaLoadAbort=controller;
@@ -1107,6 +1117,12 @@
         else if (effect.effectType === 'chromaticAberration') { applyAberration(input, output, resolvedConfig); handled = true; }
         else if (BloomContract.isSupported(res.config)) { const bloom=BloomContract.preview(res.config,state.userIntensity);BloomRework.render(input,output,bloom,{knee:bloom.knee.actualValue,scatter:bloom.scatter.actualValue,opacity:bloom.opacity.actualValue});handled=true; }
         else if (effect.effectType === 'isf' && SharpenRender.isSupported(res.config)) {SharpenRender.render(input,output,res.config,state.userIntensity);handled=true;}
+        else if (effect.effectType === 'isf' && PosterizeTime.isSupported(res.config)) {
+          if(state.sourceKind!=='video')PosterizeTime.reset();
+          PosterizeTime.render(input,output,res.config,state.userIntensity,{time:state.sourceKind==='video'?ui.sourceVideo.currentTime:0,token:state.activeMediaId});handled=true;
+          const rate=$('#posterizeRate'),value=PosterizeTime.targetFps(PosterizeTime.resolve(res.config,state.userIntensity));
+          if(rate)rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
+        }
         else if (effect.effectType === 'overlay') { applyOverlay(input, output, resolvedConfig, mediaRect, key); handled = true; }
         else if (effect.effectType === 'lut') {
           const lut = await getLutForEffect(preset, effect);
@@ -1421,6 +1437,22 @@
     }catch(err){setStatus(err.message);}finally{button.disabled=false;}
   }
 
+  async function openPosterizeCollection() {
+    const button=$('#openPosterizeBtn');button.disabled=true;
+    try {
+      const paths=['all_in_one.json','Layers/video_effects/v1/composite_effect/Posterize_Time_01/Posterize_Time_01.json',...['posterize_time.json','PosterizeTime.ps','PosterizeTime.vs'].map(name=>'Layers/video_effects/v1/composite_effect/Posterize_Time_01/resources/'+name)];
+      const files=await Promise.all(paths.map(async path=>{
+        const response=await fetch('prototypes/posterize-time/preset/'+path);if(!response.ok)throw Error(`Не удалось открыть ${path}`);
+        const file=new File([await response.blob()],path.split('/').pop());Object.defineProperty(file,'webkitRelativePath',{value:'Posterize_Time_Prototype/'+path});return file;
+      }));
+      PosterizeTime.reset();await openFallback(files);
+      if(!state.presets.has('Posterize_Time_01'))throw Error('Не удалось открыть тестовый пресет Posterize Time.');
+      const demo=await fetch('test-assets/Posterize_Time_motion.mp4');
+      if(demo.ok)await addMediaFiles([new File([await demo.blob()],'Posterize_Time_motion.mp4',{type:'video/mp4'})]);
+      setStatus('Posterize Time: добавьте видео и уменьшите общую силу до 0% для 5 кадров/с.');
+    }catch(error){setStatus(error.message);}finally{button.disabled=false;}
+  }
+
   function appendSharpenControls(res) {
     const cfg=res.config,note=document.createElement('p');note.className='asset-control';
     note.textContent='Sharpen: сила резкости и размер детали. Значения сохраняются в JSON и ZIP. Галочка «Фиксировать» отключает связь с общей силой пресета. Для приложения используется встроенный шейдер v1/Sharpen/Sharpen.';
@@ -1513,6 +1545,7 @@
     const result=[];
     try {validateConfig(cfg,effect.effectType);}catch(e){result.push(e.message);return result;}
     if(BloomContract.isSupported(cfg))return BloomContract.issues(cfg);
+    if(globalThis.PosterizeTime?.isSupported(cfg))return PosterizeTime.configIssues(cfg);
     if(effect.effectType==='isf' && SharpenRender.isSupported(cfg))return SharpenRender.configIssues(cfg);
     const params=typeof cfg.actualValue==='number'?[['intensity',cfg]]:parameterObjects(cfg);
     for(const [name,obj] of params) {
@@ -1711,6 +1744,8 @@
   $$('.compare-tab').forEach(btn => btn.addEventListener('click', () => { state.compareMode=btn.dataset.mode; applyCompareMode(); }));
   window.addEventListener('resize', scheduleRender);
   ui.sourceVideo.addEventListener('ended',()=>{state.isPlaying=false;ui.playPauseBtn.textContent='Play';});
+  ui.sourceVideo.addEventListener('seeking',()=>PosterizeTime.reset());
+  $('#openPosterizeBtn').addEventListener('click',openPosterizeCollection);
 
   $('#masterIntensity').addEventListener('input', e => {
     state.userIntensity = Number(e.target.value) / 100;
