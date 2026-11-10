@@ -47,12 +47,15 @@ const {chromium}=require('playwright');
    const v=document.createElement('video');v.muted=true;v.src=URL.createObjectURL(new Blob([new Uint8Array(bytes)],{type:'video/mp4'}));
    await new Promise((ok,no)=>{v.onloadeddata=ok;v.onerror=no;});const duration=v.duration;
    const canvas=document.createElement('canvas');canvas.width=v.videoWidth;canvas.height=v.videoHeight;const ctx=canvas.getContext('2d');
-   const mean=(a,b)=>a.reduce((s,v,i)=>s+Math.abs(v-b[i]),0)/a.length;
+   // Track the fixture's moving turquoise circle. H.264 may change texture
+   // coefficients in held frames without moving the object (especially on Linux).
+   const center=rgba=>{let sx=0,sy=0,n=0,w=canvas.width/2;for(let y=16;y<canvas.height-16;y++)for(let x=16;x<w-16;x++){const k=(y*w+x)*4;if(rgba[k]<140&&rgba[k+1]>150&&rgba[k+2]>120){sx+=x;sy+=y;n++;}}if(n<200)throw Error('Motion fixture circle not found');return [sx/n,sy/n];};
    let before=null,after=null,beforeChanges=0,afterChanges=0;
    for(let i=0;i<61;i++){
     const t=.4+i/30;const done=new Promise(ok=>v.addEventListener('seeked',ok,{once:true}));v.currentTime=t;await done;ctx.drawImage(v,0,0);
     const b=ctx.getImageData(0,0,canvas.width/2,canvas.height).data,a=ctx.getImageData(canvas.width/2,0,canvas.width/2,canvas.height).data;
-    if(before&&mean(b,before)>.05)beforeChanges++;if(after&&mean(a,after)>.05)afterChanges++;before=b;after=a;
+    const bc=center(b),ac=center(a),moved=(p,q)=>Math.hypot(p[0]-q[0],p[1]-q[1])>1;
+    if(before&&moved(bc,before))beforeChanges++;if(after&&moved(ac,after))afterChanges++;before=bc;after=ac;
    }
    URL.revokeObjectURL(v.src);return {duration,width:canvas.width,height:canvas.height,beforeChanges,afterChanges,sampledSeconds:2};
   },Array.from(encoded));
