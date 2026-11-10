@@ -582,10 +582,10 @@
       note.textContent='Частота задаётся отдельно: 5–30 кадров/с. Общая сила 0% отключает эффект, 100% применяет выбранную частоту. Скорость и длительность клипа сохраняются.';
       let fps=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='framesPerSecond');
       if(!fps){fps={NAME:'framesPerSecond',TYPE:'float',DEFAULT:15,MIN:5,MAX:30};cfg.shaderConfig.INPUTS.push(fps);const p=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='cadence');Object.assign(p,{DEFAULT:1,MIN:0,MAX:1});cfg.intensityParamNames=['cadence'];markDirty(res.path);}
-      const label=document.createElement('label');label.textContent='Частота · кадров/с';
-      const input=document.createElement('input');input.id='posterizeFps';input.setAttribute('aria-label','Частота кадров');input.type='number';input.min='5';input.max='30';input.step='1';input.value=fps.DEFAULT;
+      const label=document.createElement('label');label.className='parameter-group';label.style.display='grid';label.style.gap='8px';label.textContent='Частота · кадров/с';
+      const input=document.createElement('input');input.className='param-number';input.id='posterizeFps';input.setAttribute('aria-label','Частота кадров');input.type='number';input.min='5';input.max='30';input.step='1';input.value=fps.DEFAULT;
       input.onchange=()=>{const value=Number(input.value);if(!Number.isFinite(value)||value<5||value>30){input.value=fps.DEFAULT;return;}fps.DEFAULT=value;markDirty(res.path);PosterizeTime.reset();scheduleRender();};
-      const slider=document.createElement('input');slider.type='range';slider.min='5';slider.max='30';slider.step='1';slider.value=fps.DEFAULT;slider.setAttribute('aria-label','Частота кадров · ползунок');slider.oninput=()=>{input.value=slider.value;input.onchange();};input.addEventListener('change',()=>slider.value=input.value);label.append(slider,input);ui.parameterEditor.append(label);
+      const slider=document.createElement('input');slider.className='param-slider';slider.type='range';slider.min='5';slider.max='30';slider.step='1';slider.value=fps.DEFAULT;slider.setAttribute('aria-label','Частота кадров · ползунок');slider.oninput=()=>{input.value=slider.value;input.onchange();};input.addEventListener('change',()=>slider.value=input.value);label.append(slider,input);ui.parameterEditor.append(label);
       const rate=document.createElement('output');rate.id='posterizeRate';
       const value=PosterizeTime.targetFps(PosterizeTime.resolve(cfg,state.userIntensity),PosterizeTime.fpsValue(cfg));rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
       ui.parameterEditor.append(note,rate);refreshWarningsOnly();return;
