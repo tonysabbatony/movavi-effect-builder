@@ -19,3 +19,16 @@ for(const [t,c] of [[NaN,0],[0,Infinity],[-1,0],[0,2]])assert.throws(()=>P.updat
 assert.equal(JSON.stringify(cfg),original);assert.equal(P.bucket(3600,0),18000);assert.equal(P.bucket(86400,0),432000);
 const bad=JSON.parse(original);bad.shaderConfig.PASSES[0].PERSISTENT=false;assert.ok(P.configIssues(bad).length);
 console.log('PASS '+count+' timestamp decisions, five anchor values, 100% bypass, backward seek, source and settings reset, invalid inputs, long timestamps and unchanged JSON');
+for(const fps of [5,12,15,24,30])for(const strength of [0,.5,1]){
+ const fixed=JSON.parse(original);fixed.shaderConfig.INPUTS.find(p=>p.NAME==='framesPerSecond').DEFAULT=fps;
+ const c=P.resolve(fixed,strength);assert.equal(P.targetFps(c,P.fpsValue(fixed)),strength===0?null:fps);
+ for(const source of [24,29.97,30,60]){const state={};let last=-1;for(let i=0;i<180;i++){const t=i/source,tick=Math.floor(Math.fround(Math.fround(t)*Math.fround(fps))+.0001);assert.equal(P.update(state,t,c,'x',fps),i===0||strength===0||tick!==last);last=tick;}}
+}
+console.log('PASS independent 5–30 fps at all strengths, zero bypass, 10800 fixed-rate frame decisions');
+const legacy=JSON.parse(original);legacy.shaderConfig.INPUTS=legacy.shaderConfig.INPUTS.filter(p=>p.NAME!=='framesPerSecond');
+const shaderPath=legacy.shaderPath,passes=JSON.stringify(legacy.shaderConfig.PASSES);
+assert.equal(P.upgrade(legacy),true);assert.equal(P.upgrade(legacy),false);
+assert.equal(P.fpsValue(legacy),15);assert.equal(P.resolve(legacy,0),0);assert.equal(P.resolve(legacy,1),1);
+assert.equal(legacy.shaderPath,shaderPath);assert.equal(JSON.stringify(legacy.shaderConfig.PASSES),passes);
+for(const fps of [0,4,31,NaN,Infinity])assert.throws(()=>P.update({},0,1,'x',fps));
+console.log('PASS legacy upgrade, stable path/passes, idempotence and invalid FPS rejection');

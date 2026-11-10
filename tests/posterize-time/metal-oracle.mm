@@ -12,9 +12,10 @@ struct Uniforms {
  float4 imageRect;float2 imageSize;unsigned imageFlip;int p0;
  float4 heldRect;float2 heldSize;unsigned heldFlip;int p1;
  float4 clockRect;float2 clockSize;unsigned clockFlip;int p2;
- float cadence;
+ float cadence;float framesPerSecond;
 };
 static_assert(offsetof(Uniforms,cadence)==144);
+static_assert(offsetof(Uniforms,framesPerSecond)==148);
 static_assert(sizeof(Uniforms)==160);
 struct Renderer {
  id<MTLDevice> device;id<MTLCommandQueue> queue;id<MTLRenderPipelineState> pipeline;id<MTLSamplerState> sampler;
@@ -32,10 +33,10 @@ struct Renderer {
   auto d=[MTLTextureDescriptor texture2DDescriptorWithPixelFormat:format width:width height:height mipmapped:NO];d.storageMode=MTLStorageModeShared;d.usage=MTLTextureUsageShaderRead|MTLTextureUsageRenderTarget;
   auto t=[device newTextureWithDescriptor:d];std::vector<unsigned char> zero(width*height*4,0);[t replaceRegion:MTLRegionMake2D(0,0,width,height) mipmapLevel:0 withBytes:zero.data() bytesPerRow:width*4];return t;
  }
- std::vector<unsigned char> render(const std::vector<unsigned char>& bytes,int width,int height,float time,float delta,float cadence,MTLPixelFormat format) {
+ std::vector<unsigned char> render(const std::vector<unsigned char>& bytes,int width,int height,float time,float delta,float cadence,MTLPixelFormat format,float fps=0) {
   if(w!=width||h!=height){w=width;h=height;held=texture(w,h,format);clock=texture(2,1,format);}
   auto src=texture(w,h,format);[src replaceRegion:MTLRegionMake2D(0,0,w,h) mipmapLevel:0 withBytes:bytes.data() bytesPerRow:w*4];
-  Uniforms u={};u.time=time;u.delta=delta;u.size=(float2){float(w),float(h)};u.cadence=cadence;u.imageRect=u.heldRect=u.clockRect=(float4){0,0,1,1};u.imageSize=u.heldSize=u.size;u.clockSize=(float2){2,1};u.imageFlip=u.heldFlip=u.clockFlip=1;
+  Uniforms u={};u.time=time;u.delta=delta;u.size=(float2){float(w),float(h)};u.cadence=cadence;u.framesPerSecond=fps;u.imageRect=u.heldRect=u.clockRect=(float4){0,0,1,1};u.imageSize=u.heldSize=u.size;u.clockSize=(float2){2,1};u.imageFlip=u.heldFlip=u.clockFlip=1;
   float4 vertices[]={(float4){0,0,0,1},(float4){0,float(h),0,1},(float4){float(w),0,0,1},(float4){float(w),float(h),0,1}};
   auto command=[queue commandBuffer];id<MTLTexture> dst=nil;
   for(int pass=0;pass<3;pass++){
@@ -82,6 +83,14 @@ int main(int argc,char **argv){@autoreleasepool{
    previousTick=tick;last=t;previousC=c;count+=2;
   }
   auto resized=pattern(9,8,4);require(r.render(resized,8,4,0,-last,0,format)==resized,@"resized history must start with current frame");count++;cases++;
+ }
+ for(auto format:{MTLPixelFormatRGBA8Unorm,MTLPixelFormatBGRA8Unorm})for(float source:{24.f,60.f})for(float fps:{5.f,15.f,30.f})for(float strength:{0.f,.5f,1.f}){
+  Renderer r(device,library,format);std::vector<unsigned char> held;long previous=-1;
+  for(int i=0;i<90;i++){float t=i/source;long tick=std::floor(t*fps+.0001f);auto input=pattern(i,16,8);if(i==0||tick!=previous||strength==0)held=input;
+   auto actual=r.render(input,16,8,t,i?1/source:0,strength,format,fps);
+   for(size_t k=0;k<input.size();k++){int expected=int(std::round(input[k]*(1-strength)+held[k]*strength));require(std::abs(int(actual[k])-expected)<=1,@"independent FPS / global blend / zero bypass");}
+   previous=tick;count++;
+  }cases++;
  }
  printf("PASS Metal .ps/.vs: %d sequences, %d frames; RGBA8/BGRA8, 24/29.97/30/60 fps, all five controls, exact alpha/colors, loops, seeks, setting changes, resize and independent histories\n",cases,count);
 }return 0;}

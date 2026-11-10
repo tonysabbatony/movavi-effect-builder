@@ -7,7 +7,7 @@ struct VVISF_UNIFORMS {
     float4 _inputImage_imgRect; float2 _inputImage_imgSize; uint _inputImage_flip; int _inputImage_padding;
     float4 _HoldFrame_imgRect; float2 _HoldFrame_imgSize; uint _HoldFrame_flip; int _HoldFrame_padding;
     float4 _HoldClock_imgRect; float2 _HoldClock_imgSize; uint _HoldClock_flip; int _HoldClock_padding;
-    float cadence;
+    float cadence; float framesPerSecond;
 };
 struct VVPosterizeTimeFragFunc_in {
     float2 isf_FragNormCoord [[user(locn0)]];
@@ -25,12 +25,14 @@ fragment VVPosterizeTimeFragFunc_out VVPosterizeTimeFragFunc(
     texture2d<float> HoldClock [[texture(2)]],sampler imageSampler [[sampler(0)]]) {
     VVPosterizeTimeFragFunc_out out;
     float c=clamp(u.cadence,0.0,1.0);
-    uint tick=uint(floor(max(u.TIME,0.0)*PT_rate(c)+0.0001))%16777215u;
-    uint setting=uint(floor(c*65535.0+0.5));
+    bool independent=u.framesPerSecond>=5.0;
+    float fps=independent?clamp(u.framesPerSecond,5.0,30.0):PT_rate(c);
+    uint tick=uint(floor(max(u.TIME,0.0)*fps+0.0001))%16777215u;
+    uint setting=independent?uint(floor(fps*1000.0+0.5)):uint(floor(c*65535.0+0.5));
     if(u.PASSINDEX==0) {
         float4 previous=HoldClock.read(uint2(0,0));
         uint oldSetting=PT_unpack(HoldClock.read(uint2(1,0)).rgb);
-        bool capture=previous.a<0.5||PT_unpack(previous.rgb)!=tick||oldSetting!=setting||u.TIMEDELTA<0.0||c>=0.999999;
+        bool capture=previous.a<0.5||PT_unpack(previous.rgb)!=tick||oldSetting!=setting||u.TIMEDELTA<0.0||(independent?c<=0.0:c>=0.999999);
         if(capture) {
             float2 uv=in.isf_FragNormCoord;
             if(u._inputImage_flip!=0u)uv.y=1.0-uv.y;
@@ -40,6 +42,9 @@ fragment VVPosterizeTimeFragFunc_out VVPosterizeTimeFragFunc(
     } else if(u.PASSINDEX==1) {
         // Byte-packed metadata survives RGBA8/BGRA8; raw seconds would clamp.
         out.color=float4(PT_pack(in.position.x<1.0?tick:setting),1.0);
-    } else out.color=HoldFrame.read(uint2(in.position.xy));
+    } else {
+        float2 uv=in.isf_FragNormCoord;if(u._inputImage_flip!=0u)uv.y=1.0-uv.y;uv=u._inputImage_imgRect.xy+uv*u._inputImage_imgRect.zw;
+        float4 held=HoldFrame.read(uint2(in.position.xy));out.color=independent?mix(inputImage.sample(imageSampler,uv),held,c):held;
+    }
     return out;
 }
