@@ -53,3 +53,4 @@ jobs:
           trap 'kill "$builder_server_pid"' EXIT
           node tests/test-workspace.cjs http://127.0.0.1:8766 test-results/workspace
           node tests/test-batch-video.cjs http://127.0.0.1:8766 test-results/batch
+          node tests/posterize-time/browser.cjs http://127.0.0.1:8766 test-results/posterize

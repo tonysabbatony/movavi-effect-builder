@@ -245,8 +245,8 @@
     if(item.asset&&!file){const input=$('#catalogAssetInput');input.accept=item.asset==='lut'?'.cube':'.mp4,.mov';input.onchange=()=>{const f=input.files[0];input.value='';if(f)addCatalogEffect(id,f,preset).catch(e=>{setStatus(e.message);alert(e.message);});};input.click();return;}
     const refs={};const extra=[];
     if(id==='posterize'){
-      const response=await fetch('shaders/PosterizeTime/PosterizeTime.json');if(!response.ok)throw Error('Нет шаблона Posterize Time.');refs.posterize=await response.json();
-      for(const name of ['PosterizeTime.ps','PosterizeTime.vs']){const r=await fetch('shaders/PosterizeTime/'+name);if(!r.ok)throw Error('Нет '+name);extra.push({name,file:new File([await r.blob()],name)});}
+      const response=await fetch('shaders/PosterizeTime/PosterizeTime.json',{cache:'no-store'});if(!response.ok)throw Error('Нет шаблона Posterize Time.');refs.posterize=await response.json();
+      for(const name of ['PosterizeTime.ps','PosterizeTime.vs']){const r=await fetch('shaders/PosterizeTime/'+name,{cache:'no-store'});if(!r.ok)throw Error('Нет '+name);extra.push({name,file:new File([await r.blob()],name)});}
     }
     const config=EffectCatalog.config(id,refs);
     if(activePreset()!==preset)throw Error('Пресет изменился. Повторите добавление.');
@@ -302,6 +302,15 @@
         let rp = paths.find(p => p.toLowerCase() === `${rootPath}/resources/${effect.effectName}.json`.toLowerCase());
         if (!state.files.has(rp)) continue;
         let config = await parseJsonRecord(rp);
+        if(PosterizeTime.upgrade(config))state.dirtyPaths.add(rp);
+        if(PosterizeTime.isSupported(config)&&location.protocol!=='file:'){
+          for(const name of ['PosterizeTime.ps','PosterizeTime.vs']){
+            const response=await fetch('shaders/PosterizeTime/'+name,{cache:'no-store'});
+            if(!response.ok)throw Error('Не удалось загрузить актуальный '+name);
+            const text=await response.text(),path=rootPath+'/resources/'+name,previous=state.files.get(path);
+            if(!previous||await previous.file.text()!==text){state.files.set(path,{file:new File([text],name),handle:previous?.handle||null});state.dirtyPaths.add(path);}
+          }
+        }
         if(['bloom','bloomRework'].includes(effect.effectType)) {
           config=BloomContract.migrate(config);
           const target=`${rootPath}/resources/new_bloom_01.json`;
@@ -570,9 +579,15 @@
     const cfg = res.config;
     if(PosterizeTime.isSupported(cfg)) {
       const note=document.createElement('p');note.className='asset-control';
-      note.textContent='Прототип Posterize Time. Общая сила: 0% → 5 кадров/с; 25% → 10; 50% → 15; 75% → 20; 100% → исходные кадры. Скорость и длительность видео сохраняются. Для телефона разработчику нужно добавить новый шейдер в приложение.';
+      note.textContent='Частота задаётся отдельно: 5–30 кадров/с. Общая сила 0% отключает эффект, 100% применяет выбранную частоту. Скорость и длительность клипа сохраняются.';
+      let fps=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='framesPerSecond');
+      if(!fps){fps={NAME:'framesPerSecond',TYPE:'float',DEFAULT:15,MIN:5,MAX:30};cfg.shaderConfig.INPUTS.push(fps);const p=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='cadence');Object.assign(p,{DEFAULT:1,MIN:0,MAX:1});cfg.intensityParamNames=['cadence'];markDirty(res.path);}
+      const label=document.createElement('label');label.textContent='Частота · кадров/с';
+      const input=document.createElement('input');input.id='posterizeFps';input.setAttribute('aria-label','Частота кадров');input.type='number';input.min='5';input.max='30';input.step='1';input.value=fps.DEFAULT;
+      input.onchange=()=>{const value=Number(input.value);if(!Number.isFinite(value)||value<5||value>30){input.value=fps.DEFAULT;return;}fps.DEFAULT=value;markDirty(res.path);PosterizeTime.reset();scheduleRender();};
+      const slider=document.createElement('input');slider.type='range';slider.min='5';slider.max='30';slider.step='1';slider.value=fps.DEFAULT;slider.setAttribute('aria-label','Частота кадров · ползунок');slider.oninput=()=>{input.value=slider.value;input.onchange();};input.addEventListener('change',()=>slider.value=input.value);label.append(slider,input);ui.parameterEditor.append(label);
       const rate=document.createElement('output');rate.id='posterizeRate';
-      const value=PosterizeTime.targetFps(PosterizeTime.resolve(cfg,state.userIntensity));rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
+      const value=PosterizeTime.targetFps(PosterizeTime.resolve(cfg,state.userIntensity),PosterizeTime.fpsValue(cfg));rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
       ui.parameterEditor.append(note,rate);refreshWarningsOnly();return;
     }
     if(BloomContract.isSupported(cfg)) {
@@ -1234,7 +1249,7 @@
         else if (effect.effectType === 'isf' && PosterizeTime.isSupported(res.config)) {
           if(state.sourceKind!=='video')PosterizeTime.reset();
           PosterizeTime.render(input,output,res.config,state.userIntensity,{time:state.sourceKind==='video'?ui.sourceVideo.currentTime:0,token:state.activeMediaId});handled=true;
-          const rate=$('#posterizeRate'),value=PosterizeTime.targetFps(PosterizeTime.resolve(res.config,state.userIntensity));
+          const rate=$('#posterizeRate'),value=PosterizeTime.targetFps(PosterizeTime.resolve(res.config,state.userIntensity),PosterizeTime.fpsValue(res.config));
           if(rate)rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
         }
         else if (effect.effectType === 'overlay') { applyOverlay(input, output, resolvedConfig, mediaRect, key); handled = true; }
@@ -1571,7 +1586,7 @@
       if(!state.presets.has('Posterize_Time_01'))throw Error('Не удалось открыть тестовый пресет Posterize Time.');
       const demo=await fetch('test-assets/Posterize_Time_motion.mp4');
       if(demo.ok)await addMediaFiles([new File([await demo.blob()],'Posterize_Time_motion.mp4',{type:'video/mp4'})]);
-      setStatus('Posterize Time: добавьте видео и уменьшите общую силу до 0% для 5 кадров/с.');
+      setStatus('Posterize Time: добавьте видео и задайте частоту 5–30 кадров/с в параметрах слоя.');
     }catch(error){setStatus(error.message);}finally{button.disabled=false;}
   }
 

@@ -1,3 +1,11 @@
+# v0.13.1 — independent Posterize Time FPS — 2026-11-10
+
+- Fixed framesPerSecond input (5–30, default 15), independent of linked cadence strength. Global 0% bypasses; 100% holds at the selected rate; intermediate values blend source/held frames.
+- Actual Metal .ps/.vs compiled and rendered: 78 sequences / 9282 frames per compiler mode, fast math on and off. Includes old configs, independent 5/15/30 fps and strengths 0/50/100%, both RGBA8/BGRA8. Blend tolerance 1/255; no phone integration claim.
+- JS: 10800 independent-rate decisions in addition to 3600 legacy decisions; range errors, upgrade/idempotence, stable paths/passes.
+- Chrome UI: choose 5 fps at strength 100, exact zero-strength bypass, real MP4 decode, FPS persisted through ZIP/reopen, 30 fps edit. Existing collection creation/roundtrip and external resource collision checks pass.
+- Legacy imports gain a fixed 15 fps input and updated shader source copies; names and pass graph remain stable. Developer handoff documents the appended uniform and required global shader replacement.
+
 # v0.13 — flexible workspace and review export — 2026-11-10
 
 - Real UI: new collection with two presets, all 12 catalog effects and repeated Sharpen, external MP4/CUBE, separate preview image. Exported/reopened nested ZIP; checked UID/group, 16-pass Bloom graph, resource names and exact external bytes; preview input excluded.

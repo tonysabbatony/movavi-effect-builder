@@ -1,4 +1,4 @@
-Movavi Effect Builder v0.13 — сборки, каталог, пакетное видео
+Movavi Effect Builder v0.13.1 — сборки, каталог, пакетное видео
 
 Веб-версия: https://tonysabbatony.github.io/movavi-effect-builder/
 После публикации новой версии перезагрузите страницу. Перед обновлением
@@ -22,7 +22,8 @@ Duotone, False Color, Posterize Time. Пример Dreamy — в меню «Ещ
 Фирменное оформление: официальный зелёный знак Movavi Mobile, #89FE00,
 шрифт Aeroport. Источники закреплены в BRAND_GUIDELINES.md.
 VHS/Soft Blur/Noise: приблизительный веб-предпросмотр, штатный мобильный экспорт.
-Posterize Time: 0%=5fps, 25%=10, 50%=15, 75%=20, 100%=исходное видео.
+Posterize Time: отдельный параметр 5–30 fps, по умолчанию 15.
+Общая сила: 0% — исходное видео, 100% — выбранная частота.
 Для него требуется интеграция шейдеров и управления историей в приложении.
 Подробности — README.md и prototypes/posterize-time/README_RU.md.
 
