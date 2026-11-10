@@ -29,5 +29,27 @@ jobs:
           node test-package-import.cjs
           node tests/test-isf-mobile.cjs
           node tests/posterize-time/test-schedule.cjs
+          node tests/test-catalog.cjs
       - name: Check actual launcher
         run: python3 test-launcher.py
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser test runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chrome
+      - name: Create, roundtrip, and export all preset videos
+        run: |
+          python3 -m http.server 8766 --bind 127.0.0.1 > /tmp/builder-http.log 2>&1 &
+          builder_server_pid=$!
+          trap 'kill "$builder_server_pid"' EXIT
+          node tests/test-workspace.cjs http://127.0.0.1:8766 test-results/workspace
+          node tests/test-batch-video.cjs http://127.0.0.1:8766 test-results/batch

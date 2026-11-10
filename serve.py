@@ -10,8 +10,8 @@ class BuilderHandler(SimpleHTTPRequestHandler):
         super().end_headers()
 
 with ThreadingHTTPServer(("127.0.0.1", 0), BuilderHandler) as server:
-    url = f"http://127.0.0.1:{server.server_port}/index.html?version=0.12"
-    print("Effect Builder v0.12 — ISF Bloom2", flush=True)
+    url = f"http://127.0.0.1:{server.server_port}/index.html?version=0.13"
+    print("Movavi Effect Builder v0.13 — collections and effect catalog", flush=True)
     print("Project:", project, flush=True)
     print("Open:", url, flush=True)
     if "--no-browser" not in sys.argv:

@@ -3,23 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Movavi Effect Builder v0.12</title>
+  <title>Movavi Effect Builder v0.13</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/brand/movavi-mobile.svg" />
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
-      <div class="brand-mark">M</div>
+      <div class="brand-mark"><img src="assets/brand/movavi-mobile.svg" width="232" height="232" alt="Movavi Mobile"></div>
       <div>
-        <div class="brand-title">Effect Builder</div>
-        <div class="brand-sub">Glow · v0.12</div>
+        <div class="brand-title">Movavi Effect Builder</div>
+        <div class="brand-sub">Сборки и пресеты · v0.13</div>
       </div>
     </div>
     <div class="toolbar">
-      <button id="demoBtn" class="btn ghost">Тест New Bloom / Aberration</button>
-      <button id="openBundledBtn" class="btn ghost">Рабочая подборка Dreamy ×10</button>
-      <button id="openPosterizeBtn" class="btn ghost">Posterize Time · прототип</button>
-      <button id="openWorkspaceBtn" class="btn primary">Открыть сборку</button>
+      <button id="newCollectionBtn" class="btn primary">Новая сборка</button>
+      <button id="openWorkspaceBtn" class="btn">Открыть папку</button>
+      <button id="openZipBtn" class="btn">Открыть ZIP</button><input id="openZipInput" type="file" accept=".zip" hidden>
+      <button id="exportGroupBtn" class="btn primary" disabled>Экспорт сборки ZIP</button>
+      <details class="toolbar-menu"><summary class="btn ghost">Ещё</summary><div class="toolbar-menu-content">
+      <button id="openBundledBtn" class="btn ghost">Открыть пример Dreamy ×10</button>
       <label class="btn ghost fallback-file-label" title="Если системный выбор папки не работает">
         Выбрать папку (fallback)
         <input id="fallbackFolderInput" type="file" webkitdirectory multiple hidden />
@@ -27,9 +30,11 @@
       <button id="saveBtn" class="btn" disabled>Сохранить JSON</button>
       <button id="exportFolderBtn" class="btn">Папка для ZIP</button>
       <button id="exportBtn" class="btn" disabled>ZIP выбранного пресета</button>
-      <button id="exportGroupBtn" class="btn primary" disabled>Экспорт всей группы ZIP</button>
+      </div></details>
+      <button id="demoBtn" hidden>Внутренний тест</button><button id="openPosterizeBtn" hidden>Внутренний тест Posterize Time</button>
     </div>
   </header>
+  <div id="updateNotice" class="update-notice" hidden><span>Доступна новая версия билдера. Сначала экспортируйте текущую сборку.</span><button id="reloadAppBtn" class="btn small">Обновить страницу</button></div>
 
   <main class="app-shell">
     <section class="workspace-panel panel">
@@ -45,8 +50,9 @@
       </div>
 
       <div class="preset-row">
-        <label for="presetSelect">Preset</label>
+        <label for="presetSelect">Пресет</label>
         <select id="presetSelect" disabled><option>—</option></select>
+        <button id="newPresetBtn" class="btn small" disabled title="Добавить пресет в эту сборку">+ Пресет</button>
       </div>
 
       <div class="master-control">
@@ -79,8 +85,8 @@
 
       <div class="preview-size-controls">
         <label for="previewSize">Высота превью</label>
-        <input id="previewSize" type="range" min="400" max="1200" step="20" value="800">
-        <output id="previewSizeValue">800 px</output>
+        <input id="previewSize" type="range" min="400" max="1200" step="20" value="520">
+        <output id="previewSizeValue">520 px</output>
         <button id="fullscreenBtn" class="btn small">На весь экран</button>
       </div>
       <div id="previewStage" class="preview-stage empty">
@@ -89,7 +95,7 @@
         <div id="splitLine" class="split-line"><span></span></div>
         <div id="emptyPreview" class="empty-preview">
           <div class="empty-icon">◫</div>
-          <div>Загрузи тестовое фото или видео</div>
+          <div>Создай сборку или открой готовую</div>
           <small>Preview работает локально, файл никуда не отправляется.</small>
         </div>
       </div>
@@ -101,8 +107,8 @@
 
       <div id="renderErrors" role="alert"></div>
       <div class="preview-note">
-        <strong>v0.12 · ISF Bloom2 preview.</strong>
-        Adjust, LUT и Bloom проверены по мобильным исходникам и переданному Bloom v3. Для визуального сравнения используйте одинаковый исходный кадр и общую силу. Обработка SDR: до 960 px по длинной стороне, 8 бит на канал.
+        <strong>Все файлы обрабатываются в браузере.</strong>
+        Добавляйте эффекты и свои ресурсы. Экспорт для приложения: all_in_one.json + Layers.zip. Видео предпросмотра обрабатывается в SDR, до 960 px.
       </div>
     </section>
 
@@ -114,11 +120,14 @@
         </div>
         <button id="clearSoloBtn" class="btn tiny ghost" disabled>Clear Solo</button>
       </div>
-      <button id="importLayerBtn" class="btn" disabled>+ Импорт слоя JSON</button><input id="importLayerInput" type="file" accept=".json,.cube,.mp4,.mov,.ps,.vs,.metal,.fs,.glsl" multiple hidden>
-      <button id="addSharpenBtn" class="btn" disabled>+ Sharpen</button>
+      <div class="catalog-row"><label class="sr-only" for="effectCatalog">Каталог эффектов</label><select id="effectCatalog" disabled><option value="">Выберите эффект…</option></select><button id="addEffectBtn" class="btn primary" disabled>+ Добавить</button></div>
+      <div id="catalogHint" class="catalog-hint">Создайте сборку или откройте готовую.</div>
+      <button id="importLayerBtn" class="btn small ghost" disabled>Импорт своего слоя JSON…</button><input id="importLayerInput" type="file" accept=".json,.cube,.mp4,.mov,.ps,.vs,.metal,.fs,.glsl" multiple hidden>
+      <button id="addSharpenBtn" hidden disabled>Добавить Sharpen</button>
+      <input id="catalogAssetInput" type="file" hidden>
       <button id="undoRemoveLayerBtn" class="btn ghost" hidden>↶ Вернуть слой</button>
       <div id="effectStack" class="effect-stack empty-stack">
-        <div class="empty-stack-message">Открой сборку Glow</div>
+        <div class="empty-stack-message">Здесь появятся слои выбранного пресета.</div>
       </div>
       <div class="stack-help">
         <b>👁</b> влияет только на preview · <b>S</b> Solo · <b>×</b> удаляет из рецепта · перетащи слой, чтобы изменить порядок.
@@ -143,10 +152,10 @@
   </main>
 
   <footer class="footerbar">
-    <div id="footerStatus">Готов к загрузке Glow-сборки.</div>
+    <div id="footerStatus">Новая сборка или готовый ZIP — выберите, с чего начать.</div>
     <div class="footer-right">
       <span id="dirtyStatus" class="badge muted">no changes</span>
-      <span class="version">Movavi Effect Builder v0.12</span>
+      <span class="version">Movavi Effect Builder v0.13</span>
     </div>
   </footer>
 
@@ -164,6 +173,8 @@
   <script src="mobile-package.js"></script>
   <script src="adjust-mobile.js"></script>
   <script src="posterize-time.js"></script>
+  <script src="effect-catalog.js"></script>
+  <script src="extra-effects.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

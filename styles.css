@@ -100,3 +100,25 @@ button{color:inherit}
 #videoExportProgress{width:100%;accent-color:var(--accent);height:12px}#videoExportProgress[hidden]{display:none}
 #videoExportStatus{font-size:13px;overflow-wrap:anywhere;color:var(--soft);min-height:20px}
 .export-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}#videoExportResult a{display:inline-block;text-decoration:none;font-size:13px}
+
+/* Movavi Mobile: Figma Main Library, Product colors/MovaviApp, node 2047:6260. */
+@font-face{font-family:Aeroport;src:url('assets/fonts/Aeroport-Regular.otf') format('opentype');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:Aeroport;src:url('assets/fonts/Aeroport-Bold.otf') format('opentype');font-style:normal;font-weight:600 900;font-display:swap}
+:root{--bg:#101010;--panel:#1a1a1a;--panel2:#232323;--line:#303030;--line2:#444;--text:#fff;--muted:#a3a3a3;--soft:#d4d4d4;--accent:#89fe00;--accent2:#b3ff59;--ok:#89fe00;font-family:Aeroport,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+[hidden]{display:none!important}
+.topbar{background:#141414;padding:14px 20px}.brand{min-width:235px;gap:12px}.brand-mark{width:44px;height:44px;min-width:44px;background:none;border-radius:0;box-shadow:none;overflow:hidden}
+.brand-mark img{display:block;transform:scale(.1896551724);transform-origin:top left}
+.brand-title{font-size:18px;letter-spacing:-.02em}.brand-sub{color:#a3a3a3;font-size:12px}
+.btn{background:#252525;border-color:#444}.btn:hover:not(:disabled){background:#303030;border-color:#777}.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1a1a}.btn.primary:hover:not(:disabled){background:#a4ff38;border-color:#a4ff38}
+button:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.toolbar-menu{position:relative}.toolbar-menu summary{list-style:none;cursor:pointer}.toolbar-menu-content{position:absolute;right:0;top:42px;min-width:250px;padding:10px;display:grid;gap:8px;background:#232323;border:1px solid #444;border-radius:12px;z-index:30;box-shadow:var(--shadow)}
+.toolbar-menu-content .btn{text-align:left}.fallback-file-label{display:block}
+.preset-row{grid-template-columns:54px minmax(80px,1fr) auto}.catalog-row{display:flex;padding:12px 12px 6px;gap:8px}.catalog-row select{width:100%;min-width:0}.catalog-row .btn{flex-shrink:0}.catalog-hint{padding:0 14px 10px;font-size:12px;color:var(--muted);line-height:1.4}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.effect-item{grid-template-columns:18px minmax(65px,1fr) repeat(5,26px);gap:4px;background:#222}.effect-item.selected{background:#26311e;border-color:#89fe00}.effect-item:hover{background:#2a2a2a}.effect-type{font-size:10px}.icon-btn.active{background:#32431d;border-color:#89fe00;color:#fff}.icon-btn{background:#292929;border-color:#444}
+.stack-panel{min-width:325px}.app-shell{grid-template-columns:minmax(380px,1.3fr) minmax(325px,.9fr) minmax(310px,1fr);gap:14px;padding:14px}
+.preview-stage{height:520px}.preview-note{background:#151515}.preview-note strong{color:var(--accent)}.panel{box-shadow:none}.master-control{padding:8px 0 12px}.mini-badge.hc{border-color:#567c30;color:#c9f59c}.param-number:focus{border-color:#89fe00}.param-slider,.master-control input{accent-color:var(--accent)}
+.builder-dialog{color:var(--text);background:#1a1a1a;border:1px solid #444;border-radius:18px;padding:24px;width:min(480px,calc(100vw - 24px))}.builder-dialog::backdrop{background:#000a}.builder-dialog h2{margin:0 0 20px}.builder-dialog form{display:grid;gap:16px}.builder-dialog label{display:grid;gap:8px;font-size:13px;color:#c9c9c9}.builder-dialog input{background:#101010;border:1px solid #555;border-radius:8px;padding:10px;color:#fff}.dialog-actions{display:flex;justify-content:flex-end;gap:8px}.form-error{margin:0;color:#ff8d92;font-size:13px}.form-error:empty{display:none}
+@media(max-width:1150px){.app-shell{grid-template-columns:minmax(0,1fr) minmax(325px,.8fr)}.parameters-panel{grid-column:1/-1}.parameters-panel .parameter-editor{overflow:auto}.stack-panel{min-width:0}}
+@media(max-width:760px){.app-shell{display:flex;padding:10px}.topbar{padding:12px}.toolbar{gap:6px}.toolbar>.btn{font-size:12px}.toolbar-menu-content{right:auto;left:0}.stack-panel,.parameters-panel{position:static}.preview-stage{height:400px}.effect-item{grid-template-columns:18px minmax(65px,1fr) repeat(5,28px)}.footerbar{font-size:11px}.brand-title{font-size:17px}}
+.update-notice{padding:10px 20px;background:#26311e;color:#d7ffab;border-bottom:1px solid #567c30;display:flex;gap:12px;align-items:center;justify-content:space-between;font-size:13px}

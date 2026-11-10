@@ -34,12 +34,15 @@
     dialog.innerHTML=`<h2 id="videoExportTitle">Экспорт видео</h2>
       <p id="videoExportDetails"></p>
       <fieldset id="videoExportOptions">
+        <label for="videoExportScope">Какие пресеты</label>
+        <select id="videoExportScope"><option value="current">Текущий пресет</option><option value="all">Все пресеты сборки · ZIP</option></select>
         <label for="videoExportMode">Что сохранить</label>
         <select id="videoExportMode"><option value="Before_After">Before / After рядом</option><option value="After">After — с эффектом</option><option value="Before">Before — исходное видео</option></select>
         <label class="export-check"><input id="videoExportLabels" type="checkbox" checked> Название пресета и подписи Before / After в кадре</label>
         <label class="export-check"><input id="videoExportAudio" type="checkbox" checked> Исходный звук, если он есть</label>
       </fieldset>
       <p class="export-hint">Сохраняется весь выбранный клип с начала до конца. After учитывает текущую общую силу, Solo и выключенные слои.</p>
+      <p class="export-hint">Для всей сборки используется текущее исходное видео и выбранная общая сила; каждый пресет рендерится со всеми своими слоями. В ZIP сохраняются отдельные папки и имена пресетов. Обработка последовательная, вкладку нужно оставлять открытой.</p>
       <p class="export-hint">Качество — как в превью: до 960 px по длинной стороне каждого видео. Запись идёт во время воспроизведения: оставьте эту вкладку открытой на время экспорта. При тяжёлых эффектах плавность может снижаться.</p>
       <p id="videoExportFilename" class="export-filename"></p>
       <progress id="videoExportProgress" max="100" value="0" hidden></progress>
@@ -48,15 +51,20 @@
       <div class="export-actions"><button id="videoExportClose" class="btn">Закрыть</button><button id="videoExportStart" class="btn primary">Экспортировать</button></div>`;
     document.body.append(dialog);
     const $=id=>dialog.querySelector('#'+id),video=hooks.video;
-    let run=null,resultUrl=null,audioContext=null,audioSource=null;
+    let run=null,resultUrl=null,audioContext=null,audioSource=null,batch={index:0,total:1,label:''};
+    const warmedFormats=new Set();
     const timeLabel=n=>`${Math.floor(n/60)}:${String(Math.floor(n%60)).padStart(2,'0')}`;
     const safe=value=>String(value).replace(/\.[^.]+$/,'').replace(/[\\/:*?"<>|\x00-\x1f]/g,'_').replace(/\s+/g,'_').slice(0,90) || 'Video';
+    const presetFileName=value=>String(value).replace(/[\\/:*?"<>|\x00-\x1f]/g,'_').slice(0,90)||'Preset';
     function filename(info,mode,type) {
       const stamp=new Date().toISOString().replace(/[-:]/g,'').replace('T','_').slice(0,15);
-      return `${safe(info.preset)}_${safe(info.source)}_${mode}_${stamp}.${type.startsWith('video/mp4')?'mp4':'webm'}`;
+      return `${presetFileName(info.preset)}_${safe(info.source)}_${mode}_${stamp}.${type.startsWith('video/mp4')?'mp4':'webm'}`;
     }
     function describe() {
       const info=hooks.details(),type=format();
+      const count=hooks.presets?.().length||1;
+      $('videoExportScope').options[1].textContent=`Все пресеты сборки (${count}) · ZIP`;
+      $('videoExportScope').options[1].disabled=count<2;
       $('videoExportDetails').textContent=`${info.label} · общая сила ${info.strength}%${info.note?' · '+info.note:''} · ${info.source} · ${timeLabel(video.duration || 0)}`;
       $('videoExportFilename').textContent=type ? filename(info,$('videoExportMode').value,type) : '';
       $('videoExportStart').disabled=!type;
@@ -72,6 +80,7 @@
     $('videoExportClose').onclick=close;
     dialog.oncancel=e=>{e.preventDefault();close();};
     $('videoExportMode').onchange=describe;
+    $('videoExportScope').onchange=describe;
     hooks.button.onclick=()=>{
       clearResult();$('videoExportStatus').textContent='';$('videoExportProgress').hidden=true;
       describe();dialog.showModal();
@@ -84,13 +93,13 @@
       const text=(value,x,y,max)=>{let s=value;while(s.length && ctx.measureText(s).width>max)s=s.slice(0,-1);ctx.fillText(s===value?s:s+'…',x,y);};
       return {canvas,draw(){
         ctx.fillStyle='#101218';ctx.fillRect(0,0,canvas.width,canvas.height);
-        if(side){ctx.drawImage(hooks.before,0,header);ctx.drawImage(hooks.after,w,header);ctx.fillStyle='#b8afff';ctx.fillRect(w-1,header,2,h);}
+        if(side){ctx.drawImage(hooks.before,0,header);ctx.drawImage(hooks.after,w,header);ctx.fillStyle='#89fe00';ctx.fillRect(w-1,header,2,h);}
         else ctx.drawImage(mode==='Before'?hooks.before:hooks.after,0,header);
         if(labels){
           const pad=Math.max(8,Math.round(w*.02)),font=Math.min(24,Math.max(12,Math.round(w/25)));
-          ctx.fillStyle='#f3f4f7';ctx.font=`600 ${font}px -apple-system, sans-serif`;
+          ctx.fillStyle='#f3f4f7';ctx.font=`700 ${font}px Aeroport, sans-serif`;
           text(`${info.label} · ${info.strength}%${info.note?' · '+info.note:''}`,pad,header*.42,canvas.width-pad*3);
-          ctx.fillStyle='#b8afff';ctx.font=`500 ${Math.max(11,font*.8)}px -apple-system, sans-serif`;
+          ctx.fillStyle='#89fe00';ctx.font=`400 ${Math.max(11,font*.8)}px Aeroport, sans-serif`;
           ctx.fillText(side?'Before':mode,pad,header*.82);if(side)ctx.fillText('After',w+pad,header*.82);
         }
       }};
@@ -114,8 +123,8 @@
           try{rendering=hooks.render(beforeOnly,signal);await rendering;if(finishing)return;output.draw();}
           catch(e){finish(e);return;}
           const percent=Math.min(99,Math.floor(video.currentTime/video.duration*100));
-          $('videoExportProgress').value=percent;
-          $('videoExportStatus').textContent=`Экспорт: ${percent}% · ${timeLabel(video.currentTime)} / ${timeLabel(video.duration)}`;
+          $('videoExportProgress').value=(batch.index+percent/100)/batch.total*100;
+          $('videoExportStatus').textContent=`${batch.total>1?`${batch.index+1}/${batch.total} · ${batch.label} · `:''}Экспорт: ${percent}% · ${timeLabel(video.currentTime)} / ${timeLabel(video.duration)}`;
           frame=requestAnimationFrame(loop);
         };
         recorder.ondataavailable=e=>{
@@ -143,38 +152,70 @@
         }catch(e){finish(e);}
       });
     }
+    async function warmEncoder(stream,output,type,signal) {
+      const key=type+'|'+output.canvas.width+'x'+output.canvas.height+'|'+stream.getAudioTracks().length;
+      if(warmedFormats.has(key))return;
+      $('videoExportStatus').textContent='Запускаю кодировщик…';
+      await new Promise((resolve,reject)=>{
+        const recorder=new MediaRecorder(stream,{mimeType:type});let timer,timeout,problem=null,settled=false;
+        const done=()=>{if(settled)return;settled=true;clearInterval(timer);clearTimeout(timeout);signal.removeEventListener('abort',abort);problem?reject(problem):resolve();};
+        const stop=error=>{problem ||= error;try{if(recorder.state!=='inactive')recorder.stop();else done();}catch(e){problem ||= e;done();}};
+        const abort=()=>stop(signal.reason||cancelled());
+        recorder.ondataavailable=e=>{if(e.data.size)stop();};recorder.onerror=e=>stop(e.error||Error('Не удалось запустить кодировщик.'));
+        recorder.onstop=done;
+        if(signal.aborted){reject(signal.reason||cancelled());return;}
+        signal.addEventListener('abort',abort,{once:true});
+        try{recorder.start(100);timer=setInterval(()=>{output.draw();stream.getVideoTracks()[0]?.requestFrame?.();},30);
+          timeout=setTimeout(()=>stop(Error('Кодировщик не ответил. Повторите экспорт.')),10000);
+        }catch(e){stop(e);}
+      });
+      warmedFormats.add(key);output.draw();stream.getVideoTracks()[0]?.requestFrame?.();
+    }
     $('videoExportStart').onclick=async()=>{
       if(run)return;
       const type=format();if(!type)return;
       const controller=new AbortController();run=controller;
-      const info=hooks.details(),mode=$('videoExportMode').value,beforeOnly=mode==='Before';
+      const initialInfo=hooks.details(),mode=$('videoExportMode').value,beforeOnly=mode==='Before',all=$('videoExportScope').value==='all';
+      const presets=all?hooks.presets():[{id:initialInfo.preset}];
       const snapshot={time:video.currentTime,loop:video.loop,rate:video.playbackRate,muted:video.muted,volume:video.volume};
       let appSnapshot,stream,destination;
       clearResult();$('videoExportOptions').disabled=true;$('videoExportStart').disabled=true;$('videoExportClose').textContent='Отменить';
       $('videoExportProgress').value=0;$('videoExportProgress').hidden=false;$('videoExportStatus').textContent='Подготавливаю видео и ресурсы…';
       try{
+        if(all){const names=presets.map(p=>presetFileName(p.id).toLowerCase());if(new Set(names).size!==names.length)throw Error('Имена пресетов совпадают после преобразования в имена файлов.');}
         appSnapshot=await hooks.begin(beforeOnly);
         if($('videoExportAudio').checked){
           audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
           audioSource ||= audioContext.createMediaElementSource(video);
           await audioContext.resume();
           if(audioContext.state!=='running')throw Error('Браузер не разрешил звук. Повторите экспорт или снимите галочку звука.');
-          destination=audioContext.createMediaStreamDestination();audioSource.connect(destination);
         }
         video.loop=false;video.playbackRate=1;
-        await ready(video,controller.signal);await seek(video,0,controller.signal);await hooks.ready(beforeOnly,controller.signal);
-        await hooks.render(beforeOnly,controller.signal);
-        const output=composite(info,mode,$('videoExportLabels').checked);output.draw();
-        stream=output.canvas.captureStream(30);
-        if(destination){for(const track of destination.stream.getAudioTracks())stream.addTrack(track);video.muted=false;video.volume=1;}
-        const recorder=new MediaRecorder(stream,{mimeType:type,videoBitsPerSecond:Math.min(16000000,Math.max(2500000,output.canvas.width*output.canvas.height*8)),audioBitsPerSecond:192000});
-        const blob=await record(recorder,output,controller.signal,beforeOnly);
-        if(controller.signal.aborted)throw controller.signal.reason || cancelled();
-        const name=filename(info,mode,blob.type);resultUrl=URL.createObjectURL(blob);
+        const entries=[];let resultBlob,totalBytes=0;
+        for(let index=0;index<presets.length;index++){
+          if(controller.signal.aborted)throw controller.signal.reason||cancelled();
+          video.pause();if(all)await hooks.selectPreset(presets[index].id);
+          const info=hooks.details();batch={index,total:presets.length,label:info.preset};
+          await ready(video,controller.signal);await seek(video,0,controller.signal);await hooks.ready(beforeOnly,controller.signal);
+          await hooks.render(beforeOnly,controller.signal);
+          const output=composite(info,mode,$('videoExportLabels').checked);output.draw();
+          stream=output.canvas.captureStream(30);
+          if($('videoExportAudio').checked){destination=audioContext.createMediaStreamDestination();audioSource.connect(destination);for(const track of destination.stream.getAudioTracks())stream.addTrack(track);video.muted=false;video.volume=1;}
+          await warmEncoder(stream,output,type,controller.signal);
+          const recorder=new MediaRecorder(stream,{mimeType:type,videoBitsPerSecond:Math.min(16000000,Math.max(2500000,output.canvas.width*output.canvas.height*8)),audioBitsPerSecond:192000});
+          const blob=await record(recorder,output,controller.signal,beforeOnly);
+          if(controller.signal.aborted)throw controller.signal.reason||cancelled();
+          totalBytes+=blob.size;if(totalBytes>512*1024*1024)throw Error('Суммарный размер видео превышает 512 МБ. Экспортируйте более короткий исходник или отдельные пресеты.');
+          if(all){const uid=presetFileName(info.preset),ext=blob.type.startsWith('video/mp4')?'mp4':'webm';entries.push({name:`${uid}/${uid}_${mode}.${ext}`,bytes:new Uint8Array(await blob.arrayBuffer())});}
+          else resultBlob=blob;
+          for(const track of stream.getTracks())track.stop();stream=null;if(destination){audioSource.disconnect(destination);destination=null;}
+        }
+        if(all)resultBlob=await hooks.buildZip(entries);
+        const name=all?`${safe(hooks.collectionName?.()||'Presets')}_${mode}_videos.zip`:filename(initialInfo,mode,resultBlob.type);resultUrl=URL.createObjectURL(resultBlob);
         const link=document.createElement('a');link.href=resultUrl;link.download=name;link.className='btn primary';link.textContent='Скачать видео ещё раз';
         $('videoExportResult').append(link);link.click();
         $('videoExportProgress').value=100;
-        $('videoExportStatus').textContent=`Готово: ${name} · ${(blob.size/1024/1024).toFixed(1)} МБ · ${output.canvas.width} × ${output.canvas.height}`;
+        $('videoExportStatus').textContent=`Готово: ${name} · ${(resultBlob.size/1024/1024).toFixed(1)} МБ${all?` · ${entries.length} пресетов`:''}`;
         hooks.setStatus(`Видео экспортировано: ${name}`);
       }catch(e){
         $('videoExportStatus').textContent=e.name==='AbortError'?'Экспорт отменён. Файл не сохранён.':`Экспорт остановлен: ${e.message}`;

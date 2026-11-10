@@ -1,3 +1,14 @@
+# v0.13 — flexible workspace and review export — 2026-11-10
+
+- Real UI: new collection with two presets, all 12 catalog effects and repeated Sharpen, external MP4/CUBE, separate preview image. Exported/reopened nested ZIP; checked UID/group, 16-pass Bloom graph, resource names and exact external bytes; preview input excluded.
+- Decoded ten actual Before/After MP4 exports from ten differently configured presets. Expected named folders, distinct After colors, original AAC audio tone and short source duration. Encoder warm-up prevents a cold first encode adding about 0.8 s of silence. Selection, disabled layer, paused position and playback settings restored; cancellation unlocks controls.
+- Posterize Time through new collection/common catalog: 11 held frames over about 2.1 seconds at 5 fps; 100% bypass pixel-identical. Decoded MP4: 4.021 s, 960x270, 60 Before changes and 10 After changes over a 2-second sample. Export/reimport passes.
+- Dreamy regression: ten originals, edited/reset controls, observed pixel change, preset switching, export/reimport, selected preset export; no browser runtime errors.
+- Twelve isolated native config factories, stable paths, case-insensitive allocation, safe new IDs. Existing contract/ranges/import/ISF/schedule/launcher checks pass.
+- Official Mobile SVG loads with unchanged proportions; Aeroport local fonts load; accent #89FE00. Sources in BRAND_GUIDELINES.md.
+
+VHS, Soft Blur and Noise web rendering is approximate and labelled. Export uses existing mobile types. Posterize Time requires app integration; phone/Android playback not verified. Review videos are real-time SDR preview captures; heavy effects can reduce smoothness. Browser CI exercises creation/roundtrip and ten video decodes.
+
 # v0.12 — mobile preview semantics and native stage verification — 2026-10-28
 
 This section supersedes historical v0.11 statements about DEFAULT-only editing,
