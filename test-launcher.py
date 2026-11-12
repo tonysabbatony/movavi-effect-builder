@@ -32,12 +32,12 @@ try:
             url = urls[0]
             break
     assert url, lines
-    assert 'version=0.13.1' in url
+    assert 'version=0.13.2' in url
     assert 'Project: ' + str(project) in lines
     with urllib.request.urlopen(url) as response:
         html = response.read().decode()
         assert response.headers['Cache-Control'] == 'no-store, max-age=0'
-        assert '<title>Movavi Effect Builder v0.13.1</title>' in html
+        assert '<title>Movavi Effect Builder v0.13.2</title>' in html
         assert 'Preview calibration pending' not in html
         assert 'effectCatalog' in html
     base = url.split('/index.html')[0]
@@ -45,7 +45,7 @@ try:
         with urllib.request.urlopen(base + '/' + name) as response:
             assert response.read() == (project / name).read_bytes(), name
             assert response.headers['Cache-Control'] == 'no-store, max-age=0'
-    print('PASS actual launcher from unrelated cwd; v0.13.1 path/title; exact JS bytes; no-store headers')
+    print('PASS actual launcher from unrelated cwd; v0.13.2 path/title; exact JS bytes; no-store headers')
 finally:
     process.terminate()
     process.wait(timeout=5)

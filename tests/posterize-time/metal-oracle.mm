@@ -12,10 +12,9 @@ struct Uniforms {
  float4 imageRect;float2 imageSize;unsigned imageFlip;int p0;
  float4 heldRect;float2 heldSize;unsigned heldFlip;int p1;
  float4 clockRect;float2 clockSize;unsigned clockFlip;int p2;
- float cadence;float framesPerSecond;
+ float cadence;
 };
 static_assert(offsetof(Uniforms,cadence)==144);
-static_assert(offsetof(Uniforms,framesPerSecond)==148);
 static_assert(sizeof(Uniforms)==160);
 struct Renderer {
  id<MTLDevice> device;id<MTLCommandQueue> queue;id<MTLRenderPipelineState> pipeline;id<MTLSamplerState> sampler;
@@ -36,7 +35,7 @@ struct Renderer {
  std::vector<unsigned char> render(const std::vector<unsigned char>& bytes,int width,int height,float time,float delta,float cadence,MTLPixelFormat format,float fps=0) {
   if(w!=width||h!=height){w=width;h=height;held=texture(w,h,format);clock=texture(2,1,format);}
   auto src=texture(w,h,format);[src replaceRegion:MTLRegionMake2D(0,0,w,h) mipmapLevel:0 withBytes:bytes.data() bytesPerRow:w*4];
-  Uniforms u={};u.time=time;u.delta=delta;u.size=(float2){float(w),float(h)};u.cadence=cadence;u.framesPerSecond=fps;u.imageRect=u.heldRect=u.clockRect=(float4){0,0,1,1};u.imageSize=u.heldSize=u.size;u.clockSize=(float2){2,1};u.imageFlip=u.heldFlip=u.clockFlip=1;
+  Uniforms u={};u.time=time;u.delta=delta;u.size=(float2){float(w),float(h)};u.cadence=cadence;u.imageRect=u.heldRect=u.clockRect=(float4){0,0,1,1};u.imageSize=u.heldSize=u.size;u.clockSize=(float2){2,1};u.imageFlip=u.heldFlip=u.clockFlip=1;
   float4 vertices[]={(float4){0,0,0,1},(float4){0,float(h),0,1},(float4){float(w),0,0,1},(float4){float(w),float(h),0,1}};
   auto command=[queue commandBuffer];id<MTLTexture> dst=nil;
   for(int pass=0;pass<3;pass++){
@@ -65,8 +64,8 @@ int main(int argc,char **argv){@autoreleasepool{
  for(auto format:{MTLPixelFormatRGBA8Unorm,MTLPixelFormatBGRA8Unorm})for(float sourceFps:{24.f,29.97f,30.f,60.f})for(float c:{0.f,.25f,.5f,.75f,1.f}){
   Renderer r(device,library,format);std::vector<unsigned char> expected;long previousTick=-1;float previousTime=0;
   for(int i=0;i<150;i++){
-   float time=i/sourceFps;double rate=c<=.75?5+20*c:20+40*(c-.75);long tick=long(std::floor(double(time)*rate+.0001));
-   auto input=pattern(i,16,8);if(previousTick!=tick||c==1)expected=input;
+   float time=i/sourceFps;double rate=30-25*c;long tick=long(std::floor(double(time)*rate+.0001));
+   auto input=pattern(i,16,8);if(previousTick!=tick||c==0)expected=input;
    auto actual=r.render(input,16,8,time,i?time-previousTime:0,c,format);require(actual==expected,[NSString stringWithFormat:@"cadence %.2f / %.2f fps / frame %d",c,sourceFps,i]);previousTick=tick;previousTime=time;count++;
   }cases++;
  }
@@ -76,21 +75,13 @@ int main(int argc,char **argv){@autoreleasepool{
   std::vector<float> times={0,.033333f,.033333f,.2f,.233333f,1.8f,.1f,.133333f,0,.033333f};
   std::vector<unsigned char> expected;long previousTick=-1;float last=-1,previousC=-1;
   for(size_t i=0;i<times.size();i++){
-   float t=times[i],c=i==7?.5f:0.f;double rate=5+20*c;long tick=std::floor(double(t)*rate+.0001);auto input=pattern(int(i),16,8);
+   float t=times[i],c=i==7?.5f:1.f;double rate=30-25*c;long tick=std::floor(double(t)*rate+.0001);auto input=pattern(int(i),16,8);
    if(i==0||tick!=previousTick||t<last||c!=previousC)expected=input;
    require(r.render(input,16,8,t,i?t-last:0,c,format)==expected,@"seek / repeated frame / changed cadence");
-   auto otherInput=pattern(190+int(i),16,8);require(other.render(otherInput,16,8,t,0,1,format)==otherInput,@"independent bypass instance");
+   auto otherInput=pattern(190+int(i),16,8);require(other.render(otherInput,16,8,t,0,0,format)==otherInput,@"independent bypass instance");
    previousTick=tick;last=t;previousC=c;count+=2;
   }
   auto resized=pattern(9,8,4);require(r.render(resized,8,4,0,-last,0,format)==resized,@"resized history must start with current frame");count++;cases++;
- }
- for(auto format:{MTLPixelFormatRGBA8Unorm,MTLPixelFormatBGRA8Unorm})for(float source:{24.f,60.f})for(float fps:{5.f,15.f,30.f})for(float strength:{0.f,.5f,1.f}){
-  Renderer r(device,library,format);std::vector<unsigned char> held;long previous=-1;
-  for(int i=0;i<90;i++){float t=i/source;long tick=std::floor(t*fps+.0001f);auto input=pattern(i,16,8);if(i==0||tick!=previous||strength==0)held=input;
-   auto actual=r.render(input,16,8,t,i?1/source:0,strength,format,fps);
-   for(size_t k=0;k<input.size();k++){int expected=int(std::round(input[k]*(1-strength)+held[k]*strength));require(std::abs(int(actual[k])-expected)<=1,@"independent FPS / global blend / zero bypass");}
-   previous=tick;count++;
-  }cases++;
  }
  printf("PASS Metal .ps/.vs: %d sequences, %d frames; RGBA8/BGRA8, 24/29.97/30/60 fps, all five controls, exact alpha/colors, loops, seeks, setting changes, resize and independent histories\n",cases,count);
 }return 0;}

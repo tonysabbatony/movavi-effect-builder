@@ -5,7 +5,7 @@
   ],
   "shaderConfig": {
     "ISFVSN": "2",
-    "DESCRIPTION": "Posterize Time: independent 5–30 fps, global intensity blends original to held frames; 0% bypass. Persistent history required.",
+    "DESCRIPTION": "Posterize Time intensity v2: 100%=5 fps, 0%=source bypass; positive intensity targets 30-25*intensity fps.",
     "CATEGORIES": [
       "Temporal"
     ],
@@ -20,13 +20,6 @@
         "DEFAULT": 1,
         "MIN": 0,
         "MAX": 1
-      },
-      {
-        "NAME": "framesPerSecond",
-        "TYPE": "float",
-        "DEFAULT": 15,
-        "MIN": 5,
-        "MAX": 30
       }
     ],
     "PASSES": [
