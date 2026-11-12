@@ -39,6 +39,8 @@ jobs:
           PY
           mkdir -p dist
           git archive --format=zip --prefix="Movavi_Effect_Builder_${RELEASE_TAG}/" --output="dist/Movavi_Effect_Builder_${RELEASE_TAG}.zip" HEAD
+          python3 prototypes/posterize-time/build-package.py dist/posterize-time
+          cp dist/posterize-time/*.zip dist/
           cd dist
           sha256sum *.zip > SHA256SUMS.txt
       - name: Publish release

@@ -9,7 +9,7 @@ struct VVISF_UNIFORMS {
     float4 _inputImage_imgRect; float2 _inputImage_imgSize; uint _inputImage_flip; int _inputImage_padding;
     float4 _HoldFrame_imgRect; float2 _HoldFrame_imgSize; uint _HoldFrame_flip; int _HoldFrame_padding;
     float4 _HoldClock_imgRect; float2 _HoldClock_imgSize; uint _HoldClock_flip; int _HoldClock_padding;
-    float cadence; float framesPerSecond;
+    float cadence;
 };
 struct VVPosterizeTimeVertFunc_out {
     float2 isf_FragNormCoord [[user(locn0)]];

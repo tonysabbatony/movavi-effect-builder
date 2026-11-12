@@ -1,3 +1,11 @@
+# v0.13.2 — intensity-driven Posterize Time — 2026-11-12
+
+- 100% = 5 fps; positive strength targets 30 - 25 * strength; exact 0% bypass retains source frames including 60 fps. No opacity blending.
+- Actual Metal: 42 sequences / 6042 frames per compiler mode, fast math off/on, RGBA8/BGRA8, sources 24/29.97/30/60 fps, exact held colors/alpha, seek/settings/reset/independent histories.
+- JS: 3600 scheduling decisions, source bypass, range checks and migration from the former fixed-FPS schema.
+- Chrome: 5 fps hold at 100%, exact bypass at 0%, real MP4 decode (10 held-object changes over 2 seconds), intensity saved in ZIP/reopened, 50%=17.5 fps and legacy migration with exact updated shader bytes.
+- Phone integration is still required; developer package includes updated shaders, config, mobile example, integration notes and ticket text.
+
 # v0.13.1 — independent Posterize Time FPS — 2026-11-10
 
 - Fixed framesPerSecond input (5–30, default 15), independent of linked cadence strength. Global 0% bypasses; 100% holds at the selected rate; intermediate values blend source/held frames.

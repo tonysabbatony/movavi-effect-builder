@@ -42,6 +42,7 @@ with zipfile.ZipFile(developer,'w',zipfile.ZIP_DEFLATED) as z:
         z.write(f,f.relative_to(root))
     z.write(mobile,mobile.name)
     z.write(prototype/'README_RU.md','README_RU.md')
+    z.write(prototype/'TICKET_RU.txt','TICKET_RU.txt')
     for f in [prototype/'README_RU.md',prototype/'build-package.py',root/'tests/posterize-time/metal-oracle.mm',root/'tests/posterize-time/test-schedule.cjs',root/'posterize-time.js']:
         if f.is_file():z.write(f,f.relative_to(root))
 print(mobile)

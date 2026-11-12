@@ -579,13 +579,13 @@
     const cfg = res.config;
     if(PosterizeTime.isSupported(cfg)) {
       const note=document.createElement('p');note.className='asset-control';
-      note.textContent='Частота задаётся отдельно: 5–30 кадров/с. Общая сила 0% отключает эффект, 100% применяет выбранную частоту. Скорость и длительность клипа сохраняются.';
-      let fps=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='framesPerSecond');
-      if(!fps){fps={NAME:'framesPerSecond',TYPE:'float',DEFAULT:15,MIN:5,MAX:30};cfg.shaderConfig.INPUTS.push(fps);const p=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='cadence');Object.assign(p,{DEFAULT:1,MIN:0,MAX:1});cfg.intensityParamNames=['cadence'];markDirty(res.path);}
-      const label=document.createElement('label');label.className='parameter-group';label.style.display='grid';label.style.gap='8px';label.textContent='Частота · кадров/с';
-      const input=document.createElement('input');input.className='param-number';input.id='posterizeFps';input.setAttribute('aria-label','Частота кадров');input.type='number';input.min='5';input.max='30';input.step='1';input.value=fps.DEFAULT;
-      input.onchange=()=>{const value=Number(input.value);if(!Number.isFinite(value)||value<5||value>30){input.value=fps.DEFAULT;return;}fps.DEFAULT=value;markDirty(res.path);PosterizeTime.reset();scheduleRender();};
-      const slider=document.createElement('input');slider.className='param-slider';slider.type='range';slider.min='5';slider.max='30';slider.step='1';slider.value=fps.DEFAULT;slider.setAttribute('aria-label','Частота кадров · ползунок');slider.oninput=()=>{input.value=slider.value;input.onchange();};input.addEventListener('change',()=>slider.value=input.value);label.append(slider,input);ui.parameterEditor.append(label);
+      note.textContent='Интенсивность 100% — 5 кадров/с. Чем ниже интенсивность, тем выше частота; 0% сохраняет все исходные кадры. Длительность и звук не меняются.';
+      const cadence=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='cadence');
+      const label=document.createElement('label');label.className='parameter-group';label.style.display='grid';label.style.gap='8px';label.textContent='Интенсивность · %';
+      const input=document.createElement('input');input.className='param-number';input.id='posterizeIntensity';input.setAttribute('aria-label','Интенсивность Posterize Time');input.type='number';input.min='0';input.max='100';input.step='1';input.value=cadence.MAX*100;
+      const slider=document.createElement('input');slider.className='param-slider';slider.type='range';slider.min='0';slider.max='100';slider.step='1';slider.value=input.value;slider.setAttribute('aria-label','Интенсивность Posterize Time · ползунок');
+      input.onchange=()=>{const value=Number(input.value);if(!Number.isFinite(value)||value<0||value>100){input.value=cadence.MAX*100;return;}cadence.MAX=cadence.DEFAULT=value/100;slider.value=input.value;markDirty(res.path);PosterizeTime.reset();updateEffectiveValues();scheduleRender();};
+      slider.oninput=()=>{input.value=slider.value;input.onchange();};label.append(slider,input);ui.parameterEditor.append(label);
       const rate=document.createElement('output');rate.id='posterizeRate';
       const value=PosterizeTime.targetFps(PosterizeTime.resolve(cfg,state.userIntensity),PosterizeTime.fpsValue(cfg));rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
       ui.parameterEditor.append(note,rate);refreshWarningsOnly();return;
@@ -775,6 +775,7 @@
   }
 
   function updateEffectiveValues() {
+    const res=selectedResource(),rate=$('#posterizeRate');if(rate&&PosterizeTime.isSupported(res?.config)){const value=PosterizeTime.targetFps(PosterizeTime.resolve(res.config,state.userIntensity));rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;}
     document.querySelectorAll('.effective-value').forEach(el => {
       el.textContent = `Применяется: ${nice(MovaviRender.parameter(el.parameter, state.userIntensity))}`;
     });
@@ -1586,7 +1587,7 @@
       if(!state.presets.has('Posterize_Time_01'))throw Error('Не удалось открыть тестовый пресет Posterize Time.');
       const demo=await fetch('test-assets/Posterize_Time_motion.mp4');
       if(demo.ok)await addMediaFiles([new File([await demo.blob()],'Posterize_Time_motion.mp4',{type:'video/mp4'})]);
-      setStatus('Posterize Time: добавьте видео и задайте частоту 5–30 кадров/с в параметрах слоя.');
+      setStatus('Posterize Time: добавьте видео и 100% интенсивности дают 5 кадров/с; 0% сохраняют исходные кадры.');
     }catch(error){setStatus(error.message);}finally{button.disabled=false;}
   }
 
