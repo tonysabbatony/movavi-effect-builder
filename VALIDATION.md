@@ -1,3 +1,11 @@
+# v0.13.3 — configurable target FPS — 2026-11-25
+
+- Separate 1–30 integer FPS field, default 5; at full strength output holds at the selected cadence. Zero strength preserves original frames, including 60 fps.
+- JS: 21600 selected-rate schedule decisions plus 3600 default cases; target 1/5/6/12/24/30, 0/25/50/75/100% strength, 24/29.97/30/60 fps sources.
+- Actual Metal .ps/.vs: 78 sequences / 9282 frames per fast-math mode, both RGBA8/BGRA8, independent FPS values, intensity, seek/settings changes, exact colors/alpha.
+- Chrome exercises selected 6 fps, 0% bypass, real video export/decode, FPS persisted through ZIP/reopen, legacy FPS preservation and canonical updated shader copies.
+- Native uniform layout appends framesPerSecond after cadence. App developers must replace both shaders and JSON together; phone integration remains unverified.
+
 # v0.13.2 — intensity-driven Posterize Time — 2026-11-12
 
 - 100% = 5 fps; positive strength targets 30 - 25 * strength; exact 0% bypass retains source frames including 60 fps. No opacity blending.

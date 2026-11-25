@@ -579,13 +579,17 @@
     const cfg = res.config;
     if(PosterizeTime.isSupported(cfg)) {
       const note=document.createElement('p');note.className='asset-control';
-      note.textContent='Интенсивность 100% — 5 кадров/с. Чем ниже интенсивность, тем выше частота; 0% сохраняет все исходные кадры. Длительность и звук не меняются.';
+      note.textContent='При интенсивности 100% применяется заданная частота кадров. При 0% сохраняются исходные кадры. Длительность и звук не меняются.';
       const cadence=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='cadence');
       const label=document.createElement('label');label.className='parameter-group';label.style.display='grid';label.style.gap='8px';label.textContent='Интенсивность · %';
       const input=document.createElement('input');input.className='param-number';input.id='posterizeIntensity';input.setAttribute('aria-label','Интенсивность Posterize Time');input.type='number';input.min='0';input.max='100';input.step='1';input.value=cadence.MAX*100;
       const slider=document.createElement('input');slider.className='param-slider';slider.type='range';slider.min='0';slider.max='100';slider.step='1';slider.value=input.value;slider.setAttribute('aria-label','Интенсивность Posterize Time · ползунок');
       input.onchange=()=>{const value=Number(input.value);if(!Number.isFinite(value)||value<0||value>100){input.value=cadence.MAX*100;return;}cadence.MAX=cadence.DEFAULT=value/100;slider.value=input.value;markDirty(res.path);PosterizeTime.reset();updateEffectiveValues();scheduleRender();};
       slider.oninput=()=>{input.value=slider.value;input.onchange();};label.append(slider,input);ui.parameterEditor.append(label);
+      const fps=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='framesPerSecond');
+      const fpsLabel=document.createElement('label');fpsLabel.className='parameter-group';fpsLabel.style.display='grid';fpsLabel.style.gap='8px';fpsLabel.textContent='Частота при 100% · 1–30 кадров/с';
+      const fpsInput=document.createElement('input');fpsInput.className='param-number';fpsInput.id='posterizeFps';fpsInput.type='number';fpsInput.min='1';fpsInput.max='30';fpsInput.step='1';fpsInput.value=fps.DEFAULT;fpsInput.setAttribute('aria-label','Частота кадров Posterize Time');
+      fpsInput.onchange=()=>{const value=Number(fpsInput.value);if(!Number.isInteger(value)||value<1||value>30){fpsInput.value=fps.DEFAULT;return;}fps.DEFAULT=value;markDirty(res.path);PosterizeTime.reset();updateEffectiveValues();scheduleRender();};fpsLabel.append(fpsInput);ui.parameterEditor.append(fpsLabel);
       const rate=document.createElement('output');rate.id='posterizeRate';
       const value=PosterizeTime.targetFps(PosterizeTime.resolve(cfg,state.userIntensity),PosterizeTime.fpsValue(cfg));rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
       ui.parameterEditor.append(note,rate);refreshWarningsOnly();return;
@@ -775,7 +779,7 @@
   }
 
   function updateEffectiveValues() {
-    const res=selectedResource(),rate=$('#posterizeRate');if(rate&&PosterizeTime.isSupported(res?.config)){const value=PosterizeTime.targetFps(PosterizeTime.resolve(res.config,state.userIntensity));rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;}
+    const res=selectedResource(),rate=$('#posterizeRate');if(rate&&PosterizeTime.isSupported(res?.config)){const value=PosterizeTime.targetFps(PosterizeTime.resolve(res.config,state.userIntensity),PosterizeTime.fpsValue(res.config));rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;}
     document.querySelectorAll('.effective-value').forEach(el => {
       el.textContent = `Применяется: ${nice(MovaviRender.parameter(el.parameter, state.userIntensity))}`;
     });
