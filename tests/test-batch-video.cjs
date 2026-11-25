@@ -34,10 +34,13 @@ z.extractall(sys.argv[2])`,zip,temp]);
    const result=await page.evaluate(async bytes=>{
     const data=new Uint8Array(bytes),v=document.createElement('video');v.muted=true;v.src=URL.createObjectURL(new Blob([data],{type:'video/mp4'}));await new Promise((ok,no)=>{v.onloadeddata=ok;v.onerror=no;});
     const done=new Promise(ok=>v.addEventListener('seeked',ok,{once:true}));v.currentTime=.25;await done;const canvas=document.createElement('canvas');canvas.width=v.videoWidth;canvas.height=v.videoHeight;const ctx=canvas.getContext('2d');ctx.drawImage(v,0,0);const rgba=ctx.getImageData(canvas.width*.75,canvas.height/2,1,1).data;
-    const ac=new AudioContext(),audio=await ac.decodeAudioData(data.buffer.slice(0)),samples=audio.getChannelData(0);let sum=0,crossings=0;for(let n=1;n<samples.length;n++){sum+=samples[n]*samples[n];if(samples[n-1]<0&&samples[n]>=0)crossings++;}
-    const result={duration:v.duration,width:canvas.width,height:canvas.height,rgb:Array.from(rgba).slice(0,3),audioRms:Math.sqrt(sum/samples.length),audioFrequency:crossings/audio.duration};await ac.close();URL.revokeObjectURL(v.src);return result;
+    const ac=new AudioContext(),audio=await ac.decodeAudioData(data.buffer.slice(0)),samples=audio.getChannelData(0);let sum=0,armed=false,crossings=[];for(let n=1;n<samples.length;n++){sum+=samples[n]*samples[n];if(samples[n]<-.025)armed=true;if(armed&&samples[n]>=.025){crossings.push(n);armed=false;}}
+    // Ignore codec ringing around silence: measure the median strong-signal period,
+    // rather than counting every zero crossing across AAC padding and the tail.
+    const periods=crossings.slice(1).map((v,i)=>v-crossings[i]).sort((a,b)=>a-b);if(periods.length<20)throw Error('Too little source tone in exported audio');
+    const result={duration:v.duration,width:canvas.width,height:canvas.height,rgb:Array.from(rgba).slice(0,3),audioRms:Math.sqrt(sum/samples.length),audioFrequency:audio.sampleRate/periods[Math.floor(periods.length/2)]};await ac.close();URL.revokeObjectURL(v.src);return result;
    },bytes);
-   assert.ok(result.duration>.7&&result.duration<1.5,JSON.stringify(result));assert.equal(result.width,320);assert.equal(result.height,90);assert.ok(result.audioRms>.02&&result.audioFrequency>350&&result.audioFrequency<500,JSON.stringify(result));results.push({name,...result});
+   assert.ok(result.duration>.7&&result.duration<1.5,JSON.stringify(result));assert.equal(result.width,320);assert.equal(result.height,90);assert.ok(result.audioRms>.02&&result.audioFrequency>420&&result.audioFrequency<460,JSON.stringify(result));results.push({name,...result});
   }
   for(let i=1;i<results.length;i++)assert.ok(results[i].rgb[0]>results[i-1].rgb[0]+1,JSON.stringify(results));
   // A cancelled second batch must not leave controls locked or change selection.

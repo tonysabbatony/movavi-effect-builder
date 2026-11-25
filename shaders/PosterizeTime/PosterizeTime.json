@@ -5,7 +5,7 @@
   ],
   "shaderConfig": {
     "ISFVSN": "2",
-    "DESCRIPTION": "Posterize Time intensity v2: 100%=5 fps, 0%=source bypass; positive intensity targets 30-25*intensity fps.",
+    "DESCRIPTION": "Posterize Time intensity v3: 100%=selected FPS, 0%=source bypass; positive intensity interpolates from 30 FPS.",
     "CATEGORIES": [
       "Temporal"
     ],
@@ -20,6 +20,13 @@
         "DEFAULT": 1,
         "MIN": 0,
         "MAX": 1
+      },
+      {
+        "NAME": "framesPerSecond",
+        "TYPE": "float",
+        "DEFAULT": 5,
+        "MIN": 1,
+        "MAX": 30
       }
     ],
     "PASSES": [

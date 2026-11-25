@@ -4,11 +4,11 @@
   const F = Math.fround;
   const isSupported = cfg => cfg?.shaderPath === 'v1/PosterizeTime/PosterizeTime';
   function upgrade(cfg) {
-    if(!isSupported(cfg)||cfg.shaderConfig.DESCRIPTION?.startsWith('Posterize Time intensity v2'))return false;
-    cfg.shaderConfig.INPUTS=cfg.shaderConfig.INPUTS.filter(x=>x.NAME!=='framesPerSecond');
-    Object.assign(cfg.shaderConfig.INPUTS.find(x=>x.NAME==='cadence'),{DEFAULT:1,MIN:0,MAX:1});
+    if(!isSupported(cfg)||cfg.shaderConfig.DESCRIPTION?.startsWith('Posterize Time intensity v3'))return false;
+    if(!cfg.shaderConfig.INPUTS.some(x=>x.NAME==='framesPerSecond'))cfg.shaderConfig.INPUTS.push({NAME:'framesPerSecond',TYPE:'float',DEFAULT:5,MIN:1,MAX:30});
+    Object.assign(cfg.shaderConfig.INPUTS.find(x=>x.NAME==='framesPerSecond'),{MIN:1,MAX:30});
     cfg.intensityParamNames=['cadence'];
-    cfg.shaderConfig.DESCRIPTION='Posterize Time intensity v2: 100%=5 fps, 0%=source bypass; positive intensity targets 30-25*intensity fps.';
+    cfg.shaderConfig.DESCRIPTION='Posterize Time intensity v3: 100%=selected FPS, 0%=source bypass; positive intensity interpolates from 30 FPS.';
     return true;
   }
   function configIssues(cfg) {
@@ -16,7 +16,7 @@
     const errors = [];
     if (p.length !== 1 || p[0].TYPE !== 'float' || !['MIN','MAX','DEFAULT'].every(k => Number.isFinite(p[0]?.[k]) && p[0][k] >= 0 && p[0][k] <= 1)) errors.push('Posterize Time: cadence должна быть в диапазоне 0…1.');
     const fps=cfg?.shaderConfig?.INPUTS?.filter(x=>x.NAME==='framesPerSecond')||[];
-    if(fps.length && (fps.length!==1 || fps[0].TYPE!=='float' || !['MIN','MAX','DEFAULT'].every(k=>Number.isFinite(fps[0][k])&&fps[0][k]>=5&&fps[0][k]<=30)))errors.push('Частота должна быть от 5 до 30 кадров/с.');
+    if(fps.length!==1 || (fps.length && (fps.length!==1 || fps[0].TYPE!=='float' || !['MIN','MAX','DEFAULT'].every(k=>Number.isFinite(fps[0][k])&&fps[0][k]>=1&&fps[0][k]<=30))))errors.push('Частота должна быть от 1 до 30 кадров/с.');
     if (!Array.isArray(cfg?.intensityParamNames) || cfg.intensityParamNames.some(x => x !== 'cadence')) errors.push('Posterize Time: допустим только связанный параметр cadence.');
     if (JSON.stringify(cfg?.shaderConfig?.PASSES) !== JSON.stringify([
       {TARGET:'HoldFrame',PERSISTENT:true},
@@ -32,14 +32,14 @@
     const p = cfg.shaderConfig.INPUTS.find(x => x.NAME === 'cadence');
     return cfg.intensityParamNames.includes('cadence') ? F(F(p.MIN) + F(F(master) * F(F(p.MAX) - F(p.MIN)))) : F(p.DEFAULT);
   }
-  function rate(c) { return F(30-F(25*F(c))); }
-  function targetFps(c) { return c<=0?null:rate(c); }
+  function rate(c,fps=5) { return F(30+F(F(fps-30)*F(c))); }
+  function targetFps(c,fps=5) { return c<=0?null:rate(c,fps); }
   const fpsValue=cfg=>cfg.shaderConfig.INPUTS.find(x=>x.NAME==='framesPerSecond')?.DEFAULT;
-  function bucket(time, c) { return Math.floor(F(F(F(Math.max(0, time)) * rate(c)) + F(.0001))) % 16777215; }
-  function update(state, time, c, token, fps) {
-    if(fps!==undefined&&(!Number.isFinite(fps)||fps<5||fps>30))throw Error('Частота должна быть от 5 до 30 кадров/с.');
+  function bucket(time, c, fps=5) { return Math.floor(F(F(F(Math.max(0, time)) * rate(c,fps)) + F(.0001))) % 16777215; }
+  function update(state, time, c, token, fps=5) {
+    if(fps!==undefined&&(!Number.isFinite(fps)||fps<1||fps>30))throw Error('Частота должна быть от 5 до 30 кадров/с.');
     if (!Number.isFinite(time) || time < 0 || !Number.isFinite(c) || c < 0 || c > 1) throw Error('Некорректное время или cadence.');
-    const tick = fps===undefined?bucket(time,c):Math.floor(F(F(F(time)*F(fps))+F(.0001)))%16777215, setting = fps===undefined?Math.floor(c*65535+.5):Math.round(fps*1000);
+    const tick=bucket(time,c,fps),setting=Math.round(fps*100)*2048+Math.round(c*2047);
     const capture = !state.valid || state.token !== token || time < state.time || state.setting !== setting || state.tick !== tick || c<=0;
     Object.assign(state, {valid:true, token, time, setting, tick});
     return capture;
