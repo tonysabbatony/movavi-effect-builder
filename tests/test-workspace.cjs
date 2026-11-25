@@ -17,7 +17,7 @@ const fs=require('node:fs/promises'),path=require('node:path'),os=require('node:
   assert.match(await page.locator('#effectStack').textContent(),/sharpen_02/);
   await page.locator('#mediaInput').setInputFiles(path.join(root,'test-pattern.svg'));await page.waitForFunction(()=>document.querySelector('#afterCanvas').width>0&&!document.querySelector('#emptyPreview').offsetParent);
   await page.waitForTimeout(600);assert.equal(await page.locator('#renderErrors').textContent(),'');
-  await page.click('#newPresetBtn');await page.locator('[name=uid]').fill('Glow_02');await page.getByRole('button',{name:'Создать',exact:true}).click();await page.waitForFunction(()=>document.querySelector('#presetSelect').value==='Glow_02');
+  await page.click('#newPresetBtn');await page.waitForFunction(()=>document.querySelector('#presetSelect').value==='Glow_02');
   await add('overlay',overlay);await page.waitForFunction(()=>document.querySelectorAll('.effect-item').length===1);
   const grab=page.waitForEvent('download');await page.click('#exportGroupBtn');const download=await grab;const zip=path.join(out,'Catalog_Test.zip');await download.saveAs(zip);
   const temp=await fs.mkdtemp(path.join(os.tmpdir(),'collection-verify-'));

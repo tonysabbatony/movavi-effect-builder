@@ -1,3 +1,12 @@
+# v0.13.4 — fixed FPS and layer clipboard — 2026-11-25
+
+- Fixed Posterize Time uses cadence.DEFAULT=1 with intensityParamNames=[]; no shader-code change. Actual playback at master zero retains selected 6 fps (13 held changes over about 2.05 s). Unfix restores the prior linked endpoint.
+- Real UI: Shift-select five layers; immutable clipboard survives source edits; paste to another preset and paste again; names/settings/order and native references verified in exported/reopened ZIP.
+- Exact external LUT/overlay/shader bytes preserved; same-name different overlays are renamed safely, repeated identical video reuses the asset, LUT filenames follow effectName, shared shaders remain canonical.
+- Deliberately conflicting target shader aborts the entire paste: exported target recipe and resources remain unchanged.
+- Automatic one-click numbering: TX_01 → TX_02 → TX_03; creating from TX_01 again skips occupied names to TX_04.
+- Existing workspace/roundtrip and ten actual video/audio exports pass; multi-selection is included in export-state snapshots. Native phone integration remains separately required.
+
 # v0.13.3 — configurable target FPS — 2026-11-25
 
 - Separate 1–30 integer FPS field, default 5; at full strength output holds at the selected cadence. Zero strength preserves original frames, including 60 fps.

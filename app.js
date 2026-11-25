@@ -74,6 +74,10 @@
     presets: new Map(),
     activePresetName: null,
     selectedEffectKey: null,
+    selectedEffects: new Set(),
+    selectionAnchor: null,
+    layerClipboard: [],
+    layersBusy: false,
     enabled: new Map(),
     soloKey: null,
     dirtyPaths: new Set(),
@@ -115,7 +119,9 @@
     $('#newPresetBtn').disabled = !state.manifest;
     $('#effectCatalog').disabled = !state.activePresetName;
     $('#addEffectBtn').disabled = !state.activePresetName || !$('#effectCatalog').value;
+    if(!$('#effectCatalog').value)$('#catalogHint').textContent=state.activePresetName?'Выберите эффект из каталога или вставьте скопированные слои.':'Создайте сборку или откройте готовую.';
     updateVideoExportUI();
+    updateLayerClipboardUI();
   }
 
   function updateVideoExportUI() {
@@ -203,9 +209,8 @@
 
   function newPreset() {
     if(!state.manifest)return;
-    const next=EffectCatalog.unique('Custom_Preset_01',state.manifest.items.map(item=>item.uid));
-    editDialog('Новый пресет',[{name:'uid',label:'Имя пресета · латиница, цифры, _',value:next}],async data=>{
-      const uid=EffectCatalog.identifier(data.uid);
+    const seed=state.activePresetName||state.manifest.items.at(-1)?.uid||'Custom_Preset_01';
+      const uid=EffectCatalog.identifier(EffectCatalog.unique(seed,state.manifest.items.map(item=>item.uid)));
       if(state.manifest.items.some(item=>item.uid.toLowerCase()===uid.toLowerCase()))throw Error('Пресет с таким именем уже существует.');
       const group=state.manifest.items.find(item=>item.uid===state.activePresetName)?.group_id || state.manifest.groups[0]?.group_id;
       if(!group)throw Error('В сборке отсутствует группа.');
@@ -215,7 +220,6 @@
       state.manifest.items.push(EffectCatalog.manifestItem(uid,group,priority));storeJson(recipePath,recipe);markDirty(state.manifestPath);
       state.presets.set(uid,{name:uid,rootPath,recipePath,recipe,originalRecipe:deepClone(recipe),resources:new Map()});
       ui.presetSelect.add(new Option(presetLabel(uid),uid));activatePreset(uid);setStatus(`Создан ${uid}.`);
-    });
   }
 
   async function openZip(file) {
@@ -417,6 +421,7 @@
     state.enabled.clear();
     for (const effect of preset.recipe.effects || []) state.enabled.set(keyForEffect(effect), true);
     state.selectedEffectKey = preset.recipe.effects?.[0] ? keyForEffect(preset.recipe.effects[0]) : null;
+    state.selectedEffects=new Set(state.selectedEffectKey?[state.selectedEffectKey]:[]);state.selectionAnchor=state.selectedEffectKey;
     renderStack();
     renderParameterEditor();
     refreshNoiseVideo();
@@ -427,6 +432,10 @@
   function renderStack() {
     const preset = activePreset();
     $('#undoRemoveLayerBtn').hidden=!preset || !(state.removedLayers.get(preset.name)?.length);
+    const valid=new Set((preset?.recipe.effects||[]).map(keyForEffect));
+    state.selectedEffects=new Set([...state.selectedEffects].filter(k=>valid.has(k)));
+    if(state.selectedEffectKey&&valid.has(state.selectedEffectKey)&&!state.selectedEffects.has(state.selectedEffectKey)){state.selectedEffects=new Set([state.selectedEffectKey]);state.selectionAnchor=state.selectedEffectKey;}
+    updateLayerClipboardUI();
     ui.effectStack.innerHTML = '';
     ui.effectStack.classList.toggle('empty-stack', !preset || !preset.recipe.effects?.length);
     if (!preset) return;
@@ -435,8 +444,8 @@
     for (const effect of preset.recipe.effects || []) {
       const key = keyForEffect(effect);
       const item = document.createElement('div');
-      item.className = `effect-item ${key === state.selectedEffectKey ? 'selected' : ''}`;
-      item.draggable = true;
+      item.className = `effect-item ${state.selectedEffects.has(key) ? 'selected' : ''}`;
+      item.draggable = true;item.setAttribute('aria-selected',String(state.selectedEffects.has(key)));
       item.dataset.key = key;
       item.innerHTML = `
         <div class="drag-handle" title="Перетащить">≡</div>
@@ -451,7 +460,15 @@
       `;
       item.addEventListener('click', (e) => {
         if (e.target.closest('button')) return;
-        state.selectedEffectKey = key;
+        const keys=preset.recipe.effects.map(keyForEffect);
+        if(e.shiftKey&&keys.includes(state.selectionAnchor)){
+          const a=keys.indexOf(state.selectionAnchor),b=keys.indexOf(key),range=keys.slice(Math.min(a,b),Math.max(a,b)+1);
+          state.selectedEffects=new Set((e.metaKey||e.ctrlKey)?[...state.selectedEffects,...range]:range);
+        }else if(e.metaKey||e.ctrlKey){
+          if(state.selectedEffects.has(key))state.selectedEffects.delete(key);else state.selectedEffects.add(key);
+          state.selectionAnchor=key;
+        }else{state.selectedEffects=new Set([key]);state.selectionAnchor=key;}
+        state.selectedEffectKey=state.selectedEffects.has(key)?key:([...state.selectedEffects].at(-1)||null);
         renderStack();
         renderParameterEditor();
       });
@@ -523,6 +540,80 @@
     setStatus(`Порядок слоёв ${preset.name} изменён.`);
   }
 
+
+  function updateLayerClipboardUI() {
+    const count=state.selectedEffects.size,busy=state.layersBusy||state.videoExporting;
+    $('#copyLayersBtn').disabled=!state.activePresetName||!count||busy;
+    $('#pasteLayersBtn').disabled=!state.activePresetName||!state.layerClipboard.length||busy;
+    $('#layerSelectionStatus').textContent=`Выделено: ${count}${state.layerClipboard.length?' · в буфере: '+state.layerClipboard.length:''}`;
+  }
+
+  function copySelectedLayers() {
+    const preset=activePreset();if(!preset||state.layersBusy||state.videoExporting)return;
+    const chosen=preset.recipe.effects.filter(e=>state.selectedEffects.has(keyForEffect(e)));
+    if(!chosen.length)return;
+    const prefix=preset.rootPath+'/resources/';
+    const clipboard=chosen.map(effect=>{
+      const res=preset.resources.get(keyForEffect(effect));if(!res)throw Error('Нет JSON слоя '+effect.effectName);
+      const cfg=deepClone(res.config),assets=new Map();
+      const include=path=>{const rec=path&&state.files.get(path);if(!rec)throw Error('Не найден ресурс слоя '+effect.effectName);assets.set(path.slice(prefix.length),rec.file);};
+      if(effect.effectType==='lut')include(findLutBinding(preset,effect)?.path);
+      if(effect.effectType==='overlay')include(overlayPath(preset,cfg));
+      const strings=new Set();const visit=value=>{if(typeof value==='string')strings.add(value.toLowerCase());else if(value&&typeof value==='object')Object.values(value).forEach(visit);};visit(cfg);
+      const stem=String(cfg.shaderPath||'').split('/').at(-1).toLowerCase();
+      for(const path of state.files.keys())if(path.startsWith(prefix)){
+        const rel=path.slice(prefix.length),lower=rel.toLowerCase();
+        if(!lower.endsWith('.json')&&(strings.has(lower)||effect.effectType==='isf'&&['.ps','.vs','.metal','.fs','.glsl'].some(ext=>lower===stem+ext)))include(path);
+      }
+      return {effect:deepClone(effect),config:cfg,assets:[...assets].map(([name,file])=>({name,file})),lutName:effect.effectType==='lut'?findLutBinding(preset,effect).path.slice(prefix.length):null,overlayName:effect.effectType==='overlay'?overlayPath(preset,cfg).slice(prefix.length):null,enabled:state.enabled.get(keyForEffect(effect))!==false};
+    });
+    state.layerClipboard=clipboard;updateLayerClipboardUI();setStatus(`Скопировано слоёв: ${clipboard.length}. Выберите другой пресет и нажмите Paste.`);
+  }
+
+  async function pasteLayers() {
+    const preset=activePreset(),clipboard=state.layerClipboard;if(!preset||!clipboard.length||state.layersBusy||state.videoExporting)return;
+    state.layersBusy=true;updateLayerClipboardUI();
+    const files=state.files,fileSnapshot=new Map([...state.files].map(([p,r])=>[p,r.file])),recipeSnapshot=JSON.stringify(preset.recipe),configSnapshot=JSON.stringify([...preset.resources].map(([k,r])=>[k,r.config])),prefix=preset.rootPath+'/resources/',staged=new Map(),layers=[];
+    const allFiles=()=>[...files].map(([path,rec])=>({path,file:rec.file})).concat([...staged.values()]);
+    const same=async(a,b)=>{if(a===b)return true;if(a.size!==b.size)return false;const x=new Uint8Array(await a.arrayBuffer()),y=new Uint8Array(await b.arrayBuffer());return x.every((v,i)=>v===y[i]);};
+    const stage=async(name,file,renameVideo=false)=>{
+      if(name.split('/').some(segment=>!segment||segment.startsWith('.')))throw Error('Недопустимый путь ресурса: '+name);
+      for(const segment of name.split('/'))safeName(segment);
+      let path=prefix+name,collision=allFiles().find(x=>x.path.toLowerCase()===path.toLowerCase());
+      if(renameVideo){
+        const base=name.replace(/\.[^.]+$/,''),ext=name.slice(base.length);
+        const videos=allFiles().filter(x=>x.path.startsWith(prefix)&&/\.(mp4|mov)$/i.test(x.path));
+        collision=videos.find(x=>x.path.slice(prefix.length).replace(/\.[^.]+$/,'').toLowerCase()===base.toLowerCase());
+        if(collision&&!await same(collision.file,file)){for(const video of videos)if(await same(video.file,file))return video.path.slice(prefix.length);const free=EffectCatalog.unique(base,videos.map(x=>x.path.slice(prefix.length).replace(/\.[^.]+$/,'')));path=prefix+free+ext;collision=null;}
+      }
+      if(collision){if(!await same(collision.file,file))throw Error('В целевом пресете другая версия ресурса '+name+'. Вставка отменена без изменений.');return collision.path.slice(prefix.length);}
+      staged.set(path.toLowerCase(),{path,file});return path.slice(prefix.length);
+    };
+    try {
+      const occupied=new Set([...preset.recipe.effects.map(e=>e.effectName),...allFiles().filter(x=>x.path.startsWith(prefix)&&/\.(json|cube)$/i.test(x.path)).map(x=>x.path.split('/').at(-1).replace(/\.[^.]+$/,''))]);
+      for(const entry of clipboard){
+        const name=EffectCatalog.unique(entry.effect.effectName,occupied);occupied.add(name);
+        const effect={...deepClone(entry.effect),effectName:name},config=deepClone(entry.config);
+        for(const asset of entry.assets){
+          let target=asset.name;
+          if(asset.name===entry.lutName)target=name+'.cube';
+          const copied=await stage(target,asset.file,asset.name===entry.overlayName);
+          if(asset.name===entry.overlayName)config.filename=copied.replace(/\.[^.]+$/,'');
+        }
+        if(entry.lutName&&config.templateID===entry.effect.effectName)config.templateID=name;
+        validateConfig(config,effect.effectType);
+        const path=prefix+name+'.json';await stage(name+'.json',new File([JSON.stringify(config,null,4)+'\n'],name+'.json',{type:'application/json'}));
+        layers.push({effect,config,path,enabled:entry.enabled});
+      }
+      if(activePreset()!==preset||state.files!==files||files.size!==fileSnapshot.size||[...fileSnapshot].some(([p,f])=>files.get(p)?.file!==f)||JSON.stringify(preset.recipe)!==recipeSnapshot||JSON.stringify([...preset.resources].map(([k,r])=>[k,r.config]))!==configSnapshot)throw Error('Сборка изменилась во время вставки. Повторите Paste.');
+      // Commit only after every resource/name collision has been checked.
+      for(const {path,file} of staged.values())putNewFile(path,file);
+      for(const layer of layers){const key=keyForEffect(layer.effect);preset.recipe.effects.push(layer.effect);preset.resources.set(key,{path:layer.path,config:layer.config,original:deepClone(layer.config)});state.enabled.set(key,layer.enabled);}
+      state.selectedEffects=new Set(layers.map(x=>keyForEffect(x.effect)));state.selectedEffectKey=keyForEffect(layers.at(-1).effect);state.selectionAnchor=keyForEffect(layers[0].effect);state.soloKey=null;
+      markDirty(preset.recipePath);syncManifest();PosterizeTime.reset();renderStack();renderParameterEditor();refreshNoiseVideo();scheduleRender();updateDirtyUI();setStatus(`Вставлено слоёв: ${layers.length}. Настройки и ресурсы перенесены.`);
+    }finally{state.layersBusy=false;updateLayerClipboardUI();}
+  }
+
   function selectedEffect() {
     const preset = activePreset();
     if (!preset || !state.selectedEffectKey) return null;
@@ -565,7 +656,7 @@
     if (!effect || !res) {
       ui.selectedEffectTitle.textContent = effect ? prettyEffectName(effect) : 'Выбери слой';
       ui.parameterEditor.className = 'parameter-editor empty-params';
-      ui.parameterEditor.innerHTML = '<div>Для этого слоя resource JSON не найден.</div>';
+      ui.parameterEditor.innerHTML = effect?'<div>Для этого слоя resource JSON не найден.</div>':'<div>Добавьте эффект из каталога или вставьте скопированные слои кнопкой Paste.</div>';
       ui.resetEffectBtn.disabled = true;
       ui.warningsBox.classList.add('hidden');
       return;
@@ -580,14 +671,19 @@
     if(PosterizeTime.isSupported(cfg)) {
       const note=document.createElement('p');note.className='asset-control';
       note.textContent='При интенсивности 100% применяется заданная частота кадров. При 0% сохраняются исходные кадры. Длительность и звук не меняются.';
-      const cadence=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='cadence');
+      const cadence=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='cadence'),fixed=!cfg.intensityParamNames.includes('cadence');
+      const fixedLabel=document.createElement('label');fixedLabel.className='export-check';const fixedInput=document.createElement('input');fixedInput.type='checkbox';fixedInput.id='posterizeFixed';fixedInput.checked=fixed;
+      fixedLabel.append(fixedInput,document.createTextNode(' Фиксировать частоту'));ui.parameterEditor.append(fixedLabel);
+      fixedInput.onchange=()=>{cfg.intensityParamNames=fixedInput.checked?[]:['cadence'];cadence.DEFAULT=fixedInput.checked?1:cadence.MAX;markDirty(res.path);PosterizeTime.reset();renderParameterEditor();scheduleRender();};
       const label=document.createElement('label');label.className='parameter-group';label.style.display='grid';label.style.gap='8px';label.textContent='Интенсивность · %';
-      const input=document.createElement('input');input.className='param-number';input.id='posterizeIntensity';input.setAttribute('aria-label','Интенсивность Posterize Time');input.type='number';input.min='0';input.max='100';input.step='1';input.value=cadence.MAX*100;
+      const input=document.createElement('input');input.className='param-number';input.id='posterizeIntensity';input.setAttribute('aria-label','Интенсивность Posterize Time');input.type='number';input.min='0';input.max='100';input.step='1';input.value=(fixed?cadence.DEFAULT:cadence.MAX)*100;
       const slider=document.createElement('input');slider.className='param-slider';slider.type='range';slider.min='0';slider.max='100';slider.step='1';slider.value=input.value;slider.setAttribute('aria-label','Интенсивность Posterize Time · ползунок');
       input.onchange=()=>{const value=Number(input.value);if(!Number.isFinite(value)||value<0||value>100){input.value=cadence.MAX*100;return;}cadence.MAX=cadence.DEFAULT=value/100;slider.value=input.value;markDirty(res.path);PosterizeTime.reset();updateEffectiveValues();scheduleRender();};
       slider.oninput=()=>{input.value=slider.value;input.onchange();};label.append(slider,input);ui.parameterEditor.append(label);
+      input.disabled=slider.disabled=fixed;
+      note.textContent=fixed?'Частота зафиксирована и не зависит от общей силы.':'При интенсивности 100% применяется заданная частота. При 0% — исходные кадры. Включите «Фиксировать частоту», чтобы отключить связь с общей силой.';
       const fps=cfg.shaderConfig.INPUTS.find(x=>x.NAME==='framesPerSecond');
-      const fpsLabel=document.createElement('label');fpsLabel.className='parameter-group';fpsLabel.style.display='grid';fpsLabel.style.gap='8px';fpsLabel.textContent='Частота при 100% · 1–30 кадров/с';
+      const fpsLabel=document.createElement('label');fpsLabel.className='parameter-group';fpsLabel.style.display='grid';fpsLabel.style.gap='8px';fpsLabel.textContent=fixed?'Фиксированная частота · 1–30 кадров/с':'Частота при 100% · 1–30 кадров/с';
       const fpsInput=document.createElement('input');fpsInput.className='param-number';fpsInput.id='posterizeFps';fpsInput.type='number';fpsInput.min='1';fpsInput.max='30';fpsInput.step='1';fpsInput.value=fps.DEFAULT;fpsInput.setAttribute('aria-label','Частота кадров Posterize Time');
       fpsInput.onchange=()=>{const value=Number(fpsInput.value);if(!Number.isInteger(value)||value<1||value>30){fpsInput.value=fps.DEFAULT;return;}fps.DEFAULT=value;markDirty(res.path);PosterizeTime.reset();updateEffectiveValues();scheduleRender();};fpsLabel.append(fpsInput);ui.parameterEditor.append(fpsLabel);
       const rate=document.createElement('output');rate.id='posterizeRate';
@@ -1255,7 +1351,7 @@
           if(state.sourceKind!=='video')PosterizeTime.reset();
           PosterizeTime.render(input,output,res.config,state.userIntensity,{time:state.sourceKind==='video'?ui.sourceVideo.currentTime:0,token:state.activeMediaId});handled=true;
           const rate=$('#posterizeRate'),value=PosterizeTime.targetFps(PosterizeTime.resolve(res.config,state.userIntensity),PosterizeTime.fpsValue(res.config));
-          if(rate)rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
+          if(rate&&state.selectedEffectKey===key)rate.textContent=value===null?'Исходная частота':`${nice(value)} кадров/с`;
         }
         else if (effect.effectType === 'overlay') { applyOverlay(input, output, resolvedConfig, mediaRect, key); handled = true; }
         else if (effect.effectType === 'lut') {
@@ -1911,7 +2007,7 @@
         [...(activePreset()?.recipe.effects || [])].some(e=>!state.enabled.get(keyForEffect(e))) ? 'Some layers disabled' : ''
     }),
     async begin(beforeOnly) {
-      const snapshot={playing:state.isPlaying,preset:state.activePresetName,enabled:new Map(state.enabled),solo:state.soloKey,selected:state.selectedEffectKey,overlays:[...state.overlays].filter(([key,e])=>e.video).map(([key,e])=>({key,video:e.video,time:e.video.currentTime,rate:e.video.playbackRate})),inert:[...document.querySelectorAll('.toolbar,.stack-panel,.parameters-panel,.master-control,.preset-row,.media-library,.preview-toolbar')].map(element=>({element,value:element.inert}))};
+      const snapshot={playing:state.isPlaying,preset:state.activePresetName,enabled:new Map(state.enabled),solo:state.soloKey,selected:state.selectedEffectKey,selectedEffects:new Set(state.selectedEffects),anchor:state.selectionAnchor,overlays:[...state.overlays].filter(([key,e])=>e.video).map(([key,e])=>({key,video:e.video,time:e.video.currentTime,rate:e.video.playbackRate})),inert:[...document.querySelectorAll('.toolbar,.stack-panel,.parameters-panel,.master-control,.preset-row,.media-library,.preview-toolbar')].map(element=>({element,value:element.inert}))};
       for(const entry of snapshot.inert)entry.element.inert=true;
       state.videoExporting=true;state.isPlaying=false;state.renderAgain=false;
       cancelAnimationFrame(state.videoLoopId);ui.sourceVideo.pause();
@@ -1962,7 +2058,7 @@
     async end(snapshot) {
       if(!snapshot)return;
       if(state.activePresetName!==snapshot.preset)activatePreset(snapshot.preset);
-      state.enabled=new Map(snapshot.enabled);state.soloKey=snapshot.solo;state.selectedEffectKey=snapshot.selected;
+      state.enabled=new Map(snapshot.enabled);state.soloKey=snapshot.solo;state.selectedEffectKey=snapshot.selected;state.selectedEffects=new Set(snapshot.selectedEffects);state.selectionAnchor=snapshot.anchor;
       for(const entry of snapshot?.overlays || []) {
         const video=state.overlays.get(entry.key)?.video;if(!video)continue;
         video.pause();video.playbackRate=entry.rate;
@@ -1982,7 +2078,9 @@
   applyCompareMode();
   updateDirtyUI();
   for(const item of EffectCatalog.items)$('#effectCatalog').add(new Option(item.label,item.id));
-  $('#newCollectionBtn').onclick=newCollection;$('#newPresetBtn').onclick=newPreset;
+  $('#copyLayersBtn').onclick=()=>{try{copySelectedLayers();}catch(e){setStatus(e.message);alert(e.message);}};
+  $('#pasteLayersBtn').onclick=()=>pasteLayers().catch(e=>{setStatus(e.message);alert(e.message);});
+  $('#newCollectionBtn').onclick=newCollection;$('#newPresetBtn').onclick=()=>{try{newPreset();}catch(e){setStatus(e.message);alert(e.message);}};
   $('#openZipBtn').onclick=()=>$('#openZipInput').click();
   $('#openZipInput').onchange=e=>{const file=e.target.files[0];e.target.value='';openZip(file);};
   $('#effectCatalog').onchange=()=>{const item=EffectCatalog.items.find(x=>x.id===$('#effectCatalog').value);$('#catalogHint').textContent=item?.integration?'Новый эффект: потребуется интеграция в мобильное приложение.':item?.asset?'Выберите файл с компьютера. Он будет включён в ZIP пресета.':item?.approximate?'Штатный эффект приложения. Предпросмотр приблизительный.':'Выберите эффект и добавьте его в стек.';updateDirtyUI();};
