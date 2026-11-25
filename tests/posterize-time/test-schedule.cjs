@@ -21,3 +21,7 @@ for(const target of [1,5,6,12,24,30])for(const c of [0,.25,.5,.75,1]){
 const missing=JSON.parse(original);missing.shaderConfig.DESCRIPTION='Posterize Time intensity v2';missing.shaderConfig.INPUTS=missing.shaderConfig.INPUTS.filter(x=>x.NAME!=='framesPerSecond');assert.equal(P.upgrade(missing),true);assert.equal(P.fpsValue(missing),5);
 for(const value of [0,31,NaN,Infinity])assert.throws(()=>P.update({},0,1,'x',value));
 console.log('PASS selected 1–30 FPS, exact 6 FPS at 100%, 21600 frame decisions, preserved old FPS and default migration');
+const fixed=JSON.parse(original);fixed.intensityParamNames=[];fixed.shaderConfig.INPUTS.find(p=>p.NAME==='cadence').DEFAULT=1;fixed.shaderConfig.INPUTS.find(p=>p.NAME==='framesPerSecond').DEFAULT=6;
+for(const master of [0,.25,.5,.75,1])assert.equal(P.targetFps(P.resolve(fixed,master),P.fpsValue(fixed)),6);
+assert.equal(fixed.shaderConfig.INPUTS.find(p=>p.NAME==='cadence').MAX,1);
+console.log('PASS fixed FPS remains 6 at every master intensity, including zero');

@@ -6,7 +6,7 @@ const fs=require('node:fs/promises'),path=require('node:path'),os=require('node:
   const page=await browser.newPage({acceptDownloads:true,viewport:{width:1500,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('dialog',async d=>{errors.push(d.message());await d.dismiss();});
   await page.goto(url+'/index.html');await page.click('#newCollectionBtn');await page.locator('[name=name]').fill('Batch_Review');await page.locator('[name=uid]').fill('Glow_01');await page.getByRole('button',{name:'Создать',exact:true}).click();await page.waitForFunction(()=>document.querySelector('#presetSelect').value==='Glow_01');
   for(let i=1;i<=10;i++){
-   if(i>1){await page.click('#newPresetBtn');await page.locator('[name=uid]').fill('Glow_'+String(i).padStart(2,'0'));await page.getByRole('button',{name:'Создать',exact:true}).click();await page.waitForFunction(id=>document.querySelector('#presetSelect').value===id,'Glow_'+String(i).padStart(2,'0'));}
+   if(i>1){await page.click('#newPresetBtn');await page.waitForFunction(id=>document.querySelector('#presetSelect').value===id,'Glow_'+String(i).padStart(2,'0'));}
    await page.selectOption('#effectCatalog','duotone');await page.click('#addEffectBtn');await page.waitForSelector('[data-parameter-name="color.red"] .param-number');await page.locator('[data-parameter-name="color.red"] .param-number').fill(String(i/10));
   }
   const fixture=await page.evaluate(async()=>{

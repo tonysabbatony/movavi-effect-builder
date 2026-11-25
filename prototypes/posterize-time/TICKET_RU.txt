@@ -11,7 +11,7 @@ Textures: интегрировать Posterize Time для эффекта сто
 Скорость, длительность видео и звук должны сохраняться.
 
 Пакет для разработки (.ps/.vs, JSON, пример пресета, инструкция и проверки):
-https://github.com/tonysabbatony/movavi-effect-builder/releases/download/v0.13.3/Posterize_Time_Prototype_developer.zip
+https://github.com/tonysabbatony/movavi-effect-builder/releases/download/v0.13.4/Posterize_Time_Prototype_developer.zip
 
 Билдер для просмотра и настройки эффекта:
 https://tonysabbatony.github.io/movavi-effect-builder/
